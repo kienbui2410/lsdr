@@ -3,7 +3,7 @@ grammar org.xtext.Rdsl with org.eclipse.xtext.common.Terminals
 generate rdsl "http://www.xtext.org/Rdsl"
 
 Graph:
-		(comments+=Comment)*
+		
 	
 	(imports+=Import)*
 	(components+=Component)+
@@ -13,15 +13,15 @@ Import:
 	'import' name=ID ';'
 ;
 Component:
-	(comments+=Comment)*
+	
 	name=ID '{'
-	(comments+=Comment)*
+	
 	installers=Installer 
-	(comments+=Comment)*
+	
 	(properties+=Property)*
-	(comments+=Comment)*
+	
 	('extends:' (supComponents+=[Component] ',')* supComponent=[Component])?  
-	(comments+=Comment)*
+	
 	'}'
 ;
 
@@ -60,7 +60,7 @@ Imports:
 	'imports:' ('external')?  (imports+=importVariable ',')* imported=importVariable ';'
 ;
 importVariable:
-	name=ID ('(optional)')?
+		(names+=ID '.')* name=ID ('(optional)')?
 ;
 
 Facet:
@@ -72,6 +72,6 @@ Facet:
 	'}'
 ;
 
-Comment:
-	'#' (values+=ID " ")* value=ID
-;
+terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')*;
+terminal SL_COMMENT: '#' !('\n'|'\r')* ('\r'? '\n')?;
+
