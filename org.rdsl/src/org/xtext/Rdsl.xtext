@@ -4,23 +4,32 @@ generate rdsl "http://www.xtext.org/Rdsl"
 
 Graph:
 		
-	
 	(imports+=Import)*
 	(components+=Component)+
+	(facetGraphs+=Facet)*
 ;
 Import:
 	
-	'import' name=ID ';'
+	'import' name=ID '.graph ;'
 ;
+
+CompFacet:
+	Facet | Component
+;
+
 Component:
 	
-	name=ID '{'
+	name=ID '{'	
 	
 	installers=Installer 
 	
-	(properties+=Property)*
+	(children=Children)?
 	
-	('extends:' (supComponents+=[Component] ',')* supComponent=[Component])?  
+	(impexp+=(Export | Imports))*
+	
+	(facets=Facets)?
+
+	('extends:' supComponent=[Component])?  
 	
 	'}'
 ;
@@ -30,17 +39,9 @@ Installer:
 	'installer:' name=ID ';'
 ;
 
-Property:
-	Children | Export | Imports | Facet
-;
-
 Children:
 	
-	'children:'  (children+=Child ',')* child=Child   ';'
-;
-
-Child:
-	name=ID
+	'children:'  (children+=[Component] ',')* child=[Component]   ';'
 ;
 
 Export:
@@ -57,20 +58,35 @@ Initialisation:
 ;
 
 Imports:
-	'imports:' ('external')?  (imports+=importVariable ',')* imported=importVariable ';'
+	'imports:' (imports+=importVariable ',')* imported=importVariable ';'
 ;
+
 importVariable:
-		(names+=ID '.')* name=ID ('(optional)')?
+	('external')? ((importvariable=([CompFacet])'.'(name=[exportVariable] | '*')) | name=[exportVariable]) ('(optional)')?
+;
+
+Facets:
+	'facets:'  (facets+=[Facet] ',')* facet=[Facet]   ';'
 ;
 
 Facet:
 	
 	'facet' name=ID '{'
-		exportFacet+=[Export]
-		childrenFacet+=[Children]
-		'extends:' (supFacets+=[Facet] ',')* supFacet=[Facet]  
+		(exportFacet+=Export)*
+		(childrenFacet=Children)
+		('extends:' (supFacets+=[Facet] ',')* supFacet=[Facet])?
 	'}'
 ;
+
+//Instance:
+//	'instance' 'of' (component=[Component]) '{'
+//		'name:' name=ID ';'
+//		'count:' val=INT ';'
+//		(att=[exportVariable]':'valeur=INT)';'
+//		(instance+=Instance)*
+//		
+//	'}'
+//;
 
 terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')*;
 terminal SL_COMMENT: '#' !('\n'|'\r')* ('\r'? '\n')?;
