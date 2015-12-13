@@ -88,6 +88,8 @@ Facet:
 //	'}'
 //;
 
+// test commit from eclipse
+
 terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')*;
 terminal SL_COMMENT: '#' !('\n'|'\r')* ('\r'? '\n')?;
 
