@@ -1,27 +1,36 @@
 grammar org.xtext.Rdsl with org.eclipse.xtext.common.Terminals
 
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
 generate rdsl "http://www.xtext.org/Rdsl"
 
+Model:
+	graphs=Graph |
+	(instances+=Instance)*
+;
 Graph:
-		(comments+=Comment)*
-	
+		
 	(imports+=Import)*
 	(components+=Component)+
+	(facetGraphs+=Facet)*
 ;
+
 Import:
-	
-	'import' name=ID ';'
+	'import' name=ID '.graph' ';'
 ;
+
+CompFacet:
+	Facet | Component
+;
+
 Component:
-	(comments+=Comment)*
-	name=ID '{'
-	(comments+=Comment)*
-	installers=Installer 
-	(comments+=Comment)*
+	
+	name=ID '{'	
+	
+	installers=Installer
+	
 	(properties+=Property)*
-	(comments+=Comment)*
-	('extends:' (supComponents+=[Component] ',')* supComponent=[Component])?  
-	(comments+=Comment)*
+	
 	'}'
 ;
 
@@ -31,16 +40,16 @@ Installer:
 ;
 
 Property:
-	Children | Export | Imports | Facet
+	Children | Export | Imports | Facets | Extends
+;
+
+Extends:
+	'extends:' supComponent=[Component]
 ;
 
 Children:
 	
-	'children:'  (children+=Child ',')* child=Child   ';'
-;
-
-Child:
-	name=ID
+	'children:'  (children+=[Component] ',')* child=[Component]   ';'
 ;
 
 Export:
@@ -57,21 +66,44 @@ Initialisation:
 ;
 
 Imports:
-	'imports:' ('external')?  (imports+=importVariable ',')* imported=importVariable ';'
+	'imports:' (imports+=importVariable ',')* imported=importVariable ';'
 ;
+
 importVariable:
-	name=ID ('(optional)')?
+	('external')? ((importvariable=([CompFacet])'.'(name=ID | '*')) | name=ID) (optional?='(optional)')?
+;
+
+Facets:
+	'facets:'  (facets+=[Facet] ',')* facet=[Facet]   ';'
 ;
 
 Facet:
 	
 	'facet' name=ID '{'
-		exportFacet+=[Export]
-		childrenFacet+=[Children]
-		'extends:' (supFacets+=[Facet] ',')* supFacet=[Facet]  
+		(exportFacet+=Export)*
+		(childrenFacet=Children)?
+		('extends:' (supFacets+=[Facet] ',')* supFacet=[Facet])?
 	'}'
 ;
 
-Comment:
-	'#' (values+=ID " ")* value=ID
+Instance:
+	'instance' 'of' (component=[Component]) '{'
+		'name:' name=ID(ID | INT)* ';'
+		('count:' val=INT ';')?
+		(attributes+=Attribut)*
+		(instances+=Instance)*
+		
+	'}'
 ;
+
+Attribut:
+	name=ID':'valeur=VAL';'
+;
+
+VAL:
+	BOOLEAN | INT | STRING
+;
+
+terminal BOOLEAN returns ecore::EBoolean: 'true' | 'false';	
+terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')*;
+terminal SL_COMMENT: '#' !('\n'|'\r')* ('\r'? '\n')?;
