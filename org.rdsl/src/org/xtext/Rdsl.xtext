@@ -70,7 +70,7 @@ Imports:
 ;
 
 importVariable:
-	('external')? ((importvariable=([CompFacet])'.'(name=ID | '*')) | name=ID) ('(optional)')?
+	('external')? ((importvariable=([CompFacet])'.'(name=ID | '*')) | name=ID) (optional?='(optional)')?
 ;
 
 Facets:
