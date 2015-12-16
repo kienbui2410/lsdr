@@ -29,7 +29,7 @@ Component:
 	
 	installers=Installer
 	
-	(properties+=Property)*
+	((childrens+=Children) | (exports+=Export) | (imports+=Imports) | (facets+=Facets) | (extends+=Extends))*
 	
 	'}'
 ;
@@ -39,12 +39,8 @@ Installer:
 	'installer:' name=ID ';'
 ;
 
-Property:
-	Children | Export | Imports | Facets | Extends
-;
-
 Extends:
-	'extends:' supComponent=[Component]
+	'extends:' supComponent=[Component] ';'
 ;
 
 Children:
@@ -70,7 +66,7 @@ Imports:
 ;
 
 importVariable:
-	('external')? ((importvariable=([CompFacet])'.'(name=ID | '*')) | name=ID) (optional?='(optional)')?
+	(external?='external')? ((importvariable=([CompFacet])'.'(name=ID | '*')) | name=ID) (optional?='(optional)')?
 ;
 
 Facets:

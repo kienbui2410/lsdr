@@ -3,6 +3,10 @@
  */
 package org.xtext.validation
 
+import org.eclipse.xtext.validation.Check
+import org.xtext.rdsl.Component
+import org.xtext.rdsl.RdslPackage
+
 //import org.eclipse.xtext.validation.Check
 
 /**
@@ -22,4 +26,26 @@ class RdslValidator extends AbstractRdslValidator {
 //					INVALID_NAME)
 //		}
 //	}
+
+  public static val INVALID_CARD = 'INVALID CARD'
+
+//children : 0..1, extends 0..1, exports: *, imports: *
+	@Check(FAST)	
+	def checkCardinalityOfProperties(Component c) {
+//		if(c.properties.filter(typeof(Children)).size > 1){
+//			error('At max we can have one children', 
+//				RdslPackage.Literals.COMPONENT__PROPERTIES, INVALID_CARD
+//			)
+//		}
+		if(c.childrens.size > 1){
+			error('At max we can have one children', 
+				RdslPackage.Literals.COMPONENT__CHILDRENS, INVALID_CARD
+			)
+		}
+		if(c.extends.size > 1){
+			error('At max we can have one extends', 
+				RdslPackage.Literals.COMPONENT__EXTENDS, INVALID_CARD
+			)
+		}
+	}
 }
