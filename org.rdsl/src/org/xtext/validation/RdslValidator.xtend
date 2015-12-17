@@ -3,9 +3,16 @@
  */
 package org.xtext.validation
 
+import org.eclipse.emf.common.util.EList
 import org.eclipse.xtext.validation.Check
+import org.xtext.rdsl.Children
 import org.xtext.rdsl.Component
 import org.xtext.rdsl.RdslPackage
+import org.xtext.rdsl.Export
+import org.xtext.rdsl.exportVariable
+import java.util.List
+import java.util.ArrayList
+import org.eclipse.emf.common.util.BasicEList
 
 //import org.eclipse.xtext.validation.Check
 
@@ -16,27 +23,26 @@ import org.xtext.rdsl.RdslPackage
  */
 class RdslValidator extends AbstractRdslValidator {
 
-//  public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					MyDslPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
 
   public static val INVALID_CARD = 'INVALID CARD'
+	
+
+	
+	/*EList<Imports> importsList
+	
+	EList<importVariable> variablesImport
+	
+	CompFacet compFacet
+	 String importsname
+	 EList<Export> exportsList
+	 	EList<exportVariable> variablesExport
+	 */
+	 
 
 //children : 0..1, extends 0..1, exports: *, imports: *
 	@Check(FAST)	
 	def checkCardinalityOfProperties(Component c) {
-//		if(c.properties.filter(typeof(Children)).size > 1){
-//			error('At max we can have one children', 
-//				RdslPackage.Literals.COMPONENT__PROPERTIES, INVALID_CARD
-//			)
-//		}
+
 		if(c.childrens.size > 1){
 			error('At max we can have one children', 
 				RdslPackage.Literals.COMPONENT__CHILDRENS, INVALID_CARD
@@ -48,4 +54,83 @@ class RdslValidator extends AbstractRdslValidator {
 			)
 		}
 	}
+    
+    @Check(FAST)
+    def checkDuplicateChildreen(Children c){
+    		var EList<Component> childreenList = new BasicEList<Component>	
+    	childreenList = c.children
+    	childreenList.add(c.child)
+    	for (Component comp : childreenList){
+    		    		childreenList.remove(comp);
+    		for (Component compo : childreenList) {
+    			if(comp.name.equals(compo.name)){
+    						error('Child already declared', 
+				RdslPackage.Literals.CHILDREN__CHILDREN, INVALID_CARD
+			)	
+    			}
+    		}
+    	}
+    }	
+    @Check(FAST)
+    def checkDuplicateExport(Component c){
+    	var EList<exportVariable> exportsList = new BasicEList<exportVariable>	
+    	for (Export ex : c.exports){
+    		if (exportsList.size==0) 
+    		exportsList=ex.exports
+    		else 
+    		exportsList.addAll(ex.exports)
+    		
+    		exportsList.add(ex.export)
+    	}
+    	for (exportVariable exv : exportsList){
+    		  exportsList.remove(exv)
+    		for (exportVariable exvar : exportsList) {
+    			if(exvar.name.equals(exv.name)){
+    						error('Variable exported already declared', 
+				RdslPackage.Literals.COMPONENT__EXPORTS, INVALID_CARD
+				)	
+    			}
+    		}
+    	}
+    }
+    
+/*    @Check(FAST)
+	def checkImportsAttribute(Graph graph){
+			 componentList = graph.components ;
+			 
+			 for ( Component c : componentList) {
+			    importsList= c.imports 
+			    	for ( Imports i : importsList) {
+			    		variablesImport = i.imports
+			    		variablesImport.add(i.imported)
+			    		for (importVariable vlist :  variablesImport) {
+			    			importsname = vlist.name
+			    			if (importsname != null) {
+			    				if (!checkExportsDeclareInComponent( c.exports, importsname) ){
+			    				error('Variable imported not declare as Export in the component : ' + c.name, 
+				RdslPackage.Literals.GRAPH__IMPORTS, INVALID_CARD
+			)	
+			    				}
+			    			}
+			    			else {
+			    				compFacet = vlist.importvariable
+			    			
+			    			}
+			    			
+			    		}			    	
+			    	}
+			 }
+	}
+	
+	def checkExportsDeclareInComponent(EList<Export> exportsList, String exports){
+		 for (Export exp : exportsList) {
+		 	variablesExport = exp.exports
+		 	//variablesExport.add(exp.export)
+		 	for (  exportVariable varExp : variablesExport) {
+		 		if (varExp.name.equals(exports))
+		 		return true;
+		 	}
+		 }
+		return false;
+	}*/
 }
