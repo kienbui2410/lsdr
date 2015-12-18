@@ -16,9 +16,10 @@ Graph:
 ;
 
 Import:
-	'import' name=ID '.graph' ';'
+	'import' importURI=ImpotUri  ';'
 ;
 
+ImpotUri: ID '.graph' ;
 CompFacet:
 	Facet | Component
 ;
