@@ -3,134 +3,138 @@
  */
 package org.xtext.validation
 
+import java.util.ConcurrentModificationException
+import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.common.util.BasicEMap
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.common.util.EMap
 import org.eclipse.xtext.validation.Check
 import org.xtext.rdsl.Children
 import org.xtext.rdsl.Component
-import org.xtext.rdsl.RdslPackage
 import org.xtext.rdsl.Export
+import org.xtext.rdsl.Graph
+import org.xtext.rdsl.RdslPackage
 import org.xtext.rdsl.exportVariable
-import java.util.List
-import java.util.ArrayList
-import org.eclipse.emf.common.util.BasicEList
+import org.xtext.rdsl.importVariable
 
 //import org.eclipse.xtext.validation.Check
-
 /**
  * This class contains custom validation rules. 
- *
+ * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class RdslValidator extends AbstractRdslValidator {
 
-
-  public static val INVALID_CARD = 'INVALID CARD'
-	
-
-	
-	/*EList<Imports> importsList
-	
-	EList<importVariable> variablesImport
-	
-	CompFacet compFacet
-	 String importsname
-	 EList<Export> exportsList
-	 	EList<exportVariable> variablesExport
-	 */
-	 
+	public static val INVALID_CARD = 'INVALID CARD'
 
 //children : 0..1, extends 0..1, exports: *, imports: *
-	@Check(FAST)	
+	@Check(FAST)
 	def checkCardinalityOfProperties(Component c) {
 
-		if(c.childrens.size > 1){
-			error('At max we can have one children', 
-				RdslPackage.Literals.COMPONENT__CHILDRENS, INVALID_CARD
+		if (c.childrens.size > 1) {
+			error(
+				'At max we can have one children',
+				RdslPackage.Literals.COMPONENT__CHILDRENS,
+				INVALID_CARD
 			)
 		}
-		if(c.extends.size > 1){
-			error('At max we can have one extends', 
-				RdslPackage.Literals.COMPONENT__EXTENDS, INVALID_CARD
+		if (c.extends.size > 1) {
+			error(
+				'At max we can have one extends',
+				RdslPackage.Literals.COMPONENT__EXTENDS,
+				INVALID_CARD
 			)
 		}
 	}
-    
-    @Check(FAST)
-    def checkDuplicateChildreen(Children c){
-    		var EList<Component> childreenList = new BasicEList<Component>	
-    	childreenList = c.children
-    	childreenList.add(c.child)
-    	for (Component comp : childreenList){
-    		    		childreenList.remove(comp);
-    		for (Component compo : childreenList) {
-    			if(comp.name.equals(compo.name)){
-    						error('Child already declared', 
-				RdslPackage.Literals.CHILDREN__CHILDREN, INVALID_CARD
-			)	
-    			}
-    		}
-    	}
-    }	
-    @Check(FAST)
-    def checkDuplicateExport(Component c){
-    	var EList<exportVariable> exportsList = new BasicEList<exportVariable>	
-    	for (Export ex : c.exports){
-    		if (exportsList.size==0) 
-    		exportsList=ex.exports
-    		else 
-    		exportsList.addAll(ex.exports)
-    		
-    		exportsList.add(ex.export)
-    	}
-    	for (exportVariable exv : exportsList){
-    		  exportsList.remove(exv)
-    		for (exportVariable exvar : exportsList) {
-    			if(exvar.name.equals(exv.name)){
-    						error('Variable exported already declared', 
-				RdslPackage.Literals.COMPONENT__EXPORTS, INVALID_CARD
-				)	
-    			}
-    		}
-    	}
-    }
-    
-/*    @Check(FAST)
-	def checkImportsAttribute(Graph graph){
-			 componentList = graph.components ;
-			 
-			 for ( Component c : componentList) {
-			    importsList= c.imports 
-			    	for ( Imports i : importsList) {
-			    		variablesImport = i.imports
-			    		variablesImport.add(i.imported)
-			    		for (importVariable vlist :  variablesImport) {
-			    			importsname = vlist.name
-			    			if (importsname != null) {
-			    				if (!checkExportsDeclareInComponent( c.exports, importsname) ){
-			    				error('Variable imported not declare as Export in the component : ' + c.name, 
-				RdslPackage.Literals.GRAPH__IMPORTS, INVALID_CARD
-			)	
-			    				}
-			    			}
-			    			else {
-			    				compFacet = vlist.importvariable
-			    			
-			    			}
-			    			
-			    		}			    	
-			    	}
-			 }
+
+	@Check(FAST)
+	def checkDuplicateChildreen(Children c) {
+		var EList<Component> childreenList = new BasicEList<Component>
+		childreenList = c.children
+		childreenList.add(c.child)
+		for (Component comp : childreenList) {
+			childreenList.remove(comp);
+			for (Component compo : childreenList) {
+				if (comp.name.equals(compo.name)) {
+					error(
+						'Child already declared',
+						RdslPackage.Literals.CHILDREN__CHILDREN,
+						INVALID_CARD
+					)
+				}
+			}
+		}
 	}
-	
-	def checkExportsDeclareInComponent(EList<Export> exportsList, String exports){
-		 for (Export exp : exportsList) {
-		 	variablesExport = exp.exports
-		 	//variablesExport.add(exp.export)
-		 	for (  exportVariable varExp : variablesExport) {
-		 		if (varExp.name.equals(exports))
-		 		return true;
-		 	}
-		 }
-		return false;
-	}*/
+
+	@Check(FAST)
+	def checkExportsDeclareInComponent(exportVariable ex) {
+		var Component eCompo = ex.eContainer().eContainer() as Component;
+		var EList<Export> exports = new BasicEList<Export>;
+		exports = eCompo.exports;
+		var int count = 0;
+		try{
+		for (Export e : exports) {
+			for (exportVariable exv : e.exports) {
+				if (exv.name.equals(ex.name)) {
+					count++;
+				}
+			}
+			if (e.export.name.equals(ex.name)) {
+				count++;
+			}
+
+		}
+
+		if (count > 1) {
+			error(
+				'Variable exported already declared',
+				RdslPackage.Literals.EXPORT_VARIABLE__INITIAL,
+				INVALID_CARD
+			)
+		}
+		} catch (ConcurrentModificationException e) {
+		}
+	}
+
+	@Check(FAST)
+	def checkImportsDeclareInComponent(importVariable imp) {
+		var Graph eGraph = imp.eContainer().eContainer().eContainer() as Graph;
+		var EMap<String, EList<String>> emap = new BasicEMap();
+		var EList<String> elist;
+		try {
+
+			for (Component c : eGraph.components) {
+				elist = new BasicEList<String>;
+				for (Export export : c.exports) {
+					for (exportVariable exVar : export.exports) {
+						elist.add(exVar.name);
+					}
+					elist.add(export.export.name);
+				}
+				emap.put(c.name, elist);
+			}
+
+			var String CompFacet = imp.importvariable.name;
+			var String importVal = imp.name;
+			var Component compo = imp.eContainer().eContainer() as Component;
+			if (CompFacet == null) {
+				if (! emap.get(compo.name).contains(importVal)) {
+					error(
+						'Variable imported must be declare as Export in the component',
+						RdslPackage.Literals.IMPORT_VARIABLE__IMPORTVARIABLE,
+						INVALID_CARD
+					)
+				}
+			} else {
+				if (! emap.get(CompFacet).contains(importVal)) {
+					error(
+						'Variable imported must be declare as Export in the component',
+						RdslPackage.Literals.IMPORT_VARIABLE__IMPORTVARIABLE,
+						INVALID_CARD
+					)
+				}
+			}
+		} catch (ConcurrentModificationException e) {
+		}
+	}
 }
