@@ -13,6 +13,7 @@ import org.xtext.rdsl.Children
 import org.xtext.rdsl.Component
 import org.xtext.rdsl.Export
 import org.xtext.rdsl.Graph
+import org.xtext.rdsl.Imports
 import org.xtext.rdsl.RdslPackage
 import org.xtext.rdsl.exportVariable
 import org.xtext.rdsl.importVariable
@@ -47,6 +48,7 @@ class RdslValidator extends AbstractRdslValidator {
 		}
 	}
 
+	/* Error : Child name already declared : Duplicate child name forbidden */
 	@Check(FAST)
 	def checkDuplicateChildreen(Children c) {
 		var EList<Component> childreenList = new BasicEList<Component>
@@ -66,36 +68,99 @@ class RdslValidator extends AbstractRdslValidator {
 		}
 	}
 
+	/* Variable exported already declared : Duplicate variable forbidden */
 	@Check(FAST)
 	def checkExportsDeclareInComponent(exportVariable ex) {
 		var Component eCompo = ex.eContainer().eContainer() as Component;
 		var EList<Export> exports = new BasicEList<Export>;
 		exports = eCompo.exports;
 		var int count = 0;
-		try{
-		for (Export e : exports) {
-			for (exportVariable exv : e.exports) {
-				if (exv.name.equals(ex.name)) {
+		try {
+			for (Export e : exports) {
+				for (exportVariable exv : e.exports) {
+					if (exv.name.equals(ex.name)) {
+						count++;
+					}
+				}
+				if (e.export.name.equals(ex.name)) {
 					count++;
 				}
-			}
-			if (e.export.name.equals(ex.name)) {
-				count++;
+
 			}
 
-		}
-
-		if (count > 1) {
-			error(
-				'Variable exported already declared',
-				RdslPackage.Literals.EXPORT_VARIABLE__INITIAL,
-				INVALID_CARD
-			)
-		}
+			if (count > 1) {
+				error(
+					'Variable exported already declared',
+					RdslPackage.Literals.EXPORT_VARIABLE__INITIAL,
+					INVALID_CARD
+				)
+			}
 		} catch (ConcurrentModificationException e) {
 		}
 	}
 
+	/* Variable Import already declared : Duplicate variable forbidden */
+	@Check(FAST)
+	def checkDuplicateImport(importVariable imp) {
+		var Component eCompo = imp.eContainer().eContainer() as Component;
+		var EList<Imports> imports = new BasicEList<Imports>;
+		imports = eCompo.imports;
+		var int count = 0;
+		try {
+			/*  Case 1 : importname is star ( Example : eimports : lamb.*) => name is null*/
+			if (imp.name == null) {
+				for (Imports impo : imports) {
+					for (importVariable impv : impo.imports) {
+						if (impv.importvariable.name.equals(imp.importvariable.name)) {
+							count++;
+						}
+					}
+					if (impo.imported.importvariable.name.equals(imp.importvariable.name)) {
+						count++;
+					}
+				}
+			} /*  Case 2 : importVariable is null ( Example : imports : ip) */
+			else if (imp.importvariable == null) {
+				for (Imports impo : imports) {
+					for (importVariable impv : impo.imports) {
+						if (impv.importvariable == null && impv.name.equals(imp.name)) {
+							count++;
+						}
+					}
+					if (impo.imported.importvariable == null && impo.imported.name.equals(imp.name)) {
+						count++;
+					}
+				}
+
+			} /*  Case 3 :  ( Example : imports : LB.ip) */
+			else {
+				for (Imports impo : imports) {
+					for (importVariable impv : impo.imports) {
+						if (impv.importvariable != null && impv.importvariable.name.equals(imp.importvariable.name) &&
+							impv.name.equals(imp.name)) {
+							count++;
+						}
+					}
+					if (impo.imported.importvariable != null &&
+						impo.imported.importvariable.name.equals(imp.importvariable.name) &&
+						impo.imported.name.equals(imp.name)) {
+						count++;
+					}
+				}
+			}
+
+			if (count > 1) {
+				error(
+					'Variable import already declared',
+					RdslPackage.Literals.IMPORT_VARIABLE__IMPORTVARIABLE,
+					INVALID_CARD
+				)
+			}
+		} catch (ConcurrentModificationException e) {
+		}
+	}
+
+	/* Variable imported must be declare as Export in its component */
 	@Check(FAST)
 	def checkImportsDeclareInComponent(importVariable imp) {
 		var Graph eGraph = imp.eContainer().eContainer().eContainer() as Graph;
