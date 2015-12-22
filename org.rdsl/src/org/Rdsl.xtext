@@ -86,7 +86,7 @@ Facet:
 Instance:
 	'instance' 'of' (component=[Component]) '{'
 		'name:' name=ID(ID | INT)* ';'
-		('count:' val=INT ';')?
+		(count='count:' val=INT ';')?
 		(attributes+=Attribut)*
 		(instances+=Instance)*
 		
