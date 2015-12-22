@@ -19,7 +19,7 @@ Import:
 	'import' importURI=ImpotUri  ';'
 ;
 
-ImpotUri: ID '.graph' ;
+ImpotUri: name=ID '.graph' ;
 CompFacet:
 	Facet | Component
 ;
