@@ -11,8 +11,8 @@ Model:
 Graph:
 		
 	(imports+=Import)*
-	(components+=Component)+
 	(facetGraphs+=Facet)*
+	(components+=Component)+
 ;
 
 Import:
