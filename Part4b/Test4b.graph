@@ -1,14 +1,5 @@
-t ImAfacet {
-	
-}
-
-facet ImAfacetBis {
-	
-}
-
 ApacheServer {
-	hostname : serveurApache;
-	address : monadresse3;
+	
     # Apache instances will be deployed by Roboconf's Puppet extension
     installer: puppet;
 
@@ -38,24 +29,33 @@ ApacheServer {
     # ... then an Apache instance would need at least one LB instance somewhere.
     
     # Imports may also reference variables from other applications
-    imports: external Lamp.*;
     
     facets: ImAfacet,ImAfacetBis;
 } 
 
+facet ImAfacet {
+	
+}
 
 LB {
-	hostname : serveur1;
-	address : monadresse;
+
 	installer: me;
 	 exports: ip,port;
 	
 }
 Lamp {
-
 	installer:you;
 }
 Marketing-Suite {
 	installer:we;
+}
+
+VM_EC2 {
+		installer:we;
+}
+
+
+facet ImAfacetBis {
+	
 }
 

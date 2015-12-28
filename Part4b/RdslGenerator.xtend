@@ -6,7 +6,7 @@ package org.xtext.generator
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import org.xtext.rdsl.Component
+import org.xtext.rdsl.Instance
 
 /**
  * Generates code from your model files on save.
@@ -17,26 +17,24 @@ import org.xtext.rdsl.Component
 class RdslGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {			
-		 for(c: resource.allContents.toIterable.filter(Component)) {
+		 for( instance: resource.allContents.toIterable.filter(Instance)) {
 		 	
-		 	if (c.hostname != null ){
+		 	if (instance.hostname != null ){
 		 		  			
   
     fsa.generateFile(
-      c.hostname + ".cfg",
-      c.compile)
+      instance.hostname + ".cfg",
+      instance.compile)
   }
 		}
 	}
-	
-	
 
-def compile(Component c) ''' 
+def compile(Instance instance) ''' 
   define host {
         use                             linux-server
-        host_name                       «c.hostname»
-        alias                           «c.name»
-        address                         «c.address»
+        host_name                       «instance.hostname»
+        alias                           «instance.name » «instance.fullname.join(" ") »
+        address                         «IF instance.ip4 != null && instance.ip4.size >0 »«instance.ip4.join(".")».«instance.ip4last»«ELSEIF  instance.ip6 != null && instance.ip4.size >0 »«instance.ip6.join(".")».«instance.ip6last»«ENDIF»
         max_check_attempts              5
         check_period                    24x7
         notification_interval           30
