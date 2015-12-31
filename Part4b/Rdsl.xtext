@@ -86,25 +86,30 @@ Facet:
 Instance:
 	'instance' 'of' (component=[Component]) '{'
 		(instances+=Instance)*  
-		'name'':' name=ID (fullname+=Fullname)* ';' &
-		('count'':' val=INT ';')? &
-		('numInstances'':' valnum=INT ';')? &
-		('minAllowedInstances' ':' valmin=INT ';')? &
-		('maxAllowedInstances' ':' valmax=INT ';')? &
-		('adressType'':' ipAddress=AType ';')? &
-		('ipv4' 'address'':' ((ip4+=INT '.')* ip4last=INT) ';')? &
-		('ipv6' 'address'':' ((ip6+=INT '.')* ip6last=INT) ';')? &
-		('maxLoad' ':' maxL=INT ';')? &
-		('load' ':' theLoad=INT ';')? &
-		('hostname' ':' hostname=ID ';')? &
+		'name'':' name=ID (fullname+=Fullname)* ';' 
+		('count'':' val=INT ';')? 
+		('numInstances'':' valnum=INT ';')? 
+		('minAllowedInstances' ':' valmin=INT ';')? 
+		('maxAllowedInstances' ':' valmax=INT ';')? 
+		('adressType'':' ipAddress=AType ';')? 
+		('ipv4' 'address'':' ((ip4+=INT '.')* ip4last=INT) ';')? 
+		('ipv6' 'address'':' ((ip6+=INT '.')* ip6last=INT) ';')? 
+		('maxLoad' ':' maxL=INT ';')? 
+		('load' ':' theLoad=INT ';')? 
+		('hostname' ':' hostname=ID ';')? 
+		(iptable+=IpTable)* 
 		(attributes+=Attribut)* 
 	'}'
 ;
 
-Fullname : ID | INT;
+
+IpTable:
+	'iptables' '-A' traffic=('INPUT' | 'OUTPUT' | 'FORWARD') (('-s' (source+=INT '.'))+ sourcefinal=INT)? ('-d' (destination+=INT '.')+ destinationfinal=INT)? ('-p' protocol='tcp'|'udp')? '-j' target=('ACCEPT' | 'REJECT' | 'DROP') ';'
+;
 Attribut:
 	name=ID':'valeur=VAL';'
 ;
+Fullname : ID | INT;
 
 VAL:
 	BOOLEAN | INT | STRING

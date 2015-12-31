@@ -25,9 +25,17 @@ class RdslGenerator implements IGenerator {
     fsa.generateFile(
       instance.hostname + ".cfg",
       instance.compile)
+      
+           fsa.generateFile(
+      instance.hostname + ".rule",
+      instance.compileIp)
+      }
+        
+      }
+     
   }
-		}
-	}
+		
+	
 
 def compile(Instance instance) ''' 
   define host {
@@ -41,6 +49,36 @@ def compile(Instance instance) '''
         notification_period             24x7
 }
 '''
-	
-}
 
+def compileIp(Instance c) '''
+
+iptables -L
+traffic target prot source destination
+«FOR rule : c.iptable»
+«IF  rule.source !=null && rule.destination !=null && rule.protocol !=null»
+«rule.traffic» «rule.target» «rule.protocol» «rule.source.join(".")».«rule.sourcefinal» «rule.destination.join(".")».«rule.destination»
+«ENDIF»
+«IF rule.source==null && rule.destination!=null && rule.protocol!=null»
+«rule.traffic» «rule.target» «rule.protocol» 'anywhere' «rule.destination.join(".")».«rule.destination»
+«ENDIF»
+«IF rule.source!=null && rule.destination==null && rule.protocol!=null»
+«rule.traffic» «rule.target» «rule.protocol» «rule.source.join(".")».«rule.sourcefinal» 'anywhere'
+«ENDIF»
+«IF rule.source!=null && rule.destination!=null && rule.protocol==null»
+«rule.traffic» «rule.target» 'all' «rule.source.join(".")».«rule.sourcefinal» «rule.destination.join(".")».«rule.destination»
+«ENDIF»
+«IF rule.source==null && rule.destination==null && rule.protocol!=null»
+«rule.traffic» «rule.target» «rule.protocol» 'anywhere' 'anywhere'
+«ENDIF»
+«IF rule.source==null && rule.destination!=null && rule.protocol==null»
+«rule.traffic» «rule.target» 'all' 'anywhere' «rule.destination.join(".")».«rule.destination»
+«ENDIF»
+«IF rule.source!==null && rule.destination==null && rule.protocol==null»
+«rule.traffic» «rule.target» 'all' «rule.source.join(".")».«rule.sourcefinal» 'anywhere'
+«ENDIF»
+«ENDFOR»
+
+'''
+
+
+}
