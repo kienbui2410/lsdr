@@ -17,6 +17,7 @@ import org.xtext.rdsl.Imports
 import org.xtext.rdsl.RdslPackage
 import org.xtext.rdsl.exportVariable
 import org.xtext.rdsl.importVariable
+import org.xtext.rdsl.Extends
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -27,7 +28,7 @@ import org.xtext.rdsl.importVariable
 class RdslValidator extends AbstractRdslValidator {
 
 	public static val INVALID_CARD = 'INVALID CARD'
-
+    EList<String> listextends ;
 //children : 0..1, extends 0..1, exports: *, imports: *
 	@Check(FAST)
 	def checkCardinalityOfProperties(Component c) {
@@ -47,7 +48,69 @@ class RdslValidator extends AbstractRdslValidator {
 			)
 		}
 	}
+	
+		@Check(NORMAL)
+	def checkCardinalityOfComponent(Graph g) {
 
+		if (g.components.size < 1) {
+			error(
+				'At least one component is required',
+				RdslPackage.Literals.GRAPH__COMPONENTS,
+				INVALID_CARD
+			)
+		}
+
+	}
+/*
+ * A component can't extends itself
+ */
+	/*	@Check(NORMAL)
+	def checkCardinalityOfComponent(Component c) {
+	listextends = new BasicEList<String>;
+			var EList<Extends> listparent = new BasicEList<Extends>
+		var EList<Component> listcomponent = new BasicEList<Component>
+	    var bool= true;
+	 listparent = c.extends
+	 for ( Extends ch : listparent){
+	 	listcomponent.add(ch.supComponent)
+	 				 listextends.add(ch.supComponent.name);
+	 }
+        if (listcomponent.size < 0) {
+        	return true;
+        }
+		else if (listextends.contains(c.name)){
+					bool= false;
+		}
+				if (! extendRule(c)){
+			error(
+				'A component can\'t extends itself',
+				RdslPackage.Literals.GRAPH__COMPONENTS,
+				INVALID_CARD
+			)			
+		}
+		return bool && extendRule(listcomponent.get(0) as Component);
+
+	}
+	
+	def Boolean extendRule(Component c){
+		var EList<Extends> listparent = new BasicEList<Extends>
+		var EList<Component> listcomponent = new BasicEList<Component>
+	    var bool= true;
+	 listparent = c.extends
+	 for ( Extends ch : listparent){
+	 	listcomponent.add(ch.supComponent)
+	 				 listextends.add(ch.supComponent.name);
+	 }
+        if (listcomponent.size < 0) {
+        	return true;
+        }
+		else if (listextends.contains(c.name)){
+					bool= false;
+		}
+		return bool && extendRule(listcomponent.get(0) as Component);
+	}
+	
+	*/
 	/* Error : Child name already declared : Duplicate child name forbidden */
 	@Check(FAST)
 	def checkDuplicateChildreen(Children c) {
@@ -176,6 +239,7 @@ class RdslValidator extends AbstractRdslValidator {
 					}
 					elist.add(export.export.name);
 				}
+				
 				emap.put(c.name, elist);
 			}
 
@@ -191,7 +255,7 @@ class RdslValidator extends AbstractRdslValidator {
 					)
 				}
 			} else {
-				if (! emap.get(CompFacet).contains(importVal)) {
+				if ((! emap.get(CompFacet).contains(importVal)) && importVal!=null) {
 					error(
 						'Variable imported must be declare as Export in the component',
 						RdslPackage.Literals.IMPORT_VARIABLE__IMPORTVARIABLE,
