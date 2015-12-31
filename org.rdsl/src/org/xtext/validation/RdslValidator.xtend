@@ -28,8 +28,8 @@ import org.xtext.rdsl.Extends
 class RdslValidator extends AbstractRdslValidator {
 
 	public static val INVALID_CARD = 'INVALID CARD'
-    EList<String> listextends ;
-//children : 0..1, extends 0..1, exports: *, imports: *
+	
+    //children : 0..1, extends 0..1, exports: *, imports: *
 	@Check(FAST)
 	def checkCardinalityOfProperties(Component c) {
 
@@ -64,53 +64,48 @@ class RdslValidator extends AbstractRdslValidator {
 /*
  * A component can't extends itself
  */
-	/*	@Check(NORMAL)
-	def checkCardinalityOfComponent(Component c) {
-	listextends = new BasicEList<String>;
-			var EList<Extends> listparent = new BasicEList<Extends>
-		var EList<Component> listcomponent = new BasicEList<Component>
-	    var bool= true;
-	 listparent = c.extends
-	 for ( Extends ch : listparent){
-	 	listcomponent.add(ch.supComponent)
-	 				 listextends.add(ch.supComponent.name);
-	 }
-        if (listcomponent.size < 0) {
-        	return true;
-        }
-		else if (listextends.contains(c.name)){
-					bool= false;
-		}
-				if (! extendRule(c)){
-			error(
+		@Check(FAST)
+	def checkExtendsOfComponent(Extends e) {
+		var Component c = e.eContainer as Component
+	var EList<String> listextends  = new BasicEList<String>;
+			var EList<Component> listparent = new BasicEList<Component>
+			for (		Extends ex : c.extends ) 	{
+				listparent.add(ex.supComponent)
+			}
+		var boolean bool=true;
+		var int i=0;
+			while (bool && listparent.size >0 && i< listparent.size ){
+			if (listextends.contains(listparent.get(i).name)){
+				return
+			}else {
+							listextends.add(listparent.get(i).name)
+							for (		Extends ex : listparent.get(i).extends ) 	{
+							listparent.addAll(ex.supComponent)
+			}
+			}
+			if (listparent.get(i).extends ==null ) {
+				bool=false;
+			}
+			i++;
+			}
+	
+		
+		for (Component ex : listparent){
+			
+			if ( ex.name.equals(c.name)){
+				error(
 				'A component can\'t extends itself',
-				RdslPackage.Literals.GRAPH__COMPONENTS,
+				RdslPackage.Literals.EXTENDS__SUP_COMPONENT,
 				INVALID_CARD
-			)			
+			)
+			
+			}
 		}
-		return bool && extendRule(listcomponent.get(0) as Component);
-
+					
 	}
 	
-	def Boolean extendRule(Component c){
-		var EList<Extends> listparent = new BasicEList<Extends>
-		var EList<Component> listcomponent = new BasicEList<Component>
-	    var bool= true;
-	 listparent = c.extends
-	 for ( Extends ch : listparent){
-	 	listcomponent.add(ch.supComponent)
-	 				 listextends.add(ch.supComponent.name);
-	 }
-        if (listcomponent.size < 0) {
-        	return true;
-        }
-		else if (listextends.contains(c.name)){
-					bool= false;
-		}
-		return bool && extendRule(listcomponent.get(0) as Component);
-	}
 	
-	*/
+	
 	/* Error : Child name already declared : Duplicate child name forbidden */
 	@Check(FAST)
 	def checkDuplicateChildreen(Children c) {
