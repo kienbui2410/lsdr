@@ -313,11 +313,217 @@ class RdslGenerator implements IGenerator {
  		'''
  	
  	
-	override void doGenerate(Resource resource, IFileSystemAccess fsa) { 
-		fsa.generateFile(resource.className+".json", 
-		"var json = [" 	
-			+ toJSONCode(resource.contents.head as Model) +
-		"];"		
+//	override void doGenerate(Resource resource, IFileSystemAccess fsa) { 
+//		fsa.generateFile(resource.className+".json", 
+//		"var json = [" 	
+//			+ toJSONCode(resource.contents.head as Model) +
+//		"];"		
+//		)				
+//	}
+	
+		override void doGenerate(Resource resource, IFileSystemAccess fsa) { 
+		fsa.generateFile(resource.className+".html", 
+		
+htmlHeaderOpen()+
+ htmlJavascriptCode()+
+ 			htlmJavascriptJsonInit(resource)+	
+ htmlJavascriptFinal()+
+	htmlHeaderClose()
 		)				
 	}
+//	
+	def String htmlHeaderOpen() {
+		return  " <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<title>Robonconf configuration graph</title>
+
+<!-- CSS Files -->
+<link type='text/css' href='lib/base.css' rel='stylesheet' />
+<link type='text/css' href='lib/ForceDirected.css' rel='stylesheet' />
+<!--[if IE]><script language='javascript' type='text/javascript' src='lib/excanvas.js'></script><![endif]-->
+<!-- JIT Library File -->
+<script language='javascript' type='text/javascript' src='lib/jit.js'></script>
+
+<!-- Example File -->"
+;
+	}
+
+	def String htmlJavascriptCode(){
+		return "<script language='javascript' type='text/javascript'>
+ var labelType, useGradients, nativeTextSupport, animate;
+
+(function() {
+  var ua = navigator.userAgent,
+      iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
+      typeOfCanvas = typeof HTMLCanvasElement,
+      nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
+      textSupport = nativeCanvasSupport 
+        && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
+  //I'm setting this based on the fact that ExCanvas provides text support for IE
+  //and that as of today iPhone/iPad current text support is lame
+  labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? 'Native' : 'HTML';
+  nativeTextSupport = labelType == 'Native';
+  useGradients = nativeCanvasSupport;
+  animate = !(iStuff || !nativeCanvasSupport);
+})();
+
+var Log = {
+  elem: false,
+  write: function(text){
+    if (!this.elem) 
+      this.elem = document.getElementById('log');
+    this.elem.innerHTML = text;
+    this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
+  }
+}; ";
+	}
+
+	def String htlmJavascriptJsonInit(Resource resource){
+		return "function init(){
+   // init data
+   var json = [ "
+   + toJSONCode(resource.contents.head as Model) +
+		"];"
+	}
+	
+	def String htmlJavascriptFinal(){
+		return "   var fd = new $jit.ForceDirected({
+    //id of the visualization container
+    injectInto: 'infovis',
+    //Enable zooming and panning
+    //by scrolling and DnD
+    Navigation: {
+      enable: true,
+      //Enable panning events only if we're dragging the empty
+      //canvas (and not a node).
+      panning: 'avoid nodes',
+      zooming: 10 //zoom speed. higher is more sensible
+    },
+    // Change node and edge styles such as
+    // color and width.
+    // These properties are also set per node
+    // with dollar prefixed data-properties in the
+    // JSON structure.
+    Node: {
+      overridable: true
+    },
+    Edge: {
+      overridable: true,
+      color: '#23A4FF',
+      lineWidth: 0.4
+    },
+    //Native canvas text styling
+    Label: {
+      type: labelType, //Native or HTML
+      size: 10,
+      style: 'bold'
+    },
+    //Add Tips
+    Tips: {
+      enable: true,
+      onShow: function(tip, node) {
+        //count connections
+        var count = 0;
+        node.eachAdjacency(function() { count++; });
+        //display node info in tooltip
+        tip.innerHTML = '<div class=\"tip-title\">' + node.name + '</div>'
+          + '<div class=\"tip-text\"><b>info:</b> ' + node.data.$info+ '</div>';
+      }
+    },
+    // Add node events
+    Events: {
+      enable: true,
+      type: 'Native',
+      //Change cursor style when hovering a node
+      onMouseEnter: function() {
+        fd.canvas.getElement().style.cursor = 'move';
+      },
+      onMouseLeave: function() {
+        fd.canvas.getElement().style.cursor = '';
+      },
+      //Update node positions when dragged
+      onDragMove: function(node, eventInfo, e) {
+          var pos = eventInfo.getPos();
+          node.pos.setc(pos.x, pos.y);
+          fd.plot();
+      },
+      //Implement the same handler for touchscreens
+      onTouchMove: function(node, eventInfo, e) {
+        $jit.util.event.stop(e); //stop default touchmove event
+        this.onDragMove(node, eventInfo, e);
+      },
+      //Add also a click handler to nodes
+
+    },
+    //Number of iterations for the FD algorithm
+    iterations: 200,
+    //Edge length
+    levelDistance: 130,
+    // Add text to the labels. This method is only triggered
+    // on label creation and only for DOM labels (not native canvas ones).
+    onCreateLabel: function(domElement, node){
+      domElement.innerHTML = node.name;
+      var style = domElement.style;
+      style.fontSize = '0.8em';
+      style.color = '#ddd';
+    },
+    // Change node styles when DOM labels are placed
+    // or moved.
+    onPlaceLabel: function(domElement, node){
+      var style = domElement.style;
+      var left = parseInt(style.left);
+      var top = parseInt(style.top);
+      var w = domElement.offsetWidth;
+      style.left = (left - w / 2) + 'px';
+      style.top = (top + 10) + 'px';
+      style.display = '';
+    }
+  });
+  // load JSON data.
+  fd.loadJSON(json);
+  // compute positions incrementally and animate.
+  fd.computeIncremental({
+    iter: 40,
+    property: 'end',
+    onStep: function(perc){
+      Log.write(perc + '% loaded...');
+    },
+    onComplete: function(){
+      Log.write('The Graph ');
+      fd.animate({
+        modes: ['linear'],
+        transition: $jit.Trans.Elastic.easeOut,
+        duration: 2500
+      });
+    }
+  });
+  // end
+}"
+	}
+	def String htmlHeaderClose(){
+		
+		return "</script>
+</head>
+
+<body onload='init();'>
+<div id='container'>
+
+
+<div id='center-container'>
+    <div id='infovis'></div>    
+</div>
+
+
+<div id='inner-details'></div>
+
+</div>
+
+<div id='log'></div>
+</div>
+</body>
+</html>";
+	}
+
 }

@@ -10,9 +10,9 @@ Model:
 ;
 Graph:
 		
-	(imports+=Import)*
-	(facetGraphs+=Facet)*
-	(components+=Component)+
+	(imports+=Import |
+	facetGraphs+=Facet |
+	components+=Component)+
 ;
 
 Import:
