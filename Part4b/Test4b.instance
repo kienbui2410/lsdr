@@ -1,20 +1,26 @@
 # A VM with Apache+load balancer
-instance of VM_EC2 { 
-	instance of ApacheServer { 
-		name : Apache GH; 
-		ipv4 address :15.12.12.12 ;
-		 hostname : ApacheServer ; 
-		 } 
-	name : Apachejjs VM ; 
-	} 
+instance of VM_EC2 {
+instance of ApacheServer {
+name : Apache GH;
+ipv4 address :15.12.12.12 ;
+hostname : ApacheServer ;
+iptables -A INPUT -s 192.168.1.88 -d 195.6.100.9 -p tcp -j ACCEPT;
+iptables -A OUTPUT -s 192.168.2.8 -d 195.6.200.9 -p tcp -j REJECT;
+iptables -A INPUT -s 192.168.3.88 -d 195.6.33.9 -p udp -j DROP;
+}
+name : Apachejjs VM ;
+}
 # A VM with Tomcat+webapp
-instance of VM_EC2 { 
-	instance of ApacheServer {
-		 instance of Lamp { 
-		 	name :DemoApp SE ; 
-		 	} 
-		 name : Tomcatsa; 
-		 } 
-	name : TomcatVM VM ;
-	hostname : ApacheServer22 ; 
-	}
+instance of VM_EC2 {
+instance of ApacheServer {
+instance of Lamp {
+name :DemoApp SE ; }
+name : Tomcatsa;
+}
+name : TomcatVM VM ;
+hostname : ApacheServer22 ;
+iptables -A INPUT -s 92.168.1.88 -d 195.6.100.9 -p tcp -j ACCEPT;
+iptables -A OUTPUT -s 1.168.2.8 -d 195.6.20.9 -p tcp -j REJECT;
+iptables -A INPUT -s 19.168.3.88 -d 195.6.33.9 -p udp -j DROP;
+
+}
