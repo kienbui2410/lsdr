@@ -90,7 +90,7 @@ ruleModel returns [EObject current=null]
        			$current, 
        			"graphs",
         		lv_graphs_0_0, 
-        		"org.xtext.Rdsl.Graph");
+        		"Graph");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -109,7 +109,7 @@ ruleModel returns [EObject current=null]
        			$current, 
        			"instances",
         		lv_instances_1_0, 
-        		"org.xtext.Rdsl.Instance");
+        		"Instance");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -148,7 +148,7 @@ ruleGraph returns [EObject current=null]
        			$current, 
        			"imports",
         		lv_imports_0_0, 
-        		"org.xtext.Rdsl.Import");
+        		"Import");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -167,7 +167,7 @@ ruleGraph returns [EObject current=null]
        			$current, 
        			"components",
         		lv_components_1_0, 
-        		"org.xtext.Rdsl.Component");
+        		"Component");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -186,7 +186,7 @@ ruleGraph returns [EObject current=null]
        			$current, 
        			"facetGraphs",
         		lv_facetGraphs_2_0, 
-        		"org.xtext.Rdsl.Facet");
+        		"Facet");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -229,7 +229,7 @@ ruleImport returns [EObject current=null]
        			$current, 
        			"importURI",
         		lv_importURI_1_0, 
-        		"org.xtext.Rdsl.ImpotUri");
+        		"ImpotUri");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -273,7 +273,7 @@ ruleImpotUri returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -318,7 +318,7 @@ ruleComponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -339,7 +339,7 @@ ruleComponent returns [EObject current=null]
        			$current, 
        			"installers",
         		lv_installers_2_0, 
-        		"org.xtext.Rdsl.Installer");
+        		"Installer");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -357,7 +357,7 @@ ruleComponent returns [EObject current=null]
        			$current, 
        			"childrens",
         		lv_childrens_3_0, 
-        		"org.xtext.Rdsl.Children");
+        		"Children");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -376,7 +376,7 @@ ruleComponent returns [EObject current=null]
        			$current, 
        			"exports",
         		lv_exports_4_0, 
-        		"org.xtext.Rdsl.Export");
+        		"Export");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -395,7 +395,7 @@ ruleComponent returns [EObject current=null]
        			$current, 
        			"imports",
         		lv_imports_5_0, 
-        		"org.xtext.Rdsl.Imports");
+        		"Imports");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -414,7 +414,7 @@ ruleComponent returns [EObject current=null]
        			$current, 
        			"facets",
         		lv_facets_6_0, 
-        		"org.xtext.Rdsl.Facets");
+        		"Facets");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -433,7 +433,7 @@ ruleComponent returns [EObject current=null]
        			$current, 
        			"extends",
         		lv_extends_7_0, 
-        		"org.xtext.Rdsl.Extends");
+        		"Extends");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -485,7 +485,7 @@ ruleInstaller returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -644,7 +644,7 @@ ruleExport returns [EObject current=null]
        			$current, 
        			"exports",
         		lv_exports_2_0, 
-        		"org.xtext.Rdsl.exportVariable");
+        		"exportVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -666,7 +666,7 @@ ruleExport returns [EObject current=null]
        			$current, 
        			"export",
         		lv_export_4_0, 
-        		"org.xtext.Rdsl.exportVariable");
+        		"exportVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -710,7 +710,7 @@ ruleexportVariable returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -727,7 +727,7 @@ ruleexportVariable returns [EObject current=null]
        			$current, 
        			"initial",
         		lv_initial_1_0, 
-        		"org.xtext.Rdsl.Initialisation");
+        		"Initialisation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -771,7 +771,7 @@ ruleInitialisation returns [EObject current=null]
        			$current, 
        			"val",
         		lv_val_1_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -817,7 +817,7 @@ ruleImports returns [EObject current=null]
        			$current, 
        			"imports",
         		lv_imports_2_0, 
-        		"org.xtext.Rdsl.importVariable");
+        		"importVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -839,7 +839,7 @@ ruleImports returns [EObject current=null]
        			$current, 
        			"imported",
         		lv_imported_4_0, 
-        		"org.xtext.Rdsl.importVariable");
+        		"importVariable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -915,7 +915,7 @@ ruleimportVariable returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -939,7 +939,7 @@ ruleimportVariable returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -1060,7 +1060,7 @@ ruleFacet returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -1081,7 +1081,7 @@ ruleFacet returns [EObject current=null]
        			$current, 
        			"exportFacet",
         		lv_exportFacet_3_0, 
-        		"org.xtext.Rdsl.Export");
+        		"Export");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1099,7 +1099,7 @@ ruleFacet returns [EObject current=null]
        			$current, 
        			"childrenFacet",
         		lv_childrenFacet_4_0, 
-        		"org.xtext.Rdsl.Children");
+        		"Children");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1205,7 +1205,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"instances",
         		lv_instances_4_0, 
-        		"org.xtext.Rdsl.Instance");
+        		"Instance");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1232,7 +1232,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_7_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -1249,7 +1249,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"fullname",
         		lv_fullname_8_0, 
-        		"org.xtext.Rdsl.Fullname");
+        		"Fullname");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1280,7 +1280,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"val",
         		lv_val_12_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1310,7 +1310,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"valnum",
         		lv_valnum_16_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1340,7 +1340,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"valmin",
         		lv_valmin_20_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1370,7 +1370,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"valmax",
         		lv_valmax_24_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1399,7 +1399,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"ipAddress",
         		lv_ipAddress_28_0, 
-        		"org.xtext.Rdsl.AType");
+        		"AType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1434,7 +1434,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"ip4",
         		lv_ip4_33_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1456,7 +1456,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"ip4last",
         		lv_ip4last_35_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1490,7 +1490,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"ip6",
         		lv_ip6_40_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1512,7 +1512,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"ip6last",
         		lv_ip6last_42_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1542,7 +1542,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"theLoad",
         		lv_theLoad_46_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1614,7 +1614,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"hostname",
         		lv_hostname_54_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -1635,7 +1635,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"iptable",
         		lv_iptable_56_0, 
-        		"org.xtext.Rdsl.IpTable");
+        		"IpTable");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1653,7 +1653,7 @@ ruleInstance returns [EObject current=null]
        			$current, 
        			"attributes",
         		lv_attributes_57_0, 
-        		"org.xtext.Rdsl.Attribut");
+        		"Attribut");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1751,7 +1751,7 @@ ruleIpTable returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_4_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1773,7 +1773,7 @@ ruleIpTable returns [EObject current=null]
        			$current, 
        			"sourcefinal",
         		lv_sourcefinal_6_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1795,7 +1795,7 @@ ruleIpTable returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_8_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1817,7 +1817,7 @@ ruleIpTable returns [EObject current=null]
        			$current, 
        			"destinationfinal",
         		lv_destinationfinal_10_0, 
-        		"org.eclipse.xtext.common.Terminals.INT");
+        		"INT");
 	    }
 
 )
@@ -1940,7 +1940,7 @@ ruleAttribut returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"org.xtext.Rdsl.ID");
+        		"ID");
 	    }
 
 )
@@ -1961,7 +1961,7 @@ ruleAttribut returns [EObject current=null]
        			$current, 
        			"valeur",
         		lv_valeur_2_0, 
-        		"org.xtext.Rdsl.VAL");
+        		"VAL");
 	        afterParserOrEnumRuleCall();
 	    }
 

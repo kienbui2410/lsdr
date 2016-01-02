@@ -31,8 +31,8 @@ import org.xtext.rdsl.RdslPackage;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.rdsl.impl.GraphImpl#getImports <em>Imports</em>}</li>
- *   <li>{@link org.xtext.rdsl.impl.GraphImpl#getComponents <em>Components</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.GraphImpl#getFacetGraphs <em>Facet Graphs</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.GraphImpl#getComponents <em>Components</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,16 +50,6 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
   protected EList<Import> imports;
 
   /**
-   * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComponents()
-   * @generated
-   * @ordered
-   */
-  protected EList<Component> components;
-
-  /**
    * The cached value of the '{@link #getFacetGraphs() <em>Facet Graphs</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -68,6 +58,16 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
    * @ordered
    */
   protected EList<Facet> facetGraphs;
+
+  /**
+   * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComponents()
+   * @generated
+   * @ordered
+   */
+  protected EList<Component> components;
 
   /**
    * <!-- begin-user-doc -->
@@ -109,20 +109,6 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Component> getComponents()
-  {
-    if (components == null)
-    {
-      components = new EObjectContainmentEList<Component>(Component.class, this, RdslPackage.GRAPH__COMPONENTS);
-    }
-    return components;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Facet> getFacetGraphs()
   {
     if (facetGraphs == null)
@@ -137,6 +123,20 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Component> getComponents()
+  {
+    if (components == null)
+    {
+      components = new EObjectContainmentEList<Component>(Component.class, this, RdslPackage.GRAPH__COMPONENTS);
+    }
+    return components;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -144,10 +144,10 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
     {
       case RdslPackage.GRAPH__IMPORTS:
         return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
-      case RdslPackage.GRAPH__COMPONENTS:
-        return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
       case RdslPackage.GRAPH__FACET_GRAPHS:
         return ((InternalEList<?>)getFacetGraphs()).basicRemove(otherEnd, msgs);
+      case RdslPackage.GRAPH__COMPONENTS:
+        return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -164,10 +164,10 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
     {
       case RdslPackage.GRAPH__IMPORTS:
         return getImports();
-      case RdslPackage.GRAPH__COMPONENTS:
-        return getComponents();
       case RdslPackage.GRAPH__FACET_GRAPHS:
         return getFacetGraphs();
+      case RdslPackage.GRAPH__COMPONENTS:
+        return getComponents();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -187,13 +187,13 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
         getImports().clear();
         getImports().addAll((Collection<? extends Import>)newValue);
         return;
-      case RdslPackage.GRAPH__COMPONENTS:
-        getComponents().clear();
-        getComponents().addAll((Collection<? extends Component>)newValue);
-        return;
       case RdslPackage.GRAPH__FACET_GRAPHS:
         getFacetGraphs().clear();
         getFacetGraphs().addAll((Collection<? extends Facet>)newValue);
+        return;
+      case RdslPackage.GRAPH__COMPONENTS:
+        getComponents().clear();
+        getComponents().addAll((Collection<? extends Component>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -212,11 +212,11 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
       case RdslPackage.GRAPH__IMPORTS:
         getImports().clear();
         return;
-      case RdslPackage.GRAPH__COMPONENTS:
-        getComponents().clear();
-        return;
       case RdslPackage.GRAPH__FACET_GRAPHS:
         getFacetGraphs().clear();
+        return;
+      case RdslPackage.GRAPH__COMPONENTS:
+        getComponents().clear();
         return;
     }
     super.eUnset(featureID);
@@ -234,10 +234,10 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph
     {
       case RdslPackage.GRAPH__IMPORTS:
         return imports != null && !imports.isEmpty();
-      case RdslPackage.GRAPH__COMPONENTS:
-        return components != null && !components.isEmpty();
       case RdslPackage.GRAPH__FACET_GRAPHS:
         return facetGraphs != null && !facetGraphs.isEmpty();
+      case RdslPackage.GRAPH__COMPONENTS:
+        return components != null && !components.isEmpty();
     }
     return super.eIsSet(featureID);
   }

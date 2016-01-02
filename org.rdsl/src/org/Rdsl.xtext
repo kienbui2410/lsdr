@@ -11,8 +11,8 @@ Model:
 Graph:
 		
 	(imports+=Import |
-	components+=Component |
-	facetGraphs+=Facet)+
+	facetGraphs+=Facet |
+	components+=Component)+
 ;
 
 Import:
@@ -37,21 +37,21 @@ Component:
 
 Installer:
 	
-	'installer'':' name=ID ';'
+	'installer:' name=ID ';'
 ;
 
 Extends:
-	'extends'':' supComponent=[Component] ';'
+	'extends:' supComponent=[Component] ';'
 ;
 
 Children:
 	
-	'children'':'  (children+=[Component] ',')* child=[Component]   ';'
+	'children:'  (children+=[Component] ',')* child=[Component]   ';'
 ;
 
 Export:
 	
-	'exports'':'   (exports+=exportVariable ',')* export=exportVariable ';'
+	'exports:'   (exports+=exportVariable ',')* export=exportVariable ';'
 ;
 
 exportVariable:
@@ -63,7 +63,7 @@ Initialisation:
 ;
 
 Imports:
-	'imports'':' (imports+=importVariable ',')* imported=importVariable ';'
+	'imports:' (imports+=importVariable ',')* imported=importVariable ';'
 ;
 
 importVariable:
@@ -71,7 +71,7 @@ importVariable:
 ;
 
 Facets:
-	'facets'':'  (facets+=[Facet] ',')* facet=[Facet]   ';'
+	'facets:'  (facets+=[Facet] ',')* facet=[Facet]   ';'
 ;
 
 Facet:
@@ -79,44 +79,26 @@ Facet:
 	'facet' name=ID '{'
 		(exportFacet+=Export)*
 		(childrenFacet=Children)?
-		('extends'':' (supFacets+=[Facet] ',')* supFacet=[Facet])?
+		('extends:' (supFacets+=[Facet] ',')* supFacet=[Facet])?
 	'}'
 ;
 
 Instance:
 	'instance' 'of' (component=[Component]) '{'
-		(instances+=Instance)*  
-		'name'':' name=ID (fullname+=Fullname)* ';' 
-		('count'':' val=INT ';')? 
-		('numInstances'':' valnum=INT ';')? 
-		('minAllowedInstances' ':' valmin=INT ';')? 
-		('maxAllowedInstances' ':' valmax=INT ';')? 
-		('adressType'':' ipAddress=AType ';')? 
-		('ipv4' 'address'':' ((ip4+=INT '.')* ip4last=INT) ';')? 
-		('ipv6' 'address'':' ((ip6+=INT '.')* ip6last=INT) ';')? 
-		('load' ':' theLoad=INT ';')? 
-		('state' ':' theState=('public'|'private') ';')?
-		('hostname' ':' hostname=ID ';')? 
-		(iptable+=IpTable)* 
-		(attributes+=Attribut)* 
+		'name:' name=ID(ID | INT)* ';'
+		(count='count:' val=INT ';')?
+		(attributes+=Attribut)*
+		(instances+=Instance)*
+		
 	'}'
 ;
 
-
-IpTable:
-	'iptables' '-A' traffic=('INPUT' | 'OUTPUT' | 'FORWARD') ('-s' (source+=INT '.')+ sourcefinal=INT) ('-d' (destination+=INT '.')+ destinationfinal=INT) ('-p' protocol=('tcp'|'udp')) '-j' target=('ACCEPT' | 'REJECT' | 'DROP') ';'
-;
 Attribut:
 	name=ID':'valeur=VAL';'
 ;
-Fullname : ID | INT;
 
 VAL:
 	BOOLEAN | INT | STRING
-;
-
-AType:
-	'IPv4' | 'IPv6'
 ;
 
 terminal BOOLEAN returns ecore::EBoolean: 'true' | 'false';	

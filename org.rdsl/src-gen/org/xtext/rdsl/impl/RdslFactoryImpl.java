@@ -81,7 +81,6 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
       case RdslPackage.FACETS: return createFacets();
       case RdslPackage.FACET: return createFacet();
       case RdslPackage.INSTANCE: return createInstance();
-      case RdslPackage.IP_TABLE: return createIpTable();
       case RdslPackage.ATTRIBUT: return createAttribut();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -273,17 +272,6 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
   {
     InstanceImpl instance = new InstanceImpl();
     return instance;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IpTable createIpTable()
-  {
-    IpTableImpl ipTable = new IpTableImpl();
-    return ipTable;
   }
 
   /**

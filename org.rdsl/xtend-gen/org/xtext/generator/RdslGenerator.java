@@ -4,17 +4,30 @@
 package org.xtext.generator;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Iterables;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.xtext.rdsl.Children;
+import org.xtext.rdsl.CompFacet;
+import org.xtext.rdsl.Component;
+import org.xtext.rdsl.Export;
+import org.xtext.rdsl.Facet;
+import org.xtext.rdsl.Facets;
+import org.xtext.rdsl.Graph;
+import org.xtext.rdsl.Import;
+import org.xtext.rdsl.Imports;
+import org.xtext.rdsl.ImpotUri;
+import org.xtext.rdsl.Initialisation;
+import org.xtext.rdsl.Installer;
 import org.xtext.rdsl.Instance;
+import org.xtext.rdsl.Model;
+import org.xtext.rdsl.exportVariable;
+import org.xtext.rdsl.importVariable;
 
 /**
  * Generates code from your model files on save.
@@ -23,121 +36,1053 @@ import org.xtext.rdsl.Instance;
  */
 @SuppressWarnings("all")
 public class RdslGenerator implements IGenerator {
-  @Override
-  public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
-    TreeIterator<EObject> _allContents = resource.getAllContents();
-    Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
-    Iterable<Instance> _filter = Iterables.<Instance>filter(_iterable, Instance.class);
-    for (final Instance instance : _filter) {
-      String _hostname = instance.getHostname();
-      boolean _notEquals = (!Objects.equal(_hostname, null));
-      if (_notEquals) {
-        String _hostname_1 = instance.getHostname();
-        String _plus = (_hostname_1 + ".cfg");
-        CharSequence _compile = this.compile(instance);
-        fsa.generateFile(_plus, _compile);
-        String _hostname_2 = instance.getHostname();
-        String _plus_1 = (_hostname_2 + "_rules.html");
-        CharSequence _compileIp = this.compileIp(instance);
-        fsa.generateFile(_plus_1, _compileIp);
-      }
+  public String className(final Resource res) {
+    String _xblockexpression = null;
+    {
+      URI _uRI = res.getURI();
+      String name = _uRI.lastSegment();
+      int _indexOf = name.indexOf(".");
+      String _substring = name.substring(0, _indexOf);
+      _xblockexpression = name = _substring;
     }
+    return _xblockexpression;
   }
   
-  public CharSequence compile(final Instance instance) {
+  public CharSequence listGraph(final Model model) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("  ");
-    _builder.append("define host {");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("use                             linux-server");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("host_name                       ");
-    String _hostname = instance.getHostname();
-    _builder.append(_hostname, "        ");
-    _builder.newLineIfNotEmpty();
-    _builder.append("        ");
-    _builder.append("alias                           ");
-    String _name = instance.getName();
-    _builder.append(_name, "        ");
     _builder.append(" ");
-    EList<String> _fullname = instance.getFullname();
-    String _join = IterableExtensions.join(_fullname, " ");
-    _builder.append(_join, "        ");
-    _builder.newLineIfNotEmpty();
-    _builder.append("        ");
-    _builder.append("address                         ");
+    _builder.append("// Generate GRAPH node");
+    _builder.newLine();
+    _builder.append("{  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'id\': \'GRAPH\',  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'name\': \'GRAPH\',  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'data\': {  ");
+    _builder.newLine();
+    _builder.append("          ");
+    _builder.append("\'$color\': \'#416D9C\',");
+    _builder.newLine();
+    _builder.append("          ");
+    _builder.append("\'$type\': \'circle\',");
+    _builder.newLine();
+    _builder.append("          ");
+    _builder.append("\'$dim\': 10,");
+    _builder.newLine();
+    _builder.append("\t\t  ");
+    _builder.append("\'$info\': \'\'");
+    _builder.newLine();
+    _builder.append("     ");
+    _builder.append("},  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'adjacencies\': [");
+    _builder.newLine();
     {
-      boolean _and = false;
-      EList<Integer> _ip4 = instance.getIp4();
-      boolean _notEquals = (!Objects.equal(_ip4, null));
-      if (!_notEquals) {
-        _and = false;
-      } else {
-        EList<Integer> _ip4_1 = instance.getIp4();
-        int _size = _ip4_1.size();
-        boolean _greaterThan = (_size > 0);
-        _and = _greaterThan;
-      }
-      if (_and) {
-        EList<Integer> _ip4_2 = instance.getIp4();
-        String _join_1 = IterableExtensions.join(_ip4_2, ".");
-        _builder.append(_join_1, "        ");
-        _builder.append(".");
-        int _ip4last = instance.getIp4last();
-        _builder.append(_ip4last, "        ");
-      } else {
-        boolean _and_1 = false;
-        EList<Integer> _ip6 = instance.getIp6();
-        boolean _notEquals_1 = (!Objects.equal(_ip6, null));
-        if (!_notEquals_1) {
-          _and_1 = false;
-        } else {
-          EList<Integer> _ip4_3 = instance.getIp4();
-          int _size_1 = _ip4_3.size();
-          boolean _greaterThan_1 = (_size_1 > 0);
-          _and_1 = _greaterThan_1;
-        }
-        if (_and_1) {
-          EList<Integer> _ip6_1 = instance.getIp6();
-          String _join_2 = IterableExtensions.join(_ip6_1, ".");
-          _builder.append(_join_2, "        ");
-          _builder.append(".");
-          int _ip6last = instance.getIp6last();
-          _builder.append(_ip6last, "        ");
+      Graph _graphs = model.getGraphs();
+      EList<Import> _imports = _graphs.getImports();
+      boolean _notEquals = (!Objects.equal(_imports, null));
+      if (_notEquals) {
+        {
+          Graph _graphs_1 = model.getGraphs();
+          EList<Import> _imports_1 = _graphs_1.getImports();
+          for(final Import im : _imports_1) {
+            _builder.append("\'importedPackage_");
+            ImpotUri _importURI = im.getImportURI();
+            String _name = _importURI.getName();
+            _builder.append(_name, "");
+            _builder.append("\' ,");
+            _builder.newLineIfNotEmpty();
+          }
         }
       }
     }
-    _builder.newLineIfNotEmpty();
-    _builder.append("        ");
-    _builder.append("max_check_attempts              5");
+    _builder.append(" ");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("check_period                    24x7");
+    {
+      Graph _graphs_2 = model.getGraphs();
+      EList<Component> _components = _graphs_2.getComponents();
+      boolean _notEquals_1 = (!Objects.equal(_components, null));
+      if (_notEquals_1) {
+        {
+          Graph _graphs_3 = model.getGraphs();
+          EList<Component> _components_1 = _graphs_3.getComponents();
+          for(final Component com : _components_1) {
+            _builder.append("\'com_");
+            String _name_1 = com.getName();
+            _builder.append(_name_1, "");
+            _builder.append("\' ,");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("notification_interval           30");
+    {
+      Graph _graphs_4 = model.getGraphs();
+      EList<Facet> _facetGraphs = _graphs_4.getFacetGraphs();
+      boolean _notEquals_2 = (!Objects.equal(_facetGraphs, null));
+      if (_notEquals_2) {
+        {
+          Graph _graphs_5 = model.getGraphs();
+          EList<Facet> _facetGraphs_1 = _graphs_5.getFacetGraphs();
+          for(final Facet facet : _facetGraphs_1) {
+            _builder.append("\'facet_");
+            String _name_2 = facet.getName();
+            _builder.append(_name_2, "");
+            _builder.append("\' ,");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append("    ");
+    _builder.append("]  ");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("notification_period             24x7");
-    _builder.newLine();
-    _builder.append("}");
+    _builder.append("  \t");
+    _builder.append("}, ");
     _builder.newLine();
     return _builder;
   }
   
-  public CharSequence compileIp(final Instance c) {
+  public CharSequence listImportPackage(final Graph graph) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Import> _imports = graph.getImports();
+      boolean _notEquals = (!Objects.equal(_imports, null));
+      if (_notEquals) {
+        _builder.append("// Generate ImportedPackage node");
+        _builder.newLine();
+        {
+          EList<Import> _imports_1 = graph.getImports();
+          for(final Import im : _imports_1) {
+            _builder.append("{  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'id\': \'importedPackage_");
+            ImpotUri _importURI = im.getImportURI();
+            String _name = _importURI.getName();
+            _builder.append(_name, "    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("    ");
+            _builder.append("\'name\': \'importedPackage\',  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'data\': {  ");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$color\": \"#416D9C\",");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$type\": \"circle\",");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$dim\": 7,");
+            _builder.newLine();
+            _builder.append("\t\t  ");
+            _builder.append("\'$info\': \'");
+            ImpotUri _importURI_1 = im.getImportURI();
+            String _name_1 = _importURI_1.getName();
+            _builder.append(_name_1, "\t\t  ");
+            _builder.append("\'");
+            _builder.newLineIfNotEmpty();
+            _builder.append("     \t");
+            _builder.append("}");
+            _builder.newLine();
+            _builder.append("  \t");
+            _builder.append("}, ");
+            _builder.newLine();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence listComponent(final Graph graph) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Component> _components = graph.getComponents();
+      boolean _notEquals = (!Objects.equal(_components, null));
+      if (_notEquals) {
+        {
+          EList<Component> _components_1 = graph.getComponents();
+          for(final Component com : _components_1) {
+            _builder.append("// Generate Component node\t ");
+            _builder.newLine();
+            _builder.append("{  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'id\': \'com_");
+            String _name = com.getName();
+            _builder.append(_name, "    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("    ");
+            _builder.append("\'name\': \'Component: ");
+            String _name_1 = com.getName();
+            _builder.append(_name_1, "    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("    ");
+            _builder.append("\'data\': {  ");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\'$color\': \'#83548B\',");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\'$type\': \'circle\',");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\'$dim\': 10,");
+            _builder.newLine();
+            _builder.append("\t\t  ");
+            _builder.append("\'$info\': \'\'");
+            _builder.newLine();
+            _builder.append("     \t");
+            _builder.append("},  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'adjacencies\': [");
+            _builder.newLine();
+            {
+              Installer _installers = com.getInstallers();
+              boolean _notEquals_1 = (!Objects.equal(_installers, null));
+              if (_notEquals_1) {
+                _builder.append("\'in_");
+                String _name_2 = com.getName();
+                _builder.append(_name_2, "");
+                _builder.append("_");
+                Installer _installers_1 = com.getInstallers();
+                String _name_3 = _installers_1.getName();
+                _builder.append(_name_3, "");
+                _builder.append("\' ,");
+                _builder.newLineIfNotEmpty();
+              }
+            }
+            _builder.newLine();
+            {
+              EList<Children> _childrens = com.getChildrens();
+              boolean _notEquals_2 = (!Objects.equal(_childrens, null));
+              if (_notEquals_2) {
+                {
+                  EList<Children> _childrens_1 = com.getChildrens();
+                  for(final Children ch : _childrens_1) {
+                    {
+                      EList<Component> _children = ch.getChildren();
+                      for(final Component ch1 : _children) {
+                        _builder.append("\'ch_");
+                        String _name_4 = com.getName();
+                        _builder.append(_name_4, "");
+                        _builder.append("_");
+                        String _name_5 = ch1.getName();
+                        _builder.append(_name_5, "");
+                        _builder.append("\' ,\t\t");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
+                    _builder.append("\'ch_");
+                    String _name_6 = com.getName();
+                    _builder.append(_name_6, "");
+                    _builder.append("_");
+                    Component _child = ch.getChild();
+                    String _name_7 = _child.getName();
+                    _builder.append(_name_7, "");
+                    _builder.append("\' ,");
+                    _builder.newLineIfNotEmpty();
+                  }
+                }
+              }
+            }
+            _builder.newLine();
+            {
+              EList<Export> _exports = com.getExports();
+              boolean _notEquals_3 = (!Objects.equal(_exports, null));
+              if (_notEquals_3) {
+                {
+                  EList<Export> _exports_1 = com.getExports();
+                  for(final Export ex : _exports_1) {
+                    {
+                      EList<exportVariable> _exports_2 = ex.getExports();
+                      for(final exportVariable ex1 : _exports_2) {
+                        _builder.append("\'ex_");
+                        String _name_8 = com.getName();
+                        _builder.append(_name_8, "");
+                        _builder.append("_");
+                        String _name_9 = ex1.getName();
+                        _builder.append(_name_9, "");
+                        _builder.append("\' ,\t\t");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
+                    _builder.append("\'ex_");
+                    String _name_10 = com.getName();
+                    _builder.append(_name_10, "");
+                    _builder.append("_");
+                    exportVariable _export = ex.getExport();
+                    String _name_11 = _export.getName();
+                    _builder.append(_name_11, "");
+                    _builder.append("\' ,");
+                    _builder.newLineIfNotEmpty();
+                  }
+                }
+              }
+            }
+            _builder.newLine();
+            {
+              EList<Imports> _imports = com.getImports();
+              boolean _notEquals_4 = (!Objects.equal(_imports, null));
+              if (_notEquals_4) {
+                {
+                  EList<Imports> _imports_1 = com.getImports();
+                  for(final Imports im : _imports_1) {
+                    {
+                      EList<importVariable> _imports_2 = im.getImports();
+                      for(final importVariable im1 : _imports_2) {
+                        _builder.append("\'im_");
+                        String _name_12 = com.getName();
+                        _builder.append(_name_12, "");
+                        _builder.append("_");
+                        String _name_13 = im1.getName();
+                        _builder.append(_name_13, "");
+                        _builder.append("\' ,\t\t");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
+                    _builder.append("\'im_");
+                    String _name_14 = com.getName();
+                    _builder.append(_name_14, "");
+                    _builder.append("_");
+                    importVariable _imported = im.getImported();
+                    String _name_15 = _imported.getName();
+                    _builder.append(_name_15, "");
+                    _builder.append("\' ,");
+                    _builder.newLineIfNotEmpty();
+                  }
+                }
+              }
+            }
+            _builder.newLine();
+            {
+              EList<Facets> _facets = com.getFacets();
+              boolean _notEquals_5 = (!Objects.equal(_facets, null));
+              if (_notEquals_5) {
+                {
+                  EList<Facets> _facets_1 = com.getFacets();
+                  for(final Facets fc : _facets_1) {
+                    {
+                      EList<Facet> _facets_2 = fc.getFacets();
+                      for(final Facet fc1 : _facets_2) {
+                        _builder.append("\'facet_");
+                        String _name_16 = fc1.getName();
+                        _builder.append(_name_16, "");
+                        _builder.append("\' ,\t\t");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
+                    _builder.append("\'facet_");
+                    Facet _facet = fc.getFacet();
+                    String _name_17 = _facet.getName();
+                    _builder.append(_name_17, "");
+                    _builder.append("\' ,");
+                    _builder.newLineIfNotEmpty();
+                  }
+                }
+              }
+            }
+            _builder.append(" \t ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("] ");
+            _builder.newLine();
+            _builder.append("  \t");
+            _builder.append("}, ");
+            _builder.newLine();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence listPropertiesOfComponent(final Component com) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("// Generate Installer node \t");
+    _builder.newLine();
+    _builder.append("{  ");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("\'id\': \'in_");
+    String _name = com.getName();
+    _builder.append(_name, "\t    ");
+    _builder.append("_");
+    Installer _installers = com.getInstallers();
+    String _name_1 = _installers.getName();
+    _builder.append(_name_1, "\t    ");
+    _builder.append("\',  ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t    ");
+    _builder.append("\'name\': \'Installer\',  ");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("\'data\': {  ");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("\'$color\': \'#70A35E\',");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("\'$type\': \'star\',");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("\'$dim\': 10,");
+    _builder.newLine();
+    _builder.append("\t\t\t  ");
+    _builder.append("\'$info\': \'");
+    Installer _installers_1 = com.getInstallers();
+    String _name_2 = _installers_1.getName();
+    _builder.append(_name_2, "\t\t\t  ");
+    _builder.append("\'");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t     \t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("  \t\t");
+    _builder.append("},");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.newLine();
+    {
+      EList<Children> _childrens = com.getChildrens();
+      boolean _notEquals = (!Objects.equal(_childrens, null));
+      if (_notEquals) {
+        _builder.append("  \t\t");
+        _builder.append("// Generate Children node");
+        _builder.newLine();
+        _builder.append("\t  \t");
+        CharSequence _listChildren = this.listChildren(com);
+        _builder.append(_listChildren, "\t  \t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.newLine();
+    {
+      EList<Export> _exports = com.getExports();
+      boolean _notEquals_1 = (!Objects.equal(_exports, null));
+      if (_notEquals_1) {
+        _builder.append("  \t\t");
+        _builder.append("// Generate Export node");
+        _builder.newLine();
+        _builder.append("\t  \t");
+        CharSequence _listExport = this.listExport(com);
+        _builder.append(_listExport, "\t  \t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t  \t");
+    _builder.newLine();
+    {
+      EList<Imports> _imports = com.getImports();
+      boolean _notEquals_2 = (!Objects.equal(_imports, null));
+      if (_notEquals_2) {
+        _builder.append("  \t\t");
+        _builder.append("// Generate Import node");
+        _builder.newLine();
+        _builder.append("\t  \t");
+        CharSequence _listImport = this.listImport(com);
+        _builder.append(_listImport, "\t  \t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence listChildren(final Component com) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Children> _childrens = com.getChildrens();
+      for(final Children ch : _childrens) {
+        {
+          EList<Component> _children = ch.getChildren();
+          for(final Component ch1 : _children) {
+            _builder.append("{  ");
+            _builder.newLine();
+            _builder.append("\t\t\t    ");
+            _builder.append("\'id\': \'ch_");
+            String _name = com.getName();
+            _builder.append(_name, "\t\t\t    ");
+            _builder.append("_");
+            String _name_1 = ch1.getName();
+            _builder.append(_name_1, "\t\t\t    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t    ");
+            _builder.append("\'name\': \'children\',  ");
+            _builder.newLine();
+            _builder.append("\t\t\t    ");
+            _builder.append("\'data\': {  ");
+            _builder.newLine();
+            _builder.append("\t\t\t          ");
+            _builder.append("\'$color\': \'#C74243\',");
+            _builder.newLine();
+            _builder.append("\t\t\t          ");
+            _builder.append("\'$type\': \'circle\',");
+            _builder.newLine();
+            _builder.append("\t\t\t          ");
+            _builder.append("\'$dim\': 10,");
+            _builder.newLine();
+            _builder.append("\t\t\t\t\t  ");
+            _builder.append("\'$info\': \'");
+            String _name_2 = ch1.getName();
+            _builder.append(_name_2, "\t\t\t\t\t  ");
+            _builder.append("\'");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t     \t");
+            _builder.append("}");
+            _builder.newLine();
+            _builder.append("\t\t  \t\t");
+            _builder.append("},  \t\t\t");
+            _builder.newLine();
+          }
+        }
+        _builder.append("\t  \t\t\t");
+        _builder.append("{  ");
+        _builder.newLine();
+        _builder.append("\t\t\t    ");
+        _builder.append("\'id\': \'ch_");
+        String _name_3 = com.getName();
+        _builder.append(_name_3, "\t\t\t    ");
+        _builder.append("_");
+        Component _child = ch.getChild();
+        String _name_4 = _child.getName();
+        _builder.append(_name_4, "\t\t\t    ");
+        _builder.append("\',  ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t\t\t    ");
+        _builder.append("\'name\': \'children\',  ");
+        _builder.newLine();
+        _builder.append("\t\t\t    ");
+        _builder.append("\'data\': {  ");
+        _builder.newLine();
+        _builder.append("\t\t\t          ");
+        _builder.append("\'$color\': \'#C74243\',");
+        _builder.newLine();
+        _builder.append("\t\t\t          ");
+        _builder.append("\'$type\': \'circle\',");
+        _builder.newLine();
+        _builder.append("\t\t\t          ");
+        _builder.append("\'$dim\': 10,");
+        _builder.newLine();
+        _builder.append("\t\t\t\t\t  ");
+        _builder.append("\'$info\': \'");
+        Component _child_1 = ch.getChild();
+        String _name_5 = _child_1.getName();
+        _builder.append(_name_5, "\t\t\t\t\t  ");
+        _builder.append("\'");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t\t\t     \t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t\t  \t\t");
+        _builder.append("}, \t  \t  \t\t");
+        _builder.newLine();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence listExport(final Component com) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Export> _exports = com.getExports();
+      for(final Export e : _exports) {
+        {
+          EList<exportVariable> _exports_1 = e.getExports();
+          for(final exportVariable e1 : _exports_1) {
+            _builder.append("{  ");
+            _builder.newLine();
+            _builder.append("\t\t\t\t    ");
+            _builder.append("\'id\': \'ex_");
+            String _name = com.getName();
+            _builder.append(_name, "\t\t\t\t    ");
+            _builder.append("_");
+            String _name_1 = e1.getName();
+            _builder.append(_name_1, "\t\t\t\t    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t\t    ");
+            _builder.append("\'name\': \'export\',  ");
+            _builder.newLine();
+            _builder.append("\t\t\t\t    ");
+            _builder.append("\'data\': {  ");
+            _builder.newLine();
+            _builder.append("\t\t\t\t          ");
+            _builder.append("\'$color\': \'#C74243\',");
+            _builder.newLine();
+            _builder.append("\t\t\t\t          ");
+            _builder.append("\'$type\': \'rectangle\',");
+            _builder.newLine();
+            _builder.append("\t\t\t\t          ");
+            _builder.append("\'$dim\': 10,");
+            _builder.newLine();
+            _builder.append("\t\t\t\t\t\t  ");
+            _builder.append("\'$info\': \'");
+            String _name_2 = e1.getName();
+            _builder.append(_name_2, "\t\t\t\t\t\t  ");
+            _builder.append(" ");
+            {
+              Initialisation _initial = e1.getInitial();
+              boolean _notEquals = (!Objects.equal(_initial, null));
+              if (_notEquals) {
+                _builder.append("  :");
+                Initialisation _initial_1 = e1.getInitial();
+                int _val = _initial_1.getVal();
+                _builder.append(_val, "\t\t\t\t\t\t  ");
+              }
+            }
+            _builder.append("\'");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t\t     \t");
+            _builder.append("}");
+            _builder.newLine();
+            _builder.append("\t\t\t  \t\t");
+            _builder.append("}, \t\t\t\t");
+            _builder.newLine();
+          }
+        }
+        _builder.append("\t  \t\t\t\t");
+        _builder.append("{  ");
+        _builder.newLine();
+        _builder.append("\t\t\t\t    ");
+        _builder.append("\'id\': \'ex_");
+        String _name_3 = com.getName();
+        _builder.append(_name_3, "\t\t\t\t    ");
+        _builder.append("_");
+        exportVariable _export = e.getExport();
+        String _name_4 = _export.getName();
+        _builder.append(_name_4, "\t\t\t\t    ");
+        _builder.append("\',  ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t\t\t\t    ");
+        _builder.append("\'name\': \'export\',  ");
+        _builder.newLine();
+        _builder.append("\t\t\t\t    ");
+        _builder.append("\'data\': {  ");
+        _builder.newLine();
+        _builder.append("\t\t\t\t          ");
+        _builder.append("\'$color\': \'#C74243\',");
+        _builder.newLine();
+        _builder.append("\t\t\t\t          ");
+        _builder.append("\'$type\': \'rectangle\',");
+        _builder.newLine();
+        _builder.append("\t\t\t\t          ");
+        _builder.append("\'$dim\': 10,");
+        _builder.newLine();
+        _builder.append("\t\t\t\t\t\t  ");
+        _builder.append("\'$info\': \'");
+        exportVariable _export_1 = e.getExport();
+        String _name_5 = _export_1.getName();
+        _builder.append(_name_5, "\t\t\t\t\t\t  ");
+        _builder.append(" ");
+        {
+          exportVariable _export_2 = e.getExport();
+          Initialisation _initial_2 = _export_2.getInitial();
+          boolean _notEquals_1 = (!Objects.equal(_initial_2, null));
+          if (_notEquals_1) {
+            _builder.append(" :");
+            exportVariable _export_3 = e.getExport();
+            Initialisation _initial_3 = _export_3.getInitial();
+            int _val_1 = _initial_3.getVal();
+            _builder.append(_val_1, "\t\t\t\t\t\t  ");
+          }
+        }
+        _builder.append(" \'");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t\t\t\t     \t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t\t\t  \t\t");
+        _builder.append("}, \t\t  \t\t\t \t\t\t\t\t  \t\t\t");
+        _builder.newLine();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence listImport(final Component com) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Imports> _imports = com.getImports();
+      for(final Imports im : _imports) {
+        {
+          EList<importVariable> _imports_1 = im.getImports();
+          for(final importVariable im1 : _imports_1) {
+            _builder.append("{  ");
+            _builder.newLine();
+            _builder.append("\t\t\t\t    ");
+            _builder.append("\'id\': \'im_");
+            String _name = com.getName();
+            _builder.append(_name, "\t\t\t\t    ");
+            _builder.append("_");
+            String _name_1 = im1.getName();
+            _builder.append(_name_1, "\t\t\t\t    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t\t    ");
+            _builder.append("\'name\': \'import\',  ");
+            _builder.newLine();
+            _builder.append("\t\t\t\t    ");
+            _builder.append("\'data\': {  ");
+            _builder.newLine();
+            _builder.append("\t\t\t\t          ");
+            _builder.append("\'$color\': \'#C74243\',");
+            _builder.newLine();
+            _builder.append("\t\t\t\t          ");
+            _builder.append("\'$type\': \'triangle\',");
+            _builder.newLine();
+            _builder.append("\t\t\t\t          ");
+            _builder.append("\'$dim\': 10,");
+            _builder.newLine();
+            _builder.append("\t\t\t\t\t\t  ");
+            _builder.append("\'$info\': \'");
+            {
+              boolean _isExternal = im1.isExternal();
+              boolean _equals = (_isExternal == true);
+              if (_equals) {
+                _builder.append("external");
+              }
+            }
+            _builder.append(" ");
+            String _name_2 = im1.getName();
+            _builder.append(_name_2, "\t\t\t\t\t\t  ");
+            _builder.append("  ");
+            {
+              CompFacet _importvariable = im1.getImportvariable();
+              boolean _notEquals = (!Objects.equal(_importvariable, null));
+              if (_notEquals) {
+                _builder.append("of ");
+                CompFacet _importvariable_1 = im1.getImportvariable();
+                String _name_3 = _importvariable_1.getName();
+                _builder.append(_name_3, "\t\t\t\t\t\t  ");
+              }
+            }
+            _builder.append(" ");
+            {
+              boolean _isOptional = im1.isOptional();
+              boolean _equals_1 = (_isOptional == true);
+              if (_equals_1) {
+                _builder.append("(optional)");
+              }
+            }
+            _builder.append(" \'");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t\t     \t");
+            _builder.append("}");
+            _builder.newLine();
+            _builder.append("\t\t\t  \t\t");
+            _builder.append("}, \t\t\t  \t\t\t  \t\t\t\t  \t\t\t\t\t\t\t");
+            _builder.newLine();
+          }
+        }
+        _builder.append("\t  \t\t\t\t");
+        _builder.append("{  ");
+        _builder.newLine();
+        _builder.append("\t\t\t\t    ");
+        _builder.append("\'id\': \'im_");
+        String _name_4 = com.getName();
+        _builder.append(_name_4, "\t\t\t\t    ");
+        _builder.append("_");
+        importVariable _imported = im.getImported();
+        String _name_5 = _imported.getName();
+        _builder.append(_name_5, "\t\t\t\t    ");
+        _builder.append("\',  ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t\t\t\t    ");
+        _builder.append("\'name\': \'import\',  ");
+        _builder.newLine();
+        _builder.append("\t\t\t\t    ");
+        _builder.append("\'data\': {  ");
+        _builder.newLine();
+        _builder.append("\t\t\t\t          ");
+        _builder.append("\'$color\': \'#C74243\',");
+        _builder.newLine();
+        _builder.append("\t\t\t\t          ");
+        _builder.append("\'$type\': \'triangle\',");
+        _builder.newLine();
+        _builder.append("\t\t\t\t          ");
+        _builder.append("\'$dim\': 10,");
+        _builder.newLine();
+        _builder.append("\t\t\t\t\t\t  ");
+        _builder.append("\'$info\': \'");
+        {
+          importVariable _imported_1 = im.getImported();
+          boolean _isExternal_1 = _imported_1.isExternal();
+          boolean _equals_2 = (_isExternal_1 == true);
+          if (_equals_2) {
+            _builder.append("external");
+          }
+        }
+        _builder.append(" ");
+        importVariable _imported_2 = im.getImported();
+        String _name_6 = _imported_2.getName();
+        _builder.append(_name_6, "\t\t\t\t\t\t  ");
+        _builder.append("  ");
+        {
+          importVariable _imported_3 = im.getImported();
+          CompFacet _importvariable_2 = _imported_3.getImportvariable();
+          boolean _notEquals_1 = (!Objects.equal(_importvariable_2, null));
+          if (_notEquals_1) {
+            _builder.append("of ");
+            importVariable _imported_4 = im.getImported();
+            CompFacet _importvariable_3 = _imported_4.getImportvariable();
+            String _name_7 = _importvariable_3.getName();
+            _builder.append(_name_7, "\t\t\t\t\t\t  ");
+          }
+        }
+        _builder.append("  ");
+        {
+          importVariable _imported_5 = im.getImported();
+          boolean _isOptional_1 = _imported_5.isOptional();
+          boolean _equals_3 = (_isOptional_1 == true);
+          if (_equals_3) {
+            _builder.append("(optional)");
+          }
+        }
+        _builder.append(" \'");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t\t\t\t     \t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t\t\t  \t\t");
+        _builder.append("}, \t  \t\t\t\t  \t\t\t\t\t \t\t  \t\t\t  \t\t \t\t\t");
+        _builder.newLine();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence listFacet(final Model model) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      Graph _graphs = model.getGraphs();
+      EList<Facet> _facetGraphs = _graphs.getFacetGraphs();
+      boolean _notEquals = (!Objects.equal(_facetGraphs, null));
+      if (_notEquals) {
+        _builder.append("// Generate Facet node");
+        _builder.newLine();
+        {
+          Graph _graphs_1 = model.getGraphs();
+          EList<Facet> _facetGraphs_1 = _graphs_1.getFacetGraphs();
+          for(final Facet facet : _facetGraphs_1) {
+            _builder.append("{  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'id\': \'facet_");
+            String _name = facet.getName();
+            _builder.append(_name, "    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("    ");
+            _builder.append("\'name\': \'Facet:_");
+            String _name_1 = facet.getName();
+            _builder.append(_name_1, "    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("    ");
+            _builder.append("\'data\': {  ");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$color\": \"#416D9C\",");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$type\": \"star\",");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$dim\": 7,");
+            _builder.newLine();
+            _builder.append("\t\t  ");
+            _builder.append("\'$info\': \'");
+            {
+              EList<Export> _exportFacet = facet.getExportFacet();
+              boolean _notEquals_1 = (!Objects.equal(_exportFacet, null));
+              if (_notEquals_1) {
+                _builder.append("(Export:");
+                {
+                  EList<Export> _exportFacet_1 = facet.getExportFacet();
+                  for(final Export e : _exportFacet_1) {
+                    {
+                      EList<exportVariable> _exports = e.getExports();
+                      for(final exportVariable e1 : _exports) {
+                        _builder.append(" ");
+                        String _name_2 = e1.getName();
+                        _builder.append(_name_2, "\t\t  ");
+                      }
+                    }
+                    _builder.append(" ");
+                    exportVariable _export = e.getExport();
+                    String _name_3 = _export.getName();
+                    _builder.append(_name_3, "\t\t  ");
+                  }
+                }
+                _builder.append(")");
+              }
+            }
+            _builder.append("   ");
+            {
+              Children _childrenFacet = facet.getChildrenFacet();
+              boolean _notEquals_2 = (!Objects.equal(_childrenFacet, null));
+              if (_notEquals_2) {
+                _builder.append("(Children: ");
+                {
+                  Children _childrenFacet_1 = facet.getChildrenFacet();
+                  EList<Component> _children = _childrenFacet_1.getChildren();
+                  for(final Component ch1 : _children) {
+                    _builder.append(" ");
+                    String _name_4 = ch1.getName();
+                    _builder.append(_name_4, "\t\t  ");
+                  }
+                }
+                Children _childrenFacet_2 = facet.getChildrenFacet();
+                Component _child = _childrenFacet_2.getChild();
+                String _name_5 = _child.getName();
+                _builder.append(_name_5, "\t\t  ");
+                _builder.append(")");
+              }
+            }
+            _builder.append("    ");
+            {
+              Facet _supFacet = facet.getSupFacet();
+              boolean _notEquals_3 = (!Objects.equal(_supFacet, null));
+              if (_notEquals_3) {
+                _builder.append("Extends:");
+                Facet _supFacet_1 = facet.getSupFacet();
+                String _name_6 = _supFacet_1.getName();
+                _builder.append(_name_6, "\t\t  ");
+              }
+            }
+            _builder.append(" ");
+            {
+              EList<Facet> _supFacets = facet.getSupFacets();
+              boolean _notEquals_4 = (!Objects.equal(_supFacets, null));
+              if (_notEquals_4) {
+                {
+                  EList<Facet> _supFacets_1 = facet.getSupFacets();
+                  for(final Facet fc : _supFacets_1) {
+                    String _name_7 = fc.getName();
+                    _builder.append(_name_7, "\t\t  ");
+                  }
+                }
+              }
+            }
+            _builder.append("\'");
+            _builder.newLineIfNotEmpty();
+            _builder.append("     \t");
+            _builder.append("}");
+            _builder.newLine();
+            _builder.append("  \t");
+            _builder.append("}, ");
+            _builder.newLine();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence listInstances(final Model model) {
     throw new Error("Unresolved compilation problems:"
-      + "\nThe method iptable is undefined for the type RdslGenerator"
-      + "\ntraffic cannot be resolved"
-      + "\ntarget cannot be resolved"
-      + "\nprotocol cannot be resolved"
-      + "\nsource cannot be resolved"
-      + "\njoin cannot be resolved"
-      + "\nsourcefinal cannot be resolved"
-      + "\ndestination cannot be resolved"
-      + "\njoin cannot be resolved"
-      + "\ndestinationfinal cannot be resolved");
+      + "\nThe method count is undefined for the type RdslGenerator"
+      + "\n!= cannot be resolved");
+  }
+  
+  public CharSequence toJSONCode(final Model m) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      Graph _graphs = m.getGraphs();
+      boolean _notEquals = (!Objects.equal(_graphs, null));
+      if (_notEquals) {
+        CharSequence _listGraph = this.listGraph(m);
+        _builder.append(_listGraph, "");
+        _builder.newLineIfNotEmpty();
+        Graph _graphs_1 = m.getGraphs();
+        CharSequence _listImportPackage = this.listImportPackage(_graphs_1);
+        _builder.append(_listImportPackage, "");
+        _builder.newLineIfNotEmpty();
+        Graph _graphs_2 = m.getGraphs();
+        CharSequence _listComponent = this.listComponent(_graphs_2);
+        _builder.append(_listComponent, "");
+        _builder.newLineIfNotEmpty();
+        {
+          Graph _graphs_3 = m.getGraphs();
+          EList<Component> _components = _graphs_3.getComponents();
+          for(final Component com : _components) {
+            CharSequence _listPropertiesOfComponent = this.listPropertiesOfComponent(com);
+            _builder.append(_listPropertiesOfComponent, "");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        CharSequence _listFacet = this.listFacet(m);
+        _builder.append(_listFacet, "");
+        _builder.newLineIfNotEmpty();
+      } else {
+        {
+          EList<Instance> _instances = m.getInstances();
+          boolean _notEquals_1 = (!Objects.equal(_instances, null));
+          if (_notEquals_1) {
+            CharSequence _listInstances = this.listInstances(m);
+            _builder.append(_listInstances, "");
+            _builder.append("   ");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  @Override
+  public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
+    String _className = this.className(resource);
+    String _plus = (_className + ".html");
+    String _htmlHeaderOpen = this.htmlHeaderOpen();
+    String _htmlJavascriptCode = this.htmlJavascriptCode();
+    String _plus_1 = (_htmlHeaderOpen + _htmlJavascriptCode);
+    String _htlmJavascriptJsonInit = this.htlmJavascriptJsonInit(resource);
+    String _plus_2 = (_plus_1 + _htlmJavascriptJsonInit);
+    String _htmlJavascriptFinal = this.htmlJavascriptFinal();
+    String _plus_3 = (_plus_2 + _htmlJavascriptFinal);
+    String _htmlHeaderClose = this.htmlHeaderClose();
+    String _plus_4 = (_plus_3 + _htmlHeaderClose);
+    fsa.generateFile(_plus, _plus_4);
+  }
+  
+  public String htmlHeaderOpen() {
+    return " <!DOCTYPE html PUBLIC \'-//W3C//DTD XHTML 1.0 Transitional//EN\' \'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\'>\n<html xmlns=\'http://www.w3.org/1999/xhtml\' xml:lang=\'en\' lang=\'en\'>\n<head>\n<meta http-equiv=\'Content-Type\' content=\'text/html; charset=UTF-8\' />\n<title>Robonconf configuration graph</title>\n\n<!-- CSS Files -->\n<link type=\'text/css\' href=\'lib/base.css\' rel=\'stylesheet\' />\n<link type=\'text/css\' href=\'lib/ForceDirected.css\' rel=\'stylesheet\' />\n<!--[if IE]><script language=\'javascript\' type=\'text/javascript\' src=\'lib/excanvas.js\'></script><![endif]-->\n<!-- JIT Library File -->\n<script language=\'javascript\' type=\'text/javascript\' src=\'lib/jit.js\'></script>\n\n<!-- Example File -->";
+  }
+  
+  public String htmlJavascriptCode() {
+    return "<script language=\'javascript\' type=\'text/javascript\'>\n var labelType, useGradients, nativeTextSupport, animate;\n\n(function() {\n  var ua = navigator.userAgent,\n      iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),\n      typeOfCanvas = typeof HTMLCanvasElement,\n      nativeCanvasSupport = (typeOfCanvas == \'object\' || typeOfCanvas == \'function\'),\n      textSupport = nativeCanvasSupport \n        && (typeof document.createElement(\'canvas\').getContext(\'2d\').fillText == \'function\');\n  //I\'m setting this based on the fact that ExCanvas provides text support for IE\n  //and that as of today iPhone/iPad current text support is lame\n  labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? \'Native\' : \'HTML\';\n  nativeTextSupport = labelType == \'Native\';\n  useGradients = nativeCanvasSupport;\n  animate = !(iStuff || !nativeCanvasSupport);\n})();\n\nvar Log = {\n  elem: false,\n  write: function(text){\n    if (!this.elem) \n      this.elem = document.getElementById(\'log\');\n    this.elem.innerHTML = text;\n    this.elem.style.left = (500 - this.elem.offsetWidth / 2) + \'px\';\n  }\n}; ";
+  }
+  
+  public String htlmJavascriptJsonInit(final Resource resource) {
+    EList<EObject> _contents = resource.getContents();
+    EObject _head = IterableExtensions.<EObject>head(_contents);
+    CharSequence _jSONCode = this.toJSONCode(((Model) _head));
+    String _plus = ("function init(){\n   // init data\n   var json = [ " + _jSONCode);
+    return (_plus + 
+      "];");
+  }
+  
+  public String htmlJavascriptFinal() {
+    return "   var fd = new $jit.ForceDirected({\n    //id of the visualization container\n    injectInto: \'infovis\',\n    //Enable zooming and panning\n    //by scrolling and DnD\n    Navigation: {\n      enable: true,\n      //Enable panning events only if we\'re dragging the empty\n      //canvas (and not a node).\n      panning: \'avoid nodes\',\n      zooming: 10 //zoom speed. higher is more sensible\n    },\n    // Change node and edge styles such as\n    // color and width.\n    // These properties are also set per node\n    // with dollar prefixed data-properties in the\n    // JSON structure.\n    Node: {\n      overridable: true\n    },\n    Edge: {\n      overridable: true,\n      color: \'#23A4FF\',\n      lineWidth: 0.4\n    },\n    //Native canvas text styling\n    Label: {\n      type: labelType, //Native or HTML\n      size: 10,\n      style: \'bold\'\n    },\n    //Add Tips\n    Tips: {\n      enable: true,\n      onShow: function(tip, node) {\n        //count connections\n        var count = 0;\n        node.eachAdjacency(function() { count++; });\n        //display node info in tooltip\n        tip.innerHTML = \'<div class=\"tip-title\">\' + node.name + \'</div>\'\n          + \'<div class=\"tip-text\"><b>info:</b> \' + node.data.$info+ \'</div>\';\n      }\n    },\n    // Add node events\n    Events: {\n      enable: true,\n      type: \'Native\',\n      //Change cursor style when hovering a node\n      onMouseEnter: function() {\n        fd.canvas.getElement().style.cursor = \'move\';\n      },\n      onMouseLeave: function() {\n        fd.canvas.getElement().style.cursor = \'\';\n      },\n      //Update node positions when dragged\n      onDragMove: function(node, eventInfo, e) {\n          var pos = eventInfo.getPos();\n          node.pos.setc(pos.x, pos.y);\n          fd.plot();\n      },\n      //Implement the same handler for touchscreens\n      onTouchMove: function(node, eventInfo, e) {\n        $jit.util.event.stop(e); //stop default touchmove event\n        this.onDragMove(node, eventInfo, e);\n      },\n      //Add also a click handler to nodes\n\n    },\n    //Number of iterations for the FD algorithm\n    iterations: 200,\n    //Edge length\n    levelDistance: 130,\n    // Add text to the labels. This method is only triggered\n    // on label creation and only for DOM labels (not native canvas ones).\n    onCreateLabel: function(domElement, node){\n      domElement.innerHTML = node.name;\n      var style = domElement.style;\n      style.fontSize = \'0.8em\';\n      style.color = \'#ddd\';\n    },\n    // Change node styles when DOM labels are placed\n    // or moved.\n    onPlaceLabel: function(domElement, node){\n      var style = domElement.style;\n      var left = parseInt(style.left);\n      var top = parseInt(style.top);\n      var w = domElement.offsetWidth;\n      style.left = (left - w / 2) + \'px\';\n      style.top = (top + 10) + \'px\';\n      style.display = \'\';\n    }\n  });\n  // load JSON data.\n  fd.loadJSON(json);\n  // compute positions incrementally and animate.\n  fd.computeIncremental({\n    iter: 40,\n    property: \'end\',\n    onStep: function(perc){\n      Log.write(perc + \'% loaded...\');\n    },\n    onComplete: function(){\n      Log.write(\'The Graph \');\n      fd.animate({\n        modes: [\'linear\'],\n        transition: $jit.Trans.Elastic.easeOut,\n        duration: 2500\n      });\n    }\n  });\n  // end\n}";
+  }
+  
+  public String htmlHeaderClose() {
+    return "</script>\n</head>\n\n<body onload=\'init();\'>\n<div id=\'container\'>\n\n\n<div id=\'center-container\'>\n    <div id=\'infovis\'></div>    \n</div>\n\n\n<div id=\'inner-details\'></div>\n\n</div>\n\n<div id=\'log\'></div>\n</div>\n</body>\n</html>";
   }
 }
