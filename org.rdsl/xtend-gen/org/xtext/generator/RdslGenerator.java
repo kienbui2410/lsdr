@@ -15,7 +15,6 @@ import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.xtext.rdsl.Instance;
-import org.xtext.rdsl.IpTable;
 
 /**
  * Generates code from your model files on save.
@@ -129,77 +128,16 @@ public class RdslGenerator implements IGenerator {
   }
   
   public CharSequence compileIp(final Instance c) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.newLine();
-    _builder.append("<!DOCTYPE html>");
-    _builder.newLine();
-    _builder.append("<html>");
-    _builder.newLine();
-    _builder.append("<body>");
-    _builder.newLine();
-    _builder.append("iptables -L");
-    _builder.newLine();
-    _builder.append("<table border=\"1\" style=\"width:100%\">");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("<tr>");
-    _builder.newLine();
-    _builder.append("<td>traffic</td> <td>target</td> <td>prot</td> <td>source</td> <td>destination</td>");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("</tr>");
-    _builder.newLine();
-    {
-      EList<IpTable> _iptable = c.getIptable();
-      for(final IpTable rule : _iptable) {
-        _builder.append("  ");
-        _builder.append("<tr>");
-        _builder.newLine();
-        _builder.append("<td>");
-        String _traffic = rule.getTraffic();
-        _builder.append(_traffic, "");
-        _builder.append("</td> ");
-        _builder.newLineIfNotEmpty();
-        _builder.append("<td>");
-        String _target = rule.getTarget();
-        _builder.append(_target, "");
-        _builder.append("</td> ");
-        _builder.newLineIfNotEmpty();
-        _builder.append("<td>");
-        String _protocol = rule.getProtocol();
-        _builder.append(_protocol, "");
-        _builder.append("</td> ");
-        _builder.newLineIfNotEmpty();
-        _builder.append("<td>");
-        EList<Integer> _source = rule.getSource();
-        String _join = IterableExtensions.join(_source, ".");
-        _builder.append(_join, "");
-        _builder.append(".");
-        int _sourcefinal = rule.getSourcefinal();
-        _builder.append(_sourcefinal, "");
-        _builder.append("</td> ");
-        _builder.newLineIfNotEmpty();
-        _builder.append("<td>");
-        EList<Integer> _destination = rule.getDestination();
-        String _join_1 = IterableExtensions.join(_destination, ".");
-        _builder.append(_join_1, "");
-        _builder.append(".");
-        int _destinationfinal = rule.getDestinationfinal();
-        _builder.append(_destinationfinal, "");
-        _builder.append("</td>");
-        _builder.newLineIfNotEmpty();
-        _builder.append("  ");
-        _builder.append("</tr>");
-        _builder.newLine();
-      }
-    }
-    _builder.append("</table>");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("</body>");
-    _builder.newLine();
-    _builder.append("</html>");
-    _builder.newLine();
-    return _builder;
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method iptable is undefined for the type RdslGenerator"
+      + "\ntraffic cannot be resolved"
+      + "\ntarget cannot be resolved"
+      + "\nprotocol cannot be resolved"
+      + "\nsource cannot be resolved"
+      + "\njoin cannot be resolved"
+      + "\nsourcefinal cannot be resolved"
+      + "\ndestination cannot be resolved"
+      + "\njoin cannot be resolved"
+      + "\ndestinationfinal cannot be resolved");
   }
 }

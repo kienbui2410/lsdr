@@ -27,7 +27,7 @@ class RdslGenerator implements IGenerator {
       instance.compile)
       
            fsa.generateFile(
-      instance.hostname + ".rule",
+      instance.hostname + "_rules.html",
       instance.compileIp)
       }
         
@@ -52,32 +52,27 @@ def compile(Instance instance) '''
 
 def compileIp(Instance c) '''
 
+<!DOCTYPE html>
+<html>
+<body>
 iptables -L
-traffic target prot source destination
+<table border="1" style="width:100%">
+  <tr>
+<td>traffic</td> <td>target</td> <td>prot</td> <td>source</td> <td>destination</td>
+  </tr>
 «FOR rule : c.iptable»
-«IF  rule.source !=null && rule.destination !=null && rule.protocol !=null»
-«rule.traffic» «rule.target» «rule.protocol» «rule.source.join(".")».«rule.sourcefinal» «rule.destination.join(".")».«rule.destination»
-«ENDIF»
-«IF rule.source==null && rule.destination!=null && rule.protocol!=null»
-«rule.traffic» «rule.target» «rule.protocol» 'anywhere' «rule.destination.join(".")».«rule.destination»
-«ENDIF»
-«IF rule.source!=null && rule.destination==null && rule.protocol!=null»
-«rule.traffic» «rule.target» «rule.protocol» «rule.source.join(".")».«rule.sourcefinal» 'anywhere'
-«ENDIF»
-«IF rule.source!=null && rule.destination!=null && rule.protocol==null»
-«rule.traffic» «rule.target» 'all' «rule.source.join(".")».«rule.sourcefinal» «rule.destination.join(".")».«rule.destination»
-«ENDIF»
-«IF rule.source==null && rule.destination==null && rule.protocol!=null»
-«rule.traffic» «rule.target» «rule.protocol» 'anywhere' 'anywhere'
-«ENDIF»
-«IF rule.source==null && rule.destination!=null && rule.protocol==null»
-«rule.traffic» «rule.target» 'all' 'anywhere' «rule.destination.join(".")».«rule.destination»
-«ENDIF»
-«IF rule.source!==null && rule.destination==null && rule.protocol==null»
-«rule.traffic» «rule.target» 'all' «rule.source.join(".")».«rule.sourcefinal» 'anywhere'
-«ENDIF»
+  <tr>
+	<td>«rule.traffic»</td> 
+	<td>«rule.target»</td> 
+	<td>«rule.protocol»</td> 
+	<td>«rule.source.join(".")».«rule.sourcefinal»</td> 
+	<td>«rule.destination.join(".")».«rule.destinationfinal»</td>
+  </tr>
 «ENDFOR»
+</table>
 
+</body>
+</html>
 '''
 
 
