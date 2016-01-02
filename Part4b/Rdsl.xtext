@@ -85,19 +85,20 @@ Facet:
 
 Instance:
 	'instance' 'of' (component=[Component]) '{'
-		(instances+=Instance)*  
+
 		'name'':' name=ID (fullname+=Fullname)* ';' 
 		('count'':' val=INT ';')? 
-		('numInstances'':' valnum=INT ';')? 
-		('minAllowedInstances' ':' valmin=INT ';')? 
-		('maxAllowedInstances' ':' valmax=INT ';')? 
-		('adressType'':' ipAddress=AType ';')? 
-		('ipv4' 'address'':' ((ip4+=INT '.')* ip4last=INT) ';')? 
-		('ipv6' 'address'':' ((ip6+=INT '.')* ip6last=INT) ';')? 
-		('load' ':' theLoad=INT ';')? 
-		('state' ':' theState=('public'|'private') ';')?
-		('hostname' ':' hostname=ID ';')? 
-		(iptable+=IpTable)* 
+                (instances+=Instance)*  
+		('numInstances'':' valnum=INT ';')? &
+		('minAllowedInstances' ':' valmin=INT ';')? &
+		('maxAllowedInstances' ':' valmax=INT ';')? &
+		('adressType'':' ipAddress=AType ';')? &
+		('ipv4' 'address'':' ((ip4+=INT '.')* ip4last=INT) ';')? &
+		('ipv6' 'address'':' ((ip6+=INT '.')* ip6last=INT) ';')? &
+		('load' ':' theLoad=INT ';')? &
+		('state' ':' theState=('public'|'private') ';')? &
+		('hostname' ':' hostname=ID ';')? &
+		(iptable+=IpTable)* &
 		(attributes+=Attribut)* 
 	'}'
 ;
