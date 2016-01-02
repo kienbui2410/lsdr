@@ -67,10 +67,10 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
       case RdslPackage.MODEL: return createModel();
       case RdslPackage.GRAPH: return createGraph();
       case RdslPackage.IMPORT: return createImport();
+      case RdslPackage.IMPOT_URI: return createImpotUri();
       case RdslPackage.COMP_FACET: return createCompFacet();
       case RdslPackage.COMPONENT: return createComponent();
       case RdslPackage.INSTALLER: return createInstaller();
-      case RdslPackage.PROPERTY: return createProperty();
       case RdslPackage.EXTENDS: return createExtends();
       case RdslPackage.CHILDREN: return createChildren();
       case RdslPackage.EXPORT: return createExport();
@@ -81,6 +81,7 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
       case RdslPackage.FACETS: return createFacets();
       case RdslPackage.FACET: return createFacet();
       case RdslPackage.INSTANCE: return createInstance();
+      case RdslPackage.IP_TABLE: return createIpTable();
       case RdslPackage.ATTRIBUT: return createAttribut();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -125,6 +126,17 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ImpotUri createImpotUri()
+  {
+    ImpotUriImpl impotUri = new ImpotUriImpl();
+    return impotUri;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CompFacet createCompFacet()
   {
     CompFacetImpl compFacet = new CompFacetImpl();
@@ -151,17 +163,6 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
   {
     InstallerImpl installer = new InstallerImpl();
     return installer;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Property createProperty()
-  {
-    PropertyImpl property = new PropertyImpl();
-    return property;
   }
 
   /**
@@ -272,6 +273,17 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
   {
     InstanceImpl instance = new InstanceImpl();
     return instance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IpTable createIpTable()
+  {
+    IpTableImpl ipTable = new IpTableImpl();
+    return ipTable;
   }
 
   /**

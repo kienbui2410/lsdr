@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -35,7 +36,7 @@ import org.xtext.rdsl.importVariable;
  *
  * @generated
  */
-public class ImportsImpl extends PropertyImpl implements Imports
+public class ImportsImpl extends MinimalEObjectImpl.Container implements Imports
 {
   /**
    * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.

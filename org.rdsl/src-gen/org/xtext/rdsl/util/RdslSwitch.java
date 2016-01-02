@@ -93,6 +93,13 @@ public class RdslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case RdslPackage.IMPOT_URI:
+      {
+        ImpotUri impotUri = (ImpotUri)theEObject;
+        T result = caseImpotUri(impotUri);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case RdslPackage.COMP_FACET:
       {
         CompFacet compFacet = (CompFacet)theEObject;
@@ -115,18 +122,10 @@ public class RdslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case RdslPackage.PROPERTY:
-      {
-        Property property = (Property)theEObject;
-        T result = caseProperty(property);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case RdslPackage.EXTENDS:
       {
         Extends extends_ = (Extends)theEObject;
         T result = caseExtends(extends_);
-        if (result == null) result = caseProperty(extends_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -134,7 +133,6 @@ public class RdslSwitch<T> extends Switch<T>
       {
         Children children = (Children)theEObject;
         T result = caseChildren(children);
-        if (result == null) result = caseProperty(children);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -142,7 +140,6 @@ public class RdslSwitch<T> extends Switch<T>
       {
         Export export = (Export)theEObject;
         T result = caseExport(export);
-        if (result == null) result = caseProperty(export);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -164,7 +161,6 @@ public class RdslSwitch<T> extends Switch<T>
       {
         Imports imports = (Imports)theEObject;
         T result = caseImports(imports);
-        if (result == null) result = caseProperty(imports);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -179,7 +175,6 @@ public class RdslSwitch<T> extends Switch<T>
       {
         Facets facets = (Facets)theEObject;
         T result = caseFacets(facets);
-        if (result == null) result = caseProperty(facets);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -195,6 +190,13 @@ public class RdslSwitch<T> extends Switch<T>
       {
         Instance instance = (Instance)theEObject;
         T result = caseInstance(instance);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case RdslPackage.IP_TABLE:
+      {
+        IpTable ipTable = (IpTable)theEObject;
+        T result = caseIpTable(ipTable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -258,6 +260,22 @@ public class RdslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Impot Uri</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Impot Uri</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseImpotUri(ImpotUri object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Comp Facet</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -301,22 +319,6 @@ public class RdslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseInstaller(Installer object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Property</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseProperty(Property object)
   {
     return null;
   }
@@ -477,6 +479,22 @@ public class RdslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseInstance(Instance object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Ip Table</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Ip Table</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIpTable(IpTable object)
   {
     return null;
   }

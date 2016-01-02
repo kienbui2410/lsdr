@@ -10,15 +10,16 @@ Model:
 ;
 Graph:
 		
-	(imports+=Import)*
-	(components+=Component)+
-	(facetGraphs+=Facet)*
+	(imports+=Import |
+	components+=Component |
+	facetGraphs+=Facet)+
 ;
 
 Import:
-	'import' name=ID '.graph' ';'
+	'import' importURI=ImpotUri  ';'
 ;
 
+ImpotUri: name=ID '.graph' ;
 CompFacet:
 	Facet | Component
 ;
@@ -29,32 +30,28 @@ Component:
 	
 	installers=Installer
 	
-	(properties+=Property)*
+	((childrens+=Children) | (exports+=Export) | (imports+=Imports) | (facets+=Facets) | (extends+=Extends))*
 	
 	'}'
 ;
 
 Installer:
 	
-	'installer:' name=ID ';'
-;
-
-Property:
-	Children | Export | Imports | Facets | Extends
+	'installer'':' name=ID ';'
 ;
 
 Extends:
-	'extends:' supComponent=[Component]
+	'extends'':' supComponent=[Component] ';'
 ;
 
 Children:
 	
-	'children:'  (children+=[Component] ',')* child=[Component]   ';'
+	'children'':'  (children+=[Component] ',')* child=[Component]   ';'
 ;
 
 Export:
 	
-	'exports:'   (exports+=exportVariable ',')* export=exportVariable ';'
+	'exports'':'   (exports+=exportVariable ',')* export=exportVariable ';'
 ;
 
 exportVariable:
@@ -66,15 +63,15 @@ Initialisation:
 ;
 
 Imports:
-	'imports:' (imports+=importVariable ',')* imported=importVariable ';'
+	'imports'':' (imports+=importVariable ',')* imported=importVariable ';'
 ;
 
 importVariable:
-	('external')? ((importvariable=([CompFacet])'.'(name=ID | '*')) | name=ID) (optional?='(optional)')?
+	(external?='external')? ((importvariable=([CompFacet])'.'(name=ID | '*')) | name=ID) (optional?='(optional)')?
 ;
 
 Facets:
-	'facets:'  (facets+=[Facet] ',')* facet=[Facet]   ';'
+	'facets'':'  (facets+=[Facet] ',')* facet=[Facet]   ';'
 ;
 
 Facet:
@@ -82,26 +79,44 @@ Facet:
 	'facet' name=ID '{'
 		(exportFacet+=Export)*
 		(childrenFacet=Children)?
-		('extends:' (supFacets+=[Facet] ',')* supFacet=[Facet])?
+		('extends'':' (supFacets+=[Facet] ',')* supFacet=[Facet])?
 	'}'
 ;
 
 Instance:
 	'instance' 'of' (component=[Component]) '{'
-		'name:' name=ID(ID | INT)* ';'
-		('count:' val=INT ';')?
-		(attributes+=Attribut)*
-		(instances+=Instance)*
-		
+		(instances+=Instance)*  
+		'name'':' name=ID (fullname+=Fullname)* ';' 
+		('count'':' val=INT ';')? 
+		('numInstances'':' valnum=INT ';')? 
+		('minAllowedInstances' ':' valmin=INT ';')? 
+		('maxAllowedInstances' ':' valmax=INT ';')? 
+		('adressType'':' ipAddress=AType ';')? 
+		('ipv4' 'address'':' ((ip4+=INT '.')* ip4last=INT) ';')? 
+		('ipv6' 'address'':' ((ip6+=INT '.')* ip6last=INT) ';')? 
+		('load' ':' theLoad=INT ';')? 
+		('state' ':' theState=('public'|'private') ';')?
+		('hostname' ':' hostname=ID ';')? 
+		(iptable+=IpTable)* 
+		(attributes+=Attribut)* 
 	'}'
 ;
 
+
+IpTable:
+	'iptables' '-A' traffic=('INPUT' | 'OUTPUT' | 'FORWARD') ('-s' (source+=INT '.')+ sourcefinal=INT) ('-d' (destination+=INT '.')+ destinationfinal=INT) ('-p' protocol=('tcp'|'udp')) '-j' target=('ACCEPT' | 'REJECT' | 'DROP') ';'
+;
 Attribut:
 	name=ID':'valeur=VAL';'
 ;
+Fullname : ID | INT;
 
 VAL:
 	BOOLEAN | INT | STRING
+;
+
+AType:
+	'IPv4' | 'IPv6'
 ;
 
 terminal BOOLEAN returns ecore::EBoolean: 'true' | 'false';	

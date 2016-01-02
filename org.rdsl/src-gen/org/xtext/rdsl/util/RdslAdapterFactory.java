@@ -90,6 +90,11 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
         return createImportAdapter();
       }
       @Override
+      public Adapter caseImpotUri(ImpotUri object)
+      {
+        return createImpotUriAdapter();
+      }
+      @Override
       public Adapter caseCompFacet(CompFacet object)
       {
         return createCompFacetAdapter();
@@ -103,11 +108,6 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseInstaller(Installer object)
       {
         return createInstallerAdapter();
-      }
-      @Override
-      public Adapter caseProperty(Property object)
-      {
-        return createPropertyAdapter();
       }
       @Override
       public Adapter caseExtends(Extends object)
@@ -158,6 +158,11 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseInstance(Instance object)
       {
         return createInstanceAdapter();
+      }
+      @Override
+      public Adapter caseIpTable(IpTable object)
+      {
+        return createIpTableAdapter();
       }
       @Override
       public Adapter caseAttribut(Attribut object)
@@ -232,6 +237,21 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.xtext.rdsl.ImpotUri <em>Impot Uri</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.rdsl.ImpotUri
+   * @generated
+   */
+  public Adapter createImpotUriAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.xtext.rdsl.CompFacet <em>Comp Facet</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -272,21 +292,6 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInstallerAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.rdsl.Property <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.rdsl.Property
-   * @generated
-   */
-  public Adapter createPropertyAdapter()
   {
     return null;
   }
@@ -437,6 +442,21 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInstanceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.rdsl.IpTable <em>Ip Table</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.rdsl.IpTable
+   * @generated
+   */
+  public Adapter createIpTableAdapter()
   {
     return null;
   }

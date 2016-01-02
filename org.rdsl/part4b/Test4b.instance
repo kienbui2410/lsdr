@@ -1,0 +1,20 @@
+# A VM with Apache+load balancer
+instance of VM_EC2 { 
+	instance of ApacheServer { 
+		name : Apache GH; 
+		ipv4 address :15.12.12.12 ;
+		 hostname : ApacheServer ; 
+		 } 
+	name : Apachejjs VM ; 
+	} 
+# A VM with Tomcat+webapp
+instance of VM_EC2 { 
+	instance of ApacheServer {
+		 instance of Lamp { 
+		 	name :DemoApp SE ; 
+		 	} 
+		 name : Tomcatsa; 
+		 } 
+	name : TomcatVM VM ;
+	hostname : ApacheServer22 ; 
+	}

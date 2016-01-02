@@ -17,19 +17,25 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Graph/facetGraphs"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Import">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Import/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Import/importURI"/>
+    </genClasses>
+    <genClasses ecoreClass="Rdsl.ecore#//ImpotUri">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//ImpotUri/name"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//CompFacet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//CompFacet/name"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Component">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/installers"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/childrens"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/exports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/facets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/extends"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Installer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Installer/name"/>
     </genClasses>
-    <genClasses ecoreClass="Rdsl.ecore#//Property"/>
     <genClasses ecoreClass="Rdsl.ecore#//Extends">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Extends/supComponent"/>
     </genClasses>
@@ -53,6 +59,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Imports/imported"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//importVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//importVariable/external"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rdsl.ecore#//importVariable/importvariable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//importVariable/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//importVariable/optional"/>
@@ -69,10 +76,32 @@
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Instance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/component"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/val"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/instances"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/fullname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/val"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/valnum"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/valmin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/valmax"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ipAddress"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip4"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip4last"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip6"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip6last"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/theLoad"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/theState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/hostname"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/iptable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="Rdsl.ecore#//IpTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/traffic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/sourcefinal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/destination"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/destinationfinal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/protocol"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/target"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Attribut">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Attribut/name"/>

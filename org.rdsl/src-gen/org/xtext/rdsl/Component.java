@@ -14,7 +14,11 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.rdsl.Component#getInstallers <em>Installers</em>}</li>
- *   <li>{@link org.xtext.rdsl.Component#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Component#getChildrens <em>Childrens</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Component#getExports <em>Exports</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Component#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Component#getFacets <em>Facets</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Component#getExtends <em>Extends</em>}</li>
  * </ul>
  *
  * @see org.xtext.rdsl.RdslPackage#getComponent()
@@ -50,19 +54,83 @@ public interface Component extends CompFacet
   void setInstallers(Installer value);
 
   /**
-   * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.rdsl.Property}.
+   * Returns the value of the '<em><b>Childrens</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.rdsl.Children}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Childrens</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Properties</em>' containment reference list.
-   * @see org.xtext.rdsl.RdslPackage#getComponent_Properties()
+   * @return the value of the '<em>Childrens</em>' containment reference list.
+   * @see org.xtext.rdsl.RdslPackage#getComponent_Childrens()
    * @model containment="true"
    * @generated
    */
-  EList<Property> getProperties();
+  EList<Children> getChildrens();
+
+  /**
+   * Returns the value of the '<em><b>Exports</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.rdsl.Export}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Exports</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Exports</em>' containment reference list.
+   * @see org.xtext.rdsl.RdslPackage#getComponent_Exports()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Export> getExports();
+
+  /**
+   * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.rdsl.Imports}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Imports</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Imports</em>' containment reference list.
+   * @see org.xtext.rdsl.RdslPackage#getComponent_Imports()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Imports> getImports();
+
+  /**
+   * Returns the value of the '<em><b>Facets</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.rdsl.Facets}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Facets</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Facets</em>' containment reference list.
+   * @see org.xtext.rdsl.RdslPackage#getComponent_Facets()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Facets> getFacets();
+
+  /**
+   * Returns the value of the '<em><b>Extends</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.rdsl.Extends}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Extends</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Extends</em>' containment reference list.
+   * @see org.xtext.rdsl.RdslPackage#getComponent_Extends()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Extends> getExtends();
 
 } // Component

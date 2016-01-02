@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.rdsl.Component;
 import org.xtext.rdsl.Extends;
@@ -26,7 +27,7 @@ import org.xtext.rdsl.RdslPackage;
  *
  * @generated
  */
-public class ExtendsImpl extends PropertyImpl implements Extends
+public class ExtendsImpl extends MinimalEObjectImpl.Container implements Extends
 {
   /**
    * The cached value of the '{@link #getSupComponent() <em>Sup Component</em>}' reference.

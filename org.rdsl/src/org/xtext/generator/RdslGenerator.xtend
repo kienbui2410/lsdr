@@ -4,526 +4,76 @@
 package org.xtext.generator
 
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
-import org.xtext.rdsl.*
+import org.eclipse.xtext.generator.IGenerator
+import org.xtext.rdsl.Instance
 
 /**
  * Generates code from your model files on save.
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
+
 class RdslGenerator implements IGenerator {
-
-	// get name of graph
-	def className(Resource res){
-		var name = res.URI.lastSegment
-		name = name.substring(0,name.indexOf('.'))
-	}
-
-	// generate graph node
- 	 def listGraph(Model model) '''
- 	 // Generate GRAPH node
- 	{  
-    'id': 'GRAPH',  
-    'name': 'GRAPH',  
-    'data': {  
-          '$color': '#416D9C',
-          '$type': 'circle',
-          '$dim': 10,
-		  '$info': ''
-     },  
-    'adjacencies': [
-    «IF model.graphs.imports!=null»
- 	 «FOR im : model.graphs.imports»
-	 'importedPackage_«im.importURI.name»' ,
- 	 «ENDFOR»
- 	 «ENDIF»
- 	 
-    «IF model.graphs.components!=null»
- 	 «FOR com : model.graphs.components»
-	 'com_«com.name»' ,
- 	 «ENDFOR»
- 	 «ENDIF»
-
-    «IF model.graphs.facetGraphs!=null»
- 	 «FOR facet : model.graphs.facetGraphs»
-	 'facet_«facet.name»' ,
- 	 «ENDFOR»
- 	 «ENDIF» 	  	 
-    ]  
-  	}, 
-	 '''	
-
- 	// take a list of imported Packages of a graph 
- 	 def listImportPackage(Graph graph) '''
- 	 «IF graph.imports!=null»
- 	 // Generate ImportedPackage node
- 	 «FOR im : graph.imports»
- 	{  
-    'id': 'importedPackage_«im.importURI.name»',  
-    'name': 'importedPackage',  
-    'data': {  
-          "$color": "#416D9C",
-          "$type": "circle",
-          "$dim": 7,
-		  '$info': '«im.importURI.name»'
-     	}
-  	}, 
- 	 «ENDFOR» 	 
- 	 «ENDIF»
-	 '''
-	 	 
- 	// take a list of components of a graph 
- 	 def listComponent(Graph graph) '''
- 	 «IF graph.components!=null»
- 	 «FOR com : graph.components»
- 	 // Generate Component node	 
- 	 {  
-    'id': 'com_«com.name»',  
-    'name': 'Component: «com.name»',  
-    'data': {  
-          '$color': '#83548B',
-          '$type': 'circle',
-          '$dim': 10,
-		  '$info': ''
-     	},  
-    'adjacencies': [
-    «IF com.installers!=null»
-	 'in_«com.name»_«com.installers.name»' ,
- 	 «ENDIF»
- 	 
-    «IF com.childrens!=null»
- 	 «FOR ch : com.childrens»
-	    	«FOR ch1 : ch.children»
-			'ch_«com.name»_«ch1.name»' ,		
-	  		«ENDFOR»	  	  		
-			'ch_«com.name»_«ch.child.name»' ,
-	    «ENDFOR»
- 	 «ENDIF»
- 	 
- 	 «IF com.exports!=null»
- 	 «FOR ex : com.exports»
-	    	«FOR ex1 : ex.exports»
-			'ex_«com.name»_«ex1.name»' ,		
-	  		«ENDFOR»	  	  		
-			'ex_«com.name»_«ex.export.name»' ,
-	    «ENDFOR»
- 	 «ENDIF»
- 	 
- 	 «IF com.imports!=null»
- 	 «FOR im : com.imports»
-	    	«FOR im1 : im.imports»
-			'im_«com.name»_«im1.name»' ,		
-	  		«ENDFOR»	  	  		
-			'im_«com.name»_«im.imported.name»' ,
-	    «ENDFOR»
- 	 «ENDIF» 	
- 	 
- 	 «IF com.facets!=null»
- 	 «FOR fc : com.facets»
-	    	«FOR fc1 : fc.facets»
-			'facet_«fc1.name»' ,		
-	  		«ENDFOR»	  	  		
-			'facet_«fc.facet.name»' ,
-	    «ENDFOR»
- 	 «ENDIF»  	 
- 	  	 
-    ] 
-  	}, 
- 	 «ENDFOR»	 
- 	 «ENDIF»
-	 '''	 	 
-	 	 
-	 	 
-	 // take a list properties of a Component
-	 def listPropertiesOfComponent(Component com) '''
-	 	// Generate Installer node 	
-	 	{  
-	    'id': 'in_«com.name»_«com.installers.name»',  
-	    'name': 'Installer',  
-	    'data': {  
-	          '$color': '#70A35E',
-	          '$type': 'star',
-	          '$dim': 10,
-			  '$info': '«com.installers.name»'
-	     	}
-  		},
-
-		
-  		«IF com.childrens!=null»
-  		// Generate Children node
-	  	«com.listChildren»
-	  	«ENDIF»
-
-  		«IF com.exports!=null»
-  		// Generate Export node
-	  	«com.listExport»
-	  	«ENDIF»	  	
-	  	
-  		«IF com.imports!=null»
-  		// Generate Import node
-	  	«com.listImport»
-	  	«ENDIF»	  
- 	'''
-
-	// take a list of Children of a Component
-	 def listChildren(Component com)'''
-	    «FOR ch : com.childrens»
-	    	«FOR ch1 : ch.children»
-			 	{  
-			    'id': 'ch_«com.name»_«ch1.name»',  
-			    'name': 'children',  
-			    'data': {  
-			          '$color': '#C74243',
-			          '$type': 'circle',
-			          '$dim': 10,
-					  '$info': '«ch1.name»'
-			     	}
-		  		},  			
-	  			«ENDFOR»
-	  			{  
-			    'id': 'ch_«com.name»_«ch.child.name»',  
-			    'name': 'children',  
-			    'data': {  
-			          '$color': '#C74243',
-			          '$type': 'circle',
-			          '$dim': 10,
-					  '$info': '«ch.child.name»'
-			     	}
-		  		}, 	  	  		
-	    «ENDFOR»
-	 '''
-	 
-	// take a list of Exports of a Component  
-	 def listExport(Component com)'''
-	    «FOR e : com.exports»
-	    		«FOR e1 : e.exports»	
-	    			{  
-				    'id': 'ex_«com.name»_«e1.name»',  
-				    'name': 'export',  
-				    'data': {  
-				          '$color': '#C74243',
-				          '$type': 'rectangle',
-				          '$dim': 10,
-						  '$info': '«e1.name» «IF e1.initial!=null»  :«e1.initial.^val»«ENDIF»'
-				     	}
-			  		}, 				
-	  			«ENDFOR»
-	  				{  
-				    'id': 'ex_«com.name»_«e.export.name»',  
-				    'name': 'export',  
-				    'data': {  
-				          '$color': '#C74243',
-				          '$type': 'rectangle',
-				          '$dim': 10,
-						  '$info': '«e.export.name» «IF e.export.initial!=null» :«e.export.initial.^val»«ENDIF» '
-				     	}
-			  		}, 		  			 					  			
-	    «ENDFOR»
-	 '''	  
-	 
-
-	// take a list of Import of a Component  
-	 def listImport(Component com)'''
-	    «FOR im : com.imports»
-	    		«FOR im1 : im.imports»	
-		    		{  
-				    'id': 'im_«com.name»_«im1.name»',  
-				    'name': 'import',  
-				    'data': {  
-				          '$color': '#C74243',
-				          '$type': 'triangle',
-				          '$dim': 10,
-						  '$info': '«IF im1.external==true»external«ENDIF» «im1.name»  «IF im1.importvariable!=null»of «im1.importvariable.name»«ENDIF» «IF im1.optional==true»(optional)«ENDIF» '
-				     	}
-			  		}, 			  			  				  							
-	  			«ENDFOR» 		
-	  				{  
-				    'id': 'im_«com.name»_«im.imported.name»',  
-				    'name': 'import',  
-				    'data': {  
-				          '$color': '#C74243',
-				          '$type': 'triangle',
-				          '$dim': 10,
-						  '$info': '«IF im.imported.external==true»external«ENDIF» «im.imported.name»  «IF im.imported.importvariable!=null»of «im.imported.importvariable.name»«ENDIF»  «IF im.imported.optional==true»(optional)«ENDIF» '
-				     	}
-			  		}, 	  				  					 		  			  		 			
-	    «ENDFOR»
-	 '''	 
 	
- 	// take a list of facets of a graph 
- 	 def listFacet(Model model) '''
- 	 «IF model.graphs.facetGraphs!=null»
- 	 // Generate Facet node
- 	 «FOR facet : model.graphs.facetGraphs»
- 	{  
-    'id': 'facet_«facet.name»',  
-    'name': 'Facet:_«facet.name»',  
-    'data': {  
-          "$color": "#416D9C",
-          "$type": "star",
-          "$dim": 7,
-		  '$info': '«IF facet.exportFacet!=null»(Export:«FOR e: facet.exportFacet»«FOR e1 : e.exports» «e1.name»«ENDFOR» «e.export.name»«ENDFOR»)«ENDIF»   «IF facet.childrenFacet!=null»(Children: «FOR ch1: facet.childrenFacet.children» «ch1.name»«ENDFOR»«facet.childrenFacet.child.name»)«ENDIF»    «IF facet.supFacet!=null»Extends:«facet.supFacet.name»«ENDIF» «IF facet.supFacets!=null»«FOR fc:facet.supFacets»«fc.name»«ENDFOR»«ENDIF»'
-     	}
-  	}, 
- 	 «ENDFOR» 	 
- 	 «ENDIF»
-	 '''	 
-
- 	// take a list of facets of a graph 
- 	 def listInstances(Model model) '''
- 	 // Generate Instance node
- 	 «FOR instance : model.instances»
- 	{  
-    'id': 'instance_«instance.component.name»',  
-    'name': 'instance of «instance.component.name»',  
-    'data': {  
-          "$color": "#416D9C",
-          "$type": "circle",
-          "$dim": 7,
-		  '$info': '«IF instance.count!=null»(Count:«instance.^val»)«ENDIF»   «IF instance.attributes.size>0»(Attibute: «FOR att: instance.attributes» «att.name» «att.valeur»«ENDFOR»«ENDIF»'
-     	}
-     «IF instance.instances!=null»	
-     	,  
-    'adjacencies': [
- 	 «FOR ins : instance.instances»
-	 'instance_«ins.name»' ,
- 	 «ENDFOR»	  	  	 
-    ]  
-    «ENDIF»
-  	}, 
-  	«ENDFOR»
-	 ''' 
-	 
- 	 def toJSONCode(Model m) '''
- 	 	«IF m.graphs!=null»
-		   «m.listGraph»
-		   «m.graphs.listImportPackage»
-		   «m.graphs.listComponent»
-		   «FOR com : m.graphs.components»
-		 	   «com.listPropertiesOfComponent»
-		   «ENDFOR» 
-		   «m.listFacet»
-		«ELSE»   
-		   «IF m.instances!=null»	
-		   		«m.listInstances»   
-		   «ENDIF»
-		«ENDIF»   
- 		'''
- 	
- 	
-//	override void doGenerate(Resource resource, IFileSystemAccess fsa) { 
-//		fsa.generateFile(resource.className+".json", 
-//		"var json = [" 	
-//			+ toJSONCode(resource.contents.head as Model) +
-//		"];"		
-//		)				
-//	}
-	
-		override void doGenerate(Resource resource, IFileSystemAccess fsa) { 
-		fsa.generateFile(resource.className+".html", 
-		
-htmlHeaderOpen()+
- htmlJavascriptCode()+
- 			htlmJavascriptJsonInit(resource)+	
- htmlJavascriptFinal()+
-	htmlHeaderClose()
-		)				
-	}
-//	
-	def String htmlHeaderOpen() {
-		return  " <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
-<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
-<head>
-<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-<title>Robonconf configuration graph</title>
-
-<!-- CSS Files -->
-<link type='text/css' href='lib/base.css' rel='stylesheet' />
-<link type='text/css' href='lib/ForceDirected.css' rel='stylesheet' />
-<!--[if IE]><script language='javascript' type='text/javascript' src='lib/excanvas.js'></script><![endif]-->
-<!-- JIT Library File -->
-<script language='javascript' type='text/javascript' src='lib/jit.js'></script>
-
-<!-- Example File -->"
-;
-	}
-
-	def String htmlJavascriptCode(){
-		return "<script language='javascript' type='text/javascript'>
- var labelType, useGradients, nativeTextSupport, animate;
-
-(function() {
-  var ua = navigator.userAgent,
-      iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
-      typeOfCanvas = typeof HTMLCanvasElement,
-      nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-      textSupport = nativeCanvasSupport 
-        && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
-  //I'm setting this based on the fact that ExCanvas provides text support for IE
-  //and that as of today iPhone/iPad current text support is lame
-  labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? 'Native' : 'HTML';
-  nativeTextSupport = labelType == 'Native';
-  useGradients = nativeCanvasSupport;
-  animate = !(iStuff || !nativeCanvasSupport);
-})();
-
-var Log = {
-  elem: false,
-  write: function(text){
-    if (!this.elem) 
-      this.elem = document.getElementById('log');
-    this.elem.innerHTML = text;
-    this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
-  }
-}; ";
-	}
-
-	def String htlmJavascriptJsonInit(Resource resource){
-		return "function init(){
-   // init data
-   var json = [ "
-   + toJSONCode(resource.contents.head as Model) +
-		"];"
-	}
-	
-	def String htmlJavascriptFinal(){
-		return "   var fd = new $jit.ForceDirected({
-    //id of the visualization container
-    injectInto: 'infovis',
-    //Enable zooming and panning
-    //by scrolling and DnD
-    Navigation: {
-      enable: true,
-      //Enable panning events only if we're dragging the empty
-      //canvas (and not a node).
-      panning: 'avoid nodes',
-      zooming: 10 //zoom speed. higher is more sensible
-    },
-    // Change node and edge styles such as
-    // color and width.
-    // These properties are also set per node
-    // with dollar prefixed data-properties in the
-    // JSON structure.
-    Node: {
-      overridable: true
-    },
-    Edge: {
-      overridable: true,
-      color: '#23A4FF',
-      lineWidth: 0.4
-    },
-    //Native canvas text styling
-    Label: {
-      type: labelType, //Native or HTML
-      size: 10,
-      style: 'bold'
-    },
-    //Add Tips
-    Tips: {
-      enable: true,
-      onShow: function(tip, node) {
-        //count connections
-        var count = 0;
-        node.eachAdjacency(function() { count++; });
-        //display node info in tooltip
-        tip.innerHTML = '<div class=\"tip-title\">' + node.name + '</div>'
-          + '<div class=\"tip-text\"><b>info:</b> ' + node.data.$info+ '</div>';
+	override void doGenerate(Resource resource, IFileSystemAccess fsa) {			
+		 for( instance: resource.allContents.toIterable.filter(Instance)) {
+		 	
+		 	if (instance.hostname != null ){
+		 		  			
+  
+    fsa.generateFile(
+      instance.hostname + ".cfg",
+      instance.compile)
+      
+           fsa.generateFile(
+      instance.hostname + "_rules.html",
+      instance.compileIp)
       }
-    },
-    // Add node events
-    Events: {
-      enable: true,
-      type: 'Native',
-      //Change cursor style when hovering a node
-      onMouseEnter: function() {
-        fd.canvas.getElement().style.cursor = 'move';
-      },
-      onMouseLeave: function() {
-        fd.canvas.getElement().style.cursor = '';
-      },
-      //Update node positions when dragged
-      onDragMove: function(node, eventInfo, e) {
-          var pos = eventInfo.getPos();
-          node.pos.setc(pos.x, pos.y);
-          fd.plot();
-      },
-      //Implement the same handler for touchscreens
-      onTouchMove: function(node, eventInfo, e) {
-        $jit.util.event.stop(e); //stop default touchmove event
-        this.onDragMove(node, eventInfo, e);
-      },
-      //Add also a click handler to nodes
-
-    },
-    //Number of iterations for the FD algorithm
-    iterations: 200,
-    //Edge length
-    levelDistance: 130,
-    // Add text to the labels. This method is only triggered
-    // on label creation and only for DOM labels (not native canvas ones).
-    onCreateLabel: function(domElement, node){
-      domElement.innerHTML = node.name;
-      var style = domElement.style;
-      style.fontSize = '0.8em';
-      style.color = '#ddd';
-    },
-    // Change node styles when DOM labels are placed
-    // or moved.
-    onPlaceLabel: function(domElement, node){
-      var style = domElement.style;
-      var left = parseInt(style.left);
-      var top = parseInt(style.top);
-      var w = domElement.offsetWidth;
-      style.left = (left - w / 2) + 'px';
-      style.top = (top + 10) + 'px';
-      style.display = '';
-    }
-  });
-  // load JSON data.
-  fd.loadJSON(json);
-  // compute positions incrementally and animate.
-  fd.computeIncremental({
-    iter: 40,
-    property: 'end',
-    onStep: function(perc){
-      Log.write(perc + '% loaded...');
-    },
-    onComplete: function(){
-      Log.write('The Graph ');
-      fd.animate({
-        modes: ['linear'],
-        transition: $jit.Trans.Elastic.easeOut,
-        duration: 2500
-      });
-    }
-  });
-  // end
-}"
-	}
-	def String htmlHeaderClose(){
+        
+      }
+     
+  }
 		
-		return "</script>
-</head>
+	
 
-<body onload='init();'>
-<div id='container'>
+def compile(Instance instance) ''' 
+  define host {
+        use                             linux-server
+        host_name                       «instance.hostname»
+        alias                           «instance.name » «instance.fullname.join(" ") »
+        address                         «IF instance.ip4 != null && instance.ip4.size >0 »«instance.ip4.join(".")».«instance.ip4last»«ELSEIF  instance.ip6 != null && instance.ip4.size >0 »«instance.ip6.join(".")».«instance.ip6last»«ENDIF»
+        max_check_attempts              5
+        check_period                    24x7
+        notification_interval           30
+        notification_period             24x7
+}
+'''
 
+def compileIp(Instance c) '''
 
-<div id='center-container'>
-    <div id='infovis'></div>    
-</div>
+<!DOCTYPE html>
+<html>
+<body>
+iptables -L
+<table border="1" style="width:100%">
+  <tr>
+<td>traffic</td> <td>target</td> <td>prot</td> <td>source</td> <td>destination</td>
+  </tr>
+«FOR rule : c.iptable»
+  <tr>
+	<td>«rule.traffic»</td> 
+	<td>«rule.target»</td> 
+	<td>«rule.protocol»</td> 
+	<td>«rule.source.join(".")».«rule.sourcefinal»</td> 
+	<td>«rule.destination.join(".")».«rule.destinationfinal»</td>
+  </tr>
+«ENDFOR»
+</table>
 
-
-<div id='inner-details'></div>
-
-</div>
-
-<div id='log'></div>
-</div>
 </body>
-</html>";
-	}
+</html>
+'''
+
 
 }

@@ -20,11 +20,12 @@ import org.xtext.rdsl.Facets;
 import org.xtext.rdsl.Graph;
 import org.xtext.rdsl.Import;
 import org.xtext.rdsl.Imports;
+import org.xtext.rdsl.ImpotUri;
 import org.xtext.rdsl.Initialisation;
 import org.xtext.rdsl.Installer;
 import org.xtext.rdsl.Instance;
+import org.xtext.rdsl.IpTable;
 import org.xtext.rdsl.Model;
-import org.xtext.rdsl.Property;
 import org.xtext.rdsl.RdslFactory;
 import org.xtext.rdsl.RdslPackage;
 import org.xtext.rdsl.exportVariable;
@@ -64,6 +65,13 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass impotUriEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass compFacetEClass = null;
 
   /**
@@ -79,13 +87,6 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * @generated
    */
   private EClass installerEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass propertyEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -156,6 +157,13 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * @generated
    */
   private EClass instanceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ipTableEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -312,9 +320,29 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getImport_Name()
+  public EReference getImport_ImportURI()
   {
-    return (EAttribute)importEClass.getEStructuralFeatures().get(0);
+    return (EReference)importEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getImpotUri()
+  {
+    return impotUriEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getImpotUri_Name()
+  {
+    return (EAttribute)impotUriEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -362,9 +390,49 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getComponent_Properties()
+  public EReference getComponent_Childrens()
   {
     return (EReference)componentEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getComponent_Exports()
+  {
+    return (EReference)componentEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getComponent_Imports()
+  {
+    return (EReference)componentEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getComponent_Facets()
+  {
+    return (EReference)componentEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getComponent_Extends()
+  {
+    return (EReference)componentEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -385,16 +453,6 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
   public EAttribute getInstaller_Name()
   {
     return (EAttribute)installerEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getProperty()
-  {
-    return propertyEClass;
   }
 
   /**
@@ -572,9 +630,19 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getimportVariable_External()
+  {
+    return (EAttribute)importVariableEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getimportVariable_Importvariable()
   {
-    return (EReference)importVariableEClass.getEStructuralFeatures().get(0);
+    return (EReference)importVariableEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -584,7 +652,7 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    */
   public EAttribute getimportVariable_Name()
   {
-    return (EAttribute)importVariableEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)importVariableEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -594,7 +662,7 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    */
   public EAttribute getimportVariable_Optional()
   {
-    return (EAttribute)importVariableEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)importVariableEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -702,9 +770,9 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getInstance_Name()
+  public EReference getInstance_Instances()
   {
-    return (EAttribute)instanceEClass.getEStructuralFeatures().get(1);
+    return (EReference)instanceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -712,7 +780,7 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getInstance_Val()
+  public EAttribute getInstance_Name()
   {
     return (EAttribute)instanceEClass.getEStructuralFeatures().get(2);
   }
@@ -722,9 +790,9 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getInstance_Attributes()
+  public EAttribute getInstance_Fullname()
   {
-    return (EReference)instanceEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -732,9 +800,219 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getInstance_Instances()
+  public EAttribute getInstance_Val()
   {
-    return (EReference)instanceEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Valnum()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Valmin()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Valmax()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_IpAddress()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Ip4()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Ip4last()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Ip6()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Ip6last()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(12);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_TheLoad()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(13);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_TheState()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(14);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstance_Hostname()
+  {
+    return (EAttribute)instanceEClass.getEStructuralFeatures().get(15);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstance_Iptable()
+  {
+    return (EReference)instanceEClass.getEStructuralFeatures().get(16);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstance_Attributes()
+  {
+    return (EReference)instanceEClass.getEStructuralFeatures().get(17);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIpTable()
+  {
+    return ipTableEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIpTable_Traffic()
+  {
+    return (EAttribute)ipTableEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIpTable_Source()
+  {
+    return (EAttribute)ipTableEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIpTable_Sourcefinal()
+  {
+    return (EAttribute)ipTableEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIpTable_Destination()
+  {
+    return (EAttribute)ipTableEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIpTable_Destinationfinal()
+  {
+    return (EAttribute)ipTableEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIpTable_Protocol()
+  {
+    return (EAttribute)ipTableEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIpTable_Target()
+  {
+    return (EAttribute)ipTableEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -807,19 +1085,24 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
     createEReference(graphEClass, GRAPH__FACET_GRAPHS);
 
     importEClass = createEClass(IMPORT);
-    createEAttribute(importEClass, IMPORT__NAME);
+    createEReference(importEClass, IMPORT__IMPORT_URI);
+
+    impotUriEClass = createEClass(IMPOT_URI);
+    createEAttribute(impotUriEClass, IMPOT_URI__NAME);
 
     compFacetEClass = createEClass(COMP_FACET);
     createEAttribute(compFacetEClass, COMP_FACET__NAME);
 
     componentEClass = createEClass(COMPONENT);
     createEReference(componentEClass, COMPONENT__INSTALLERS);
-    createEReference(componentEClass, COMPONENT__PROPERTIES);
+    createEReference(componentEClass, COMPONENT__CHILDRENS);
+    createEReference(componentEClass, COMPONENT__EXPORTS);
+    createEReference(componentEClass, COMPONENT__IMPORTS);
+    createEReference(componentEClass, COMPONENT__FACETS);
+    createEReference(componentEClass, COMPONENT__EXTENDS);
 
     installerEClass = createEClass(INSTALLER);
     createEAttribute(installerEClass, INSTALLER__NAME);
-
-    propertyEClass = createEClass(PROPERTY);
 
     extendsEClass = createEClass(EXTENDS);
     createEReference(extendsEClass, EXTENDS__SUP_COMPONENT);
@@ -844,6 +1127,7 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
     createEReference(importsEClass, IMPORTS__IMPORTED);
 
     importVariableEClass = createEClass(IMPORT_VARIABLE);
+    createEAttribute(importVariableEClass, IMPORT_VARIABLE__EXTERNAL);
     createEReference(importVariableEClass, IMPORT_VARIABLE__IMPORTVARIABLE);
     createEAttribute(importVariableEClass, IMPORT_VARIABLE__NAME);
     createEAttribute(importVariableEClass, IMPORT_VARIABLE__OPTIONAL);
@@ -860,10 +1144,32 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
 
     instanceEClass = createEClass(INSTANCE);
     createEReference(instanceEClass, INSTANCE__COMPONENT);
-    createEAttribute(instanceEClass, INSTANCE__NAME);
-    createEAttribute(instanceEClass, INSTANCE__VAL);
-    createEReference(instanceEClass, INSTANCE__ATTRIBUTES);
     createEReference(instanceEClass, INSTANCE__INSTANCES);
+    createEAttribute(instanceEClass, INSTANCE__NAME);
+    createEAttribute(instanceEClass, INSTANCE__FULLNAME);
+    createEAttribute(instanceEClass, INSTANCE__VAL);
+    createEAttribute(instanceEClass, INSTANCE__VALNUM);
+    createEAttribute(instanceEClass, INSTANCE__VALMIN);
+    createEAttribute(instanceEClass, INSTANCE__VALMAX);
+    createEAttribute(instanceEClass, INSTANCE__IP_ADDRESS);
+    createEAttribute(instanceEClass, INSTANCE__IP4);
+    createEAttribute(instanceEClass, INSTANCE__IP4LAST);
+    createEAttribute(instanceEClass, INSTANCE__IP6);
+    createEAttribute(instanceEClass, INSTANCE__IP6LAST);
+    createEAttribute(instanceEClass, INSTANCE__THE_LOAD);
+    createEAttribute(instanceEClass, INSTANCE__THE_STATE);
+    createEAttribute(instanceEClass, INSTANCE__HOSTNAME);
+    createEReference(instanceEClass, INSTANCE__IPTABLE);
+    createEReference(instanceEClass, INSTANCE__ATTRIBUTES);
+
+    ipTableEClass = createEClass(IP_TABLE);
+    createEAttribute(ipTableEClass, IP_TABLE__TRAFFIC);
+    createEAttribute(ipTableEClass, IP_TABLE__SOURCE);
+    createEAttribute(ipTableEClass, IP_TABLE__SOURCEFINAL);
+    createEAttribute(ipTableEClass, IP_TABLE__DESTINATION);
+    createEAttribute(ipTableEClass, IP_TABLE__DESTINATIONFINAL);
+    createEAttribute(ipTableEClass, IP_TABLE__PROTOCOL);
+    createEAttribute(ipTableEClass, IP_TABLE__TARGET);
 
     attributEClass = createEClass(ATTRIBUT);
     createEAttribute(attributEClass, ATTRIBUT__NAME);
@@ -900,11 +1206,6 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
 
     // Add supertypes to classes
     componentEClass.getESuperTypes().add(this.getCompFacet());
-    extendsEClass.getESuperTypes().add(this.getProperty());
-    childrenEClass.getESuperTypes().add(this.getProperty());
-    exportEClass.getESuperTypes().add(this.getProperty());
-    importsEClass.getESuperTypes().add(this.getProperty());
-    facetsEClass.getESuperTypes().add(this.getProperty());
     facetEClass.getESuperTypes().add(this.getCompFacet());
 
     // Initialize classes and features; add operations and parameters
@@ -918,19 +1219,24 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
     initEReference(getGraph_FacetGraphs(), this.getFacet(), null, "facetGraphs", null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getImport_Name(), ecorePackage.getEString(), "name", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getImport_ImportURI(), this.getImpotUri(), null, "importURI", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(impotUriEClass, ImpotUri.class, "ImpotUri", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getImpotUri_Name(), ecorePackage.getEString(), "name", null, 0, 1, ImpotUri.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(compFacetEClass, CompFacet.class, "CompFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCompFacet_Name(), ecorePackage.getEString(), "name", null, 0, 1, CompFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getComponent_Installers(), this.getInstaller(), null, "installers", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponent_Properties(), this.getProperty(), null, "properties", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getComponent_Childrens(), this.getChildren(), null, "childrens", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getComponent_Exports(), this.getExport(), null, "exports", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getComponent_Imports(), this.getImports(), null, "imports", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getComponent_Facets(), this.getFacets(), null, "facets", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getComponent_Extends(), this.getExtends(), null, "extends", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(installerEClass, Installer.class, "Installer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getInstaller_Name(), ecorePackage.getEString(), "name", null, 0, 1, Installer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(extendsEClass, Extends.class, "Extends", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExtends_SupComponent(), this.getComponent(), null, "supComponent", null, 0, 1, Extends.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -955,6 +1261,7 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
     initEReference(getImports_Imported(), this.getimportVariable(), null, "imported", null, 0, 1, Imports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importVariableEClass, importVariable.class, "importVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getimportVariable_External(), ecorePackage.getEBoolean(), "external", null, 0, 1, importVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getimportVariable_Importvariable(), this.getCompFacet(), null, "importvariable", null, 0, 1, importVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getimportVariable_Name(), ecorePackage.getEString(), "name", null, 0, 1, importVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getimportVariable_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1, importVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -971,10 +1278,32 @@ public class RdslPackageImpl extends EPackageImpl implements RdslPackage
 
     initEClass(instanceEClass, Instance.class, "Instance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getInstance_Component(), this.getComponent(), null, "component", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getInstance_Name(), ecorePackage.getEString(), "name", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getInstance_Val(), ecorePackage.getEInt(), "val", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getInstance_Attributes(), this.getAttribut(), null, "attributes", null, 0, -1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getInstance_Instances(), this.getInstance(), null, "instances", null, 0, -1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Name(), ecorePackage.getEString(), "name", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Fullname(), ecorePackage.getEString(), "fullname", null, 0, -1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Val(), ecorePackage.getEInt(), "val", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Valnum(), ecorePackage.getEInt(), "valnum", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Valmin(), ecorePackage.getEInt(), "valmin", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Valmax(), ecorePackage.getEInt(), "valmax", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_IpAddress(), ecorePackage.getEString(), "ipAddress", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Ip4(), ecorePackage.getEInt(), "ip4", null, 0, -1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Ip4last(), ecorePackage.getEInt(), "ip4last", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Ip6(), ecorePackage.getEInt(), "ip6", null, 0, -1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Ip6last(), ecorePackage.getEInt(), "ip6last", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_TheLoad(), ecorePackage.getEInt(), "theLoad", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_TheState(), ecorePackage.getEString(), "theState", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstance_Hostname(), ecorePackage.getEString(), "hostname", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstance_Iptable(), this.getIpTable(), null, "iptable", null, 0, -1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstance_Attributes(), this.getAttribut(), null, "attributes", null, 0, -1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(ipTableEClass, IpTable.class, "IpTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getIpTable_Traffic(), ecorePackage.getEString(), "traffic", null, 0, 1, IpTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIpTable_Source(), ecorePackage.getEInt(), "source", null, 0, -1, IpTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIpTable_Sourcefinal(), ecorePackage.getEInt(), "sourcefinal", null, 0, 1, IpTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIpTable_Destination(), ecorePackage.getEInt(), "destination", null, 0, -1, IpTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIpTable_Destinationfinal(), ecorePackage.getEInt(), "destinationfinal", null, 0, 1, IpTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIpTable_Protocol(), ecorePackage.getEString(), "protocol", null, 0, 1, IpTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIpTable_Target(), ecorePackage.getEString(), "target", null, 0, 1, IpTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(attributEClass, Attribut.class, "Attribut", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAttribut_Name(), ecorePackage.getEString(), "name", null, 0, 1, Attribut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

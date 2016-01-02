@@ -4,6 +4,8 @@ package org.xtext.rdsl;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Imports</b></em>'.
@@ -21,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Imports extends Property
+public interface Imports extends EObject
 {
   /**
    * Returns the value of the '<em><b>Imports</b></em>' containment reference list.

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
@@ -33,7 +34,7 @@ import org.xtext.rdsl.RdslPackage;
  *
  * @generated
  */
-public class FacetsImpl extends PropertyImpl implements Facets
+public class FacetsImpl extends MinimalEObjectImpl.Container implements Facets
 {
   /**
    * The cached value of the '{@link #getFacets() <em>Facets</em>}' reference list.

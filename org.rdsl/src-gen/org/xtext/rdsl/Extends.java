@@ -2,6 +2,7 @@
  */
 package org.xtext.rdsl;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,7 +20,7 @@ package org.xtext.rdsl;
  * @model
  * @generated
  */
-public interface Extends extends Property
+public interface Extends extends EObject
 {
   /**
    * Returns the value of the '<em><b>Sup Component</b></em>' reference.

@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.rdsl.Import#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Import#getImportURI <em>Import URI</em>}</li>
  * </ul>
  *
  * @see org.xtext.rdsl.RdslPackage#getImport()
@@ -23,29 +23,29 @@ import org.eclipse.emf.ecore.EObject;
 public interface Import extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Import URI</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Import URI</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.xtext.rdsl.RdslPackage#getImport_Name()
-   * @model
+   * @return the value of the '<em>Import URI</em>' containment reference.
+   * @see #setImportURI(ImpotUri)
+   * @see org.xtext.rdsl.RdslPackage#getImport_ImportURI()
+   * @model containment="true"
    * @generated
    */
-  String getName();
+  ImpotUri getImportURI();
 
   /**
-   * Sets the value of the '{@link org.xtext.rdsl.Import#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.rdsl.Import#getImportURI <em>Import URI</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Import URI</em>' containment reference.
+   * @see #getImportURI()
    * @generated
    */
-  void setName(String value);
+  void setImportURI(ImpotUri value);
 
 } // Import

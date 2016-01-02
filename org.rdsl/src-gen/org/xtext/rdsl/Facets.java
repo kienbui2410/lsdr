@@ -4,6 +4,8 @@ package org.xtext.rdsl;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Facets</b></em>'.
@@ -21,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Facets extends Property
+public interface Facets extends EObject
 {
   /**
    * Returns the value of the '<em><b>Facets</b></em>' reference list.

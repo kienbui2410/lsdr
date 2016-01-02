@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -35,7 +36,7 @@ import org.xtext.rdsl.exportVariable;
  *
  * @generated
  */
-public class ExportImpl extends PropertyImpl implements Export
+public class ExportImpl extends MinimalEObjectImpl.Container implements Export
 {
   /**
    * The cached value of the '{@link #getExports() <em>Exports</em>}' containment reference list.

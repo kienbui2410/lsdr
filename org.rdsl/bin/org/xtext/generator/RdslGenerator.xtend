@@ -4,21 +4,76 @@
 package org.xtext.generator
 
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipse.xtext.generator.IGenerator
+import org.xtext.rdsl.Instance
 
 /**
  * Generates code from your model files on save.
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
+
 class RdslGenerator implements IGenerator {
 	
-	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(typeof(Greeting))
-//				.map[name]
-//				.join(', '))
-	}
+	override void doGenerate(Resource resource, IFileSystemAccess fsa) {			
+		 for( instance: resource.allContents.toIterable.filter(Instance)) {
+		 	
+		 	if (instance.hostname != null ){
+		 		  			
+  
+    fsa.generateFile(
+      instance.hostname + ".cfg",
+      instance.compile)
+      
+           fsa.generateFile(
+      instance.hostname + "_rules.html",
+      instance.compileIp)
+      }
+        
+      }
+     
+  }
+		
+	
+
+def compile(Instance instance) ''' 
+  define host {
+        use                             linux-server
+        host_name                       «instance.hostname»
+        alias                           «instance.name » «instance.fullname.join(" ") »
+        address                         «IF instance.ip4 != null && instance.ip4.size >0 »«instance.ip4.join(".")».«instance.ip4last»«ELSEIF  instance.ip6 != null && instance.ip4.size >0 »«instance.ip6.join(".")».«instance.ip6last»«ENDIF»
+        max_check_attempts              5
+        check_period                    24x7
+        notification_interval           30
+        notification_period             24x7
+}
+'''
+
+def compileIp(Instance c) '''
+
+<!DOCTYPE html>
+<html>
+<body>
+iptables -L
+<table border="1" style="width:100%">
+  <tr>
+<td>traffic</td> <td>target</td> <td>prot</td> <td>source</td> <td>destination</td>
+  </tr>
+«FOR rule : c.iptable»
+  <tr>
+	<td>«rule.traffic»</td> 
+	<td>«rule.target»</td> 
+	<td>«rule.protocol»</td> 
+	<td>«rule.source.join(".")».«rule.sourcefinal»</td> 
+	<td>«rule.destination.join(".")».«rule.destinationfinal»</td>
+  </tr>
+«ENDFOR»
+</table>
+
+</body>
+</html>
+'''
+
+
 }

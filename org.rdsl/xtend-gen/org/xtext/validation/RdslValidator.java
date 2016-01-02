@@ -3,6 +3,27 @@
  */
 package org.xtext.validation;
 
+import com.google.common.base.Objects;
+import java.util.ConcurrentModificationException;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
+import org.eclipse.xtext.xbase.lib.CollectionExtensions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.xtext.rdsl.Children;
+import org.xtext.rdsl.CompFacet;
+import org.xtext.rdsl.Component;
+import org.xtext.rdsl.Export;
+import org.xtext.rdsl.Extends;
+import org.xtext.rdsl.Graph;
+import org.xtext.rdsl.Imports;
+import org.xtext.rdsl.RdslPackage;
+import org.xtext.rdsl.exportVariable;
+import org.xtext.rdsl.importVariable;
 import org.xtext.validation.AbstractRdslValidator;
 
 /**
@@ -12,4 +33,431 @@ import org.xtext.validation.AbstractRdslValidator;
  */
 @SuppressWarnings("all")
 public class RdslValidator extends AbstractRdslValidator {
+  public final static String INVALID_CARD = "INVALID CARD";
+  
+  @Check(CheckType.FAST)
+  public void checkCardinalityOfProperties(final Component c) {
+    EList<Children> _childrens = c.getChildrens();
+    int _size = _childrens.size();
+    boolean _greaterThan = (_size > 1);
+    if (_greaterThan) {
+      this.error(
+        "At max we can have one children", 
+        RdslPackage.Literals.COMPONENT__CHILDRENS, 
+        RdslValidator.INVALID_CARD);
+    }
+    EList<Extends> _extends = c.getExtends();
+    int _size_1 = _extends.size();
+    boolean _greaterThan_1 = (_size_1 > 1);
+    if (_greaterThan_1) {
+      this.error(
+        "At max we can have one extends", 
+        RdslPackage.Literals.COMPONENT__EXTENDS, 
+        RdslValidator.INVALID_CARD);
+    }
+  }
+  
+  @Check(CheckType.NORMAL)
+  public void checkCardinalityOfComponent(final Graph g) {
+    EList<Component> _components = g.getComponents();
+    int _size = _components.size();
+    boolean _lessThan = (_size < 1);
+    if (_lessThan) {
+      this.error(
+        "At least one component is required", 
+        RdslPackage.Literals.GRAPH__COMPONENTS, 
+        RdslValidator.INVALID_CARD);
+    }
+  }
+  
+  /**
+   * A component can't extends itself
+   */
+  @Check(CheckType.FAST)
+  public void checkExtendsOfComponent(final Extends e) {
+    EObject _eContainer = e.eContainer();
+    Component c = ((Component) _eContainer);
+    EList<String> listextends = new BasicEList<String>();
+    EList<Component> listparent = new BasicEList<Component>();
+    EList<Extends> _extends = c.getExtends();
+    for (final Extends ex : _extends) {
+      Component _supComponent = ex.getSupComponent();
+      listparent.add(_supComponent);
+    }
+    boolean bool = true;
+    int i = 0;
+    while (((bool && (listparent.size() > 0)) && (i < listparent.size()))) {
+      {
+        Component _get = listparent.get(i);
+        String _name = _get.getName();
+        boolean _contains = listextends.contains(_name);
+        if (_contains) {
+          return;
+        } else {
+          Component _get_1 = listparent.get(i);
+          String _name_1 = _get_1.getName();
+          listextends.add(_name_1);
+          Component _get_2 = listparent.get(i);
+          EList<Extends> _extends_1 = _get_2.getExtends();
+          for (final Extends ex_1 : _extends_1) {
+            Component _supComponent_1 = ex_1.getSupComponent();
+            CollectionExtensions.<Component>addAll(listparent, _supComponent_1);
+          }
+        }
+        Component _get_3 = listparent.get(i);
+        EList<Extends> _extends_2 = _get_3.getExtends();
+        boolean _equals = Objects.equal(_extends_2, null);
+        if (_equals) {
+          bool = false;
+        }
+        i++;
+      }
+    }
+    for (final Component ex_1 : listparent) {
+      String _name = ex_1.getName();
+      String _name_1 = c.getName();
+      boolean _equals = _name.equals(_name_1);
+      if (_equals) {
+        this.error(
+          "A component can\'t extends itself", 
+          RdslPackage.Literals.EXTENDS__SUP_COMPONENT, 
+          RdslValidator.INVALID_CARD);
+      }
+    }
+  }
+  
+  /**
+   * Error : Child name already declared : Duplicate child name forbidden
+   */
+  @Check(CheckType.FAST)
+  public void checkDuplicateChildreen(final Children c) {
+    EList<Component> childreenList = new BasicEList<Component>();
+    EList<Component> _children = c.getChildren();
+    childreenList = _children;
+    Component _child = c.getChild();
+    childreenList.add(_child);
+    for (final Component comp : childreenList) {
+      {
+        childreenList.remove(comp);
+        for (final Component compo : childreenList) {
+          String _name = comp.getName();
+          String _name_1 = compo.getName();
+          boolean _equals = _name.equals(_name_1);
+          if (_equals) {
+            this.error(
+              "Child already declared", 
+              RdslPackage.Literals.CHILDREN__CHILDREN, 
+              RdslValidator.INVALID_CARD);
+          }
+        }
+      }
+    }
+  }
+  
+  /**
+   * Variable exported already declared : Duplicate variable forbidden
+   */
+  @Check(CheckType.FAST)
+  public Object checkExportsDeclareInComponent(final exportVariable ex) {
+    Object _xblockexpression = null;
+    {
+      EObject _eContainer = ex.eContainer();
+      EObject _eContainer_1 = _eContainer.eContainer();
+      Component eCompo = ((Component) _eContainer_1);
+      EList<Export> exports = new BasicEList<Export>();
+      EList<Export> _exports = eCompo.getExports();
+      exports = _exports;
+      int count = 0;
+      Object _xtrycatchfinallyexpression = null;
+      try {
+        for (final Export e : exports) {
+          {
+            EList<exportVariable> _exports_1 = e.getExports();
+            for (final exportVariable exv : _exports_1) {
+              String _name = exv.getName();
+              String _name_1 = ex.getName();
+              boolean _equals = _name.equals(_name_1);
+              if (_equals) {
+                count++;
+              }
+            }
+            exportVariable _export = e.getExport();
+            String _name_2 = _export.getName();
+            String _name_3 = ex.getName();
+            boolean _equals_1 = _name_2.equals(_name_3);
+            if (_equals_1) {
+              count++;
+            }
+          }
+        }
+        if ((count > 1)) {
+          this.error(
+            "Variable exported already declared", 
+            RdslPackage.Literals.EXPORT_VARIABLE__INITIAL, 
+            RdslValidator.INVALID_CARD);
+        }
+      } catch (final Throwable _t) {
+        if (_t instanceof ConcurrentModificationException) {
+          final ConcurrentModificationException e_1 = (ConcurrentModificationException)_t;
+          _xtrycatchfinallyexpression = null;
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  /**
+   * Variable Import already declared : Duplicate variable forbidden
+   */
+  @Check(CheckType.FAST)
+  public Object checkDuplicateImport(final importVariable imp) {
+    Object _xblockexpression = null;
+    {
+      EObject _eContainer = imp.eContainer();
+      EObject _eContainer_1 = _eContainer.eContainer();
+      Component eCompo = ((Component) _eContainer_1);
+      EList<Imports> imports = new BasicEList<Imports>();
+      EList<Imports> _imports = eCompo.getImports();
+      imports = _imports;
+      int count = 0;
+      Object _xtrycatchfinallyexpression = null;
+      try {
+        String _name = imp.getName();
+        boolean _equals = Objects.equal(_name, null);
+        if (_equals) {
+          for (final Imports impo : imports) {
+            {
+              EList<importVariable> _imports_1 = impo.getImports();
+              for (final importVariable impv : _imports_1) {
+                CompFacet _importvariable = impv.getImportvariable();
+                String _name_1 = _importvariable.getName();
+                CompFacet _importvariable_1 = imp.getImportvariable();
+                String _name_2 = _importvariable_1.getName();
+                boolean _equals_1 = _name_1.equals(_name_2);
+                if (_equals_1) {
+                  count++;
+                }
+              }
+              importVariable _imported = impo.getImported();
+              CompFacet _importvariable_2 = _imported.getImportvariable();
+              String _name_3 = _importvariable_2.getName();
+              CompFacet _importvariable_3 = imp.getImportvariable();
+              String _name_4 = _importvariable_3.getName();
+              boolean _equals_2 = _name_3.equals(_name_4);
+              if (_equals_2) {
+                count++;
+              }
+            }
+          }
+        } else {
+          CompFacet _importvariable = imp.getImportvariable();
+          boolean _equals_1 = Objects.equal(_importvariable, null);
+          if (_equals_1) {
+            for (final Imports impo_1 : imports) {
+              {
+                EList<importVariable> _imports_1 = impo_1.getImports();
+                for (final importVariable impv : _imports_1) {
+                  boolean _and = false;
+                  CompFacet _importvariable_1 = impv.getImportvariable();
+                  boolean _equals_2 = Objects.equal(_importvariable_1, null);
+                  if (!_equals_2) {
+                    _and = false;
+                  } else {
+                    String _name_1 = impv.getName();
+                    String _name_2 = imp.getName();
+                    boolean _equals_3 = _name_1.equals(_name_2);
+                    _and = _equals_3;
+                  }
+                  if (_and) {
+                    count++;
+                  }
+                }
+                boolean _and_1 = false;
+                importVariable _imported = impo_1.getImported();
+                CompFacet _importvariable_2 = _imported.getImportvariable();
+                boolean _equals_4 = Objects.equal(_importvariable_2, null);
+                if (!_equals_4) {
+                  _and_1 = false;
+                } else {
+                  importVariable _imported_1 = impo_1.getImported();
+                  String _name_3 = _imported_1.getName();
+                  String _name_4 = imp.getName();
+                  boolean _equals_5 = _name_3.equals(_name_4);
+                  _and_1 = _equals_5;
+                }
+                if (_and_1) {
+                  count++;
+                }
+              }
+            }
+          } else {
+            for (final Imports impo_2 : imports) {
+              {
+                EList<importVariable> _imports_1 = impo_2.getImports();
+                for (final importVariable impv : _imports_1) {
+                  boolean _and = false;
+                  boolean _and_1 = false;
+                  CompFacet _importvariable_1 = impv.getImportvariable();
+                  boolean _notEquals = (!Objects.equal(_importvariable_1, null));
+                  if (!_notEquals) {
+                    _and_1 = false;
+                  } else {
+                    CompFacet _importvariable_2 = impv.getImportvariable();
+                    String _name_1 = _importvariable_2.getName();
+                    CompFacet _importvariable_3 = imp.getImportvariable();
+                    String _name_2 = _importvariable_3.getName();
+                    boolean _equals_2 = _name_1.equals(_name_2);
+                    _and_1 = _equals_2;
+                  }
+                  if (!_and_1) {
+                    _and = false;
+                  } else {
+                    String _name_3 = impv.getName();
+                    String _name_4 = imp.getName();
+                    boolean _equals_3 = _name_3.equals(_name_4);
+                    _and = _equals_3;
+                  }
+                  if (_and) {
+                    count++;
+                  }
+                }
+                boolean _and_2 = false;
+                boolean _and_3 = false;
+                importVariable _imported = impo_2.getImported();
+                CompFacet _importvariable_4 = _imported.getImportvariable();
+                boolean _notEquals_1 = (!Objects.equal(_importvariable_4, null));
+                if (!_notEquals_1) {
+                  _and_3 = false;
+                } else {
+                  importVariable _imported_1 = impo_2.getImported();
+                  CompFacet _importvariable_5 = _imported_1.getImportvariable();
+                  String _name_5 = _importvariable_5.getName();
+                  CompFacet _importvariable_6 = imp.getImportvariable();
+                  String _name_6 = _importvariable_6.getName();
+                  boolean _equals_4 = _name_5.equals(_name_6);
+                  _and_3 = _equals_4;
+                }
+                if (!_and_3) {
+                  _and_2 = false;
+                } else {
+                  importVariable _imported_2 = impo_2.getImported();
+                  String _name_7 = _imported_2.getName();
+                  String _name_8 = imp.getName();
+                  boolean _equals_5 = _name_7.equals(_name_8);
+                  _and_2 = _equals_5;
+                }
+                if (_and_2) {
+                  count++;
+                }
+              }
+            }
+          }
+        }
+        if ((count > 1)) {
+          this.error(
+            "Variable import already declared", 
+            RdslPackage.Literals.IMPORT_VARIABLE__IMPORTVARIABLE, 
+            RdslValidator.INVALID_CARD);
+        }
+      } catch (final Throwable _t) {
+        if (_t instanceof ConcurrentModificationException) {
+          final ConcurrentModificationException e = (ConcurrentModificationException)_t;
+          _xtrycatchfinallyexpression = null;
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  /**
+   * Variable imported must be declare as Export in its component
+   */
+  @Check(CheckType.FAST)
+  public Object checkImportsDeclareInComponent(final importVariable imp) {
+    Object _xblockexpression = null;
+    {
+      EObject _eContainer = imp.eContainer();
+      EObject _eContainer_1 = _eContainer.eContainer();
+      EObject _eContainer_2 = _eContainer_1.eContainer();
+      Graph eGraph = ((Graph) _eContainer_2);
+      EMap<String, EList<String>> emap = new BasicEMap<String, EList<String>>();
+      EList<String> elist = null;
+      Object _xtrycatchfinallyexpression = null;
+      try {
+        EList<Component> _components = eGraph.getComponents();
+        for (final Component c : _components) {
+          {
+            BasicEList<String> _basicEList = new BasicEList<String>();
+            elist = _basicEList;
+            EList<Export> _exports = c.getExports();
+            for (final Export export : _exports) {
+              {
+                EList<exportVariable> _exports_1 = export.getExports();
+                for (final exportVariable exVar : _exports_1) {
+                  String _name = exVar.getName();
+                  elist.add(_name);
+                }
+                exportVariable _export = export.getExport();
+                String _name_1 = _export.getName();
+                elist.add(_name_1);
+              }
+            }
+            String _name = c.getName();
+            emap.put(_name, elist);
+          }
+        }
+        CompFacet _importvariable = imp.getImportvariable();
+        String CompFacet = _importvariable.getName();
+        String importVal = imp.getName();
+        EObject _eContainer_3 = imp.eContainer();
+        EObject _eContainer_4 = _eContainer_3.eContainer();
+        Component compo = ((Component) _eContainer_4);
+        boolean _equals = Objects.equal(CompFacet, null);
+        if (_equals) {
+          String _name = compo.getName();
+          EList<String> _get = emap.get(_name);
+          boolean _contains = _get.contains(importVal);
+          boolean _not = (!_contains);
+          if (_not) {
+            this.error(
+              "Variable imported must be declare as Export in the component", 
+              RdslPackage.Literals.IMPORT_VARIABLE__IMPORTVARIABLE, 
+              RdslValidator.INVALID_CARD);
+          }
+        } else {
+          boolean _and = false;
+          EList<String> _get_1 = emap.get(CompFacet);
+          boolean _contains_1 = _get_1.contains(importVal);
+          boolean _not_1 = (!_contains_1);
+          if (!_not_1) {
+            _and = false;
+          } else {
+            boolean _notEquals = (!Objects.equal(importVal, null));
+            _and = _notEquals;
+          }
+          if (_and) {
+            this.error(
+              "Variable imported must be declare as Export in the component", 
+              RdslPackage.Literals.IMPORT_VARIABLE__IMPORTVARIABLE, 
+              RdslValidator.INVALID_CARD);
+          }
+        }
+      } catch (final Throwable _t) {
+        if (_t instanceof ConcurrentModificationException) {
+          final ConcurrentModificationException e = (ConcurrentModificationException)_t;
+          _xtrycatchfinallyexpression = null;
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
 }

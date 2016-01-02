@@ -22,6 +22,7 @@ import org.xtext.rdsl.importVariable;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtext.rdsl.impl.importVariableImpl#isExternal <em>External</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.importVariableImpl#getImportvariable <em>Importvariable</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.importVariableImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.importVariableImpl#isOptional <em>Optional</em>}</li>
@@ -31,6 +32,26 @@ import org.xtext.rdsl.importVariable;
  */
 public class importVariableImpl extends MinimalEObjectImpl.Container implements importVariable
 {
+  /**
+   * The default value of the '{@link #isExternal() <em>External</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isExternal()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean EXTERNAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isExternal() <em>External</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isExternal()
+   * @generated
+   * @ordered
+   */
+  protected boolean external = EXTERNAL_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getImportvariable() <em>Importvariable</em>}' reference.
    * <!-- begin-user-doc -->
@@ -100,6 +121,29 @@ public class importVariableImpl extends MinimalEObjectImpl.Container implements 
   protected EClass eStaticClass()
   {
     return RdslPackage.Literals.IMPORT_VARIABLE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isExternal()
+  {
+    return external;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExternal(boolean newExternal)
+  {
+    boolean oldExternal = external;
+    external = newExternal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.IMPORT_VARIABLE__EXTERNAL, oldExternal, external));
   }
 
   /**
@@ -201,6 +245,8 @@ public class importVariableImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
+      case RdslPackage.IMPORT_VARIABLE__EXTERNAL:
+        return isExternal();
       case RdslPackage.IMPORT_VARIABLE__IMPORTVARIABLE:
         if (resolve) return getImportvariable();
         return basicGetImportvariable();
@@ -222,6 +268,9 @@ public class importVariableImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
+      case RdslPackage.IMPORT_VARIABLE__EXTERNAL:
+        setExternal((Boolean)newValue);
+        return;
       case RdslPackage.IMPORT_VARIABLE__IMPORTVARIABLE:
         setImportvariable((CompFacet)newValue);
         return;
@@ -245,6 +294,9 @@ public class importVariableImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
+      case RdslPackage.IMPORT_VARIABLE__EXTERNAL:
+        setExternal(EXTERNAL_EDEFAULT);
+        return;
       case RdslPackage.IMPORT_VARIABLE__IMPORTVARIABLE:
         setImportvariable((CompFacet)null);
         return;
@@ -268,6 +320,8 @@ public class importVariableImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
+      case RdslPackage.IMPORT_VARIABLE__EXTERNAL:
+        return external != EXTERNAL_EDEFAULT;
       case RdslPackage.IMPORT_VARIABLE__IMPORTVARIABLE:
         return importvariable != null;
       case RdslPackage.IMPORT_VARIABLE__NAME:
@@ -289,7 +343,9 @@ public class importVariableImpl extends MinimalEObjectImpl.Container implements 
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (external: ");
+    result.append(external);
+    result.append(", name: ");
     result.append(name);
     result.append(", optional: ");
     result.append(optional);

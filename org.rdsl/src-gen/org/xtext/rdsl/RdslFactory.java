@@ -50,6 +50,15 @@ public interface RdslFactory extends EFactory
   Import createImport();
 
   /**
+   * Returns a new object of class '<em>Impot Uri</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Impot Uri</em>'.
+   * @generated
+   */
+  ImpotUri createImpotUri();
+
+  /**
    * Returns a new object of class '<em>Comp Facet</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -75,15 +84,6 @@ public interface RdslFactory extends EFactory
    * @generated
    */
   Installer createInstaller();
-
-  /**
-   * Returns a new object of class '<em>Property</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property</em>'.
-   * @generated
-   */
-  Property createProperty();
 
   /**
    * Returns a new object of class '<em>Extends</em>'.
@@ -174,6 +174,15 @@ public interface RdslFactory extends EFactory
    * @generated
    */
   Instance createInstance();
+
+  /**
+   * Returns a new object of class '<em>Ip Table</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ip Table</em>'.
+   * @generated
+   */
+  IpTable createIpTable();
 
   /**
    * Returns a new object of class '<em>Attribut</em>'.
