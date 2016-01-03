@@ -12,6 +12,7 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.xtext.rdsl.Attribut;
 import org.xtext.rdsl.Children;
 import org.xtext.rdsl.CompFacet;
 import org.xtext.rdsl.Component;
@@ -19,9 +20,7 @@ import org.xtext.rdsl.Export;
 import org.xtext.rdsl.Facet;
 import org.xtext.rdsl.Facets;
 import org.xtext.rdsl.Graph;
-import org.xtext.rdsl.Import;
 import org.xtext.rdsl.Imports;
-import org.xtext.rdsl.ImpotUri;
 import org.xtext.rdsl.Initialisation;
 import org.xtext.rdsl.Installer;
 import org.xtext.rdsl.Instance;
@@ -49,159 +48,14 @@ public class RdslGenerator implements IGenerator {
   }
   
   public CharSequence listGraph(final Model model) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append(" ");
-    _builder.append("// Generate GRAPH node");
-    _builder.newLine();
-    _builder.append("{  ");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("\'id\': \'GRAPH\',  ");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("\'name\': \'GRAPH\',  ");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("\'data\': {  ");
-    _builder.newLine();
-    _builder.append("          ");
-    _builder.append("\'$color\': \'#416D9C\',");
-    _builder.newLine();
-    _builder.append("          ");
-    _builder.append("\'$type\': \'circle\',");
-    _builder.newLine();
-    _builder.append("          ");
-    _builder.append("\'$dim\': 10,");
-    _builder.newLine();
-    _builder.append("\t\t  ");
-    _builder.append("\'$info\': \'\'");
-    _builder.newLine();
-    _builder.append("     ");
-    _builder.append("},  ");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("\'adjacencies\': [");
-    _builder.newLine();
-    {
-      Graph _graphs = model.getGraphs();
-      EList<Import> _imports = _graphs.getImports();
-      boolean _notEquals = (!Objects.equal(_imports, null));
-      if (_notEquals) {
-        {
-          Graph _graphs_1 = model.getGraphs();
-          EList<Import> _imports_1 = _graphs_1.getImports();
-          for(final Import im : _imports_1) {
-            _builder.append("\'importedPackage_");
-            ImpotUri _importURI = im.getImportURI();
-            String _name = _importURI.getName();
-            _builder.append(_name, "");
-            _builder.append("\' ,");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-      }
-    }
-    _builder.append(" ");
-    _builder.newLine();
-    {
-      Graph _graphs_2 = model.getGraphs();
-      EList<Component> _components = _graphs_2.getComponents();
-      boolean _notEquals_1 = (!Objects.equal(_components, null));
-      if (_notEquals_1) {
-        {
-          Graph _graphs_3 = model.getGraphs();
-          EList<Component> _components_1 = _graphs_3.getComponents();
-          for(final Component com : _components_1) {
-            _builder.append("\'com_");
-            String _name_1 = com.getName();
-            _builder.append(_name_1, "");
-            _builder.append("\' ,");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-      }
-    }
-    _builder.newLine();
-    {
-      Graph _graphs_4 = model.getGraphs();
-      EList<Facet> _facetGraphs = _graphs_4.getFacetGraphs();
-      boolean _notEquals_2 = (!Objects.equal(_facetGraphs, null));
-      if (_notEquals_2) {
-        {
-          Graph _graphs_5 = model.getGraphs();
-          EList<Facet> _facetGraphs_1 = _graphs_5.getFacetGraphs();
-          for(final Facet facet : _facetGraphs_1) {
-            _builder.append("\'facet_");
-            String _name_2 = facet.getName();
-            _builder.append(_name_2, "");
-            _builder.append("\' ,");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-      }
-    }
-    _builder.append("    ");
-    _builder.append("]  ");
-    _builder.newLine();
-    _builder.append("  \t");
-    _builder.append("}, ");
-    _builder.newLine();
-    return _builder;
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field name is undefined for the type EObject");
   }
   
   public CharSequence listImportPackage(final Graph graph) {
-    StringConcatenation _builder = new StringConcatenation();
-    {
-      EList<Import> _imports = graph.getImports();
-      boolean _notEquals = (!Objects.equal(_imports, null));
-      if (_notEquals) {
-        _builder.append("// Generate ImportedPackage node");
-        _builder.newLine();
-        {
-          EList<Import> _imports_1 = graph.getImports();
-          for(final Import im : _imports_1) {
-            _builder.append("{  ");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("\'id\': \'importedPackage_");
-            ImpotUri _importURI = im.getImportURI();
-            String _name = _importURI.getName();
-            _builder.append(_name, "    ");
-            _builder.append("\',  ");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("\'name\': \'importedPackage\',  ");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("\'data\': {  ");
-            _builder.newLine();
-            _builder.append("          ");
-            _builder.append("\"$color\": \"#416D9C\",");
-            _builder.newLine();
-            _builder.append("          ");
-            _builder.append("\"$type\": \"circle\",");
-            _builder.newLine();
-            _builder.append("          ");
-            _builder.append("\"$dim\": 7,");
-            _builder.newLine();
-            _builder.append("\t\t  ");
-            _builder.append("\'$info\': \'");
-            ImpotUri _importURI_1 = im.getImportURI();
-            String _name_1 = _importURI_1.getName();
-            _builder.append(_name_1, "\t\t  ");
-            _builder.append("\'");
-            _builder.newLineIfNotEmpty();
-            _builder.append("     \t");
-            _builder.append("}");
-            _builder.newLine();
-            _builder.append("  \t");
-            _builder.append("}, ");
-            _builder.newLine();
-          }
-        }
-      }
-    }
-    return _builder;
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field name is undefined for the type EObject"
+      + "\nThe method or field name is undefined for the type EObject");
   }
   
   public CharSequence listComponent(final Graph graph) {
@@ -995,9 +849,108 @@ public class RdslGenerator implements IGenerator {
   }
   
   public CharSequence listInstances(final Model model) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method count is undefined for the type RdslGenerator"
-      + "\n!= cannot be resolved");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("// Generate Instance node");
+    _builder.newLine();
+    {
+      EList<Instance> _instances = model.getInstances();
+      for(final Instance instance : _instances) {
+        _builder.append("{  ");
+        _builder.newLine();
+        _builder.append("    ");
+        _builder.append("\'id\': \'instance_");
+        Component _component = instance.getComponent();
+        String _name = _component.getName();
+        _builder.append(_name, "    ");
+        _builder.append("\',  ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("\'name\': \'instance of ");
+        Component _component_1 = instance.getComponent();
+        String _name_1 = _component_1.getName();
+        _builder.append(_name_1, "    ");
+        _builder.append("\',  ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("\'data\': {  ");
+        _builder.newLine();
+        _builder.append("          ");
+        _builder.append("\"$color\": \"#416D9C\",");
+        _builder.newLine();
+        _builder.append("          ");
+        _builder.append("\"$type\": \"circle\",");
+        _builder.newLine();
+        _builder.append("          ");
+        _builder.append("\"$dim\": 7,");
+        _builder.newLine();
+        _builder.append("\t\t  ");
+        _builder.append("\'$info\': \'");
+        {
+          String _count = instance.getCount();
+          boolean _notEquals = (!Objects.equal(_count, null));
+          if (_notEquals) {
+            _builder.append("(Count:");
+            int _val = instance.getVal();
+            _builder.append(_val, "\t\t  ");
+            _builder.append(")");
+          }
+        }
+        _builder.append("   ");
+        {
+          EList<Attribut> _attributes = instance.getAttributes();
+          int _size = _attributes.size();
+          boolean _greaterThan = (_size > 0);
+          if (_greaterThan) {
+            _builder.append("(Attibute: ");
+            {
+              EList<Attribut> _attributes_1 = instance.getAttributes();
+              for(final Attribut att : _attributes_1) {
+                _builder.append(" ");
+                String _name_2 = att.getName();
+                _builder.append(_name_2, "\t\t  ");
+                _builder.append(" ");
+                String _valeur = att.getValeur();
+                _builder.append(_valeur, "\t\t  ");
+              }
+            }
+          }
+        }
+        _builder.append("\'");
+        _builder.newLineIfNotEmpty();
+        _builder.append("     \t");
+        _builder.append("}");
+        _builder.newLine();
+        {
+          EList<Instance> _instances_1 = instance.getInstances();
+          boolean _notEquals_1 = (!Objects.equal(_instances_1, null));
+          if (_notEquals_1) {
+            _builder.append("     \t");
+            _builder.append(",  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'adjacencies\': [");
+            _builder.newLine();
+            {
+              EList<Instance> _instances_2 = instance.getInstances();
+              for(final Instance ins : _instances_2) {
+                _builder.append("\'instance_");
+                String _name_3 = ins.getName();
+                _builder.append(_name_3, "");
+                _builder.append("\' ,");
+                _builder.newLineIfNotEmpty();
+              }
+            }
+            _builder.append("    ");
+            _builder.append("]  ");
+            _builder.newLine();
+          }
+        }
+        _builder.append("  \t");
+        _builder.append("}, ");
+        _builder.newLine();
+      }
+    }
+    return _builder;
   }
   
   public CharSequence toJSONCode(final Model m) {

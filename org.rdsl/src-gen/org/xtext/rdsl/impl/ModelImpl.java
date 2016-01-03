@@ -33,6 +33,8 @@ import org.xtext.rdsl.RdslPackage;
  * <ul>
  *   <li>{@link org.xtext.rdsl.impl.ModelImpl#getGraphs <em>Graphs</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.ModelImpl#getInstances <em>Instances</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.ModelImpl#getValmin <em>Valmin</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.ModelImpl#getValmax <em>Valmax</em>}</li>
  * </ul>
  *
  * @generated
@@ -58,6 +60,46 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * @ordered
    */
   protected EList<Instance> instances;
+
+  /**
+   * The default value of the '{@link #getValmin() <em>Valmin</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmin()
+   * @generated
+   * @ordered
+   */
+  protected static final int VALMIN_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getValmin() <em>Valmin</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmin()
+   * @generated
+   * @ordered
+   */
+  protected int valmin = VALMIN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getValmax() <em>Valmax</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmax()
+   * @generated
+   * @ordered
+   */
+  protected static final int VALMAX_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getValmax() <em>Valmax</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmax()
+   * @generated
+   * @ordered
+   */
+  protected int valmax = VALMAX_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -147,6 +189,52 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getValmin()
+  {
+    return valmin;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValmin(int newValmin)
+  {
+    int oldValmin = valmin;
+    valmin = newValmin;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.MODEL__VALMIN, oldValmin, valmin));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getValmax()
+  {
+    return valmax;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValmax(int newValmax)
+  {
+    int oldValmax = valmax;
+    valmax = newValmax;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.MODEL__VALMAX, oldValmax, valmax));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -174,6 +262,10 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
         return getGraphs();
       case RdslPackage.MODEL__INSTANCES:
         return getInstances();
+      case RdslPackage.MODEL__VALMIN:
+        return getValmin();
+      case RdslPackage.MODEL__VALMAX:
+        return getValmax();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -196,6 +288,12 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
         getInstances().clear();
         getInstances().addAll((Collection<? extends Instance>)newValue);
         return;
+      case RdslPackage.MODEL__VALMIN:
+        setValmin((Integer)newValue);
+        return;
+      case RdslPackage.MODEL__VALMAX:
+        setValmax((Integer)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -216,6 +314,12 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
       case RdslPackage.MODEL__INSTANCES:
         getInstances().clear();
         return;
+      case RdslPackage.MODEL__VALMIN:
+        setValmin(VALMIN_EDEFAULT);
+        return;
+      case RdslPackage.MODEL__VALMAX:
+        setValmax(VALMAX_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -234,8 +338,31 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
         return graphs != null;
       case RdslPackage.MODEL__INSTANCES:
         return instances != null && !instances.isEmpty();
+      case RdslPackage.MODEL__VALMIN:
+        return valmin != VALMIN_EDEFAULT;
+      case RdslPackage.MODEL__VALMAX:
+        return valmax != VALMAX_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (valmin: ");
+    result.append(valmin);
+    result.append(", valmax: ");
+    result.append(valmax);
+    result.append(')');
+    return result.toString();
   }
 
 } //ModelImpl

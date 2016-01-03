@@ -50,6 +50,15 @@ public interface RdslFactory extends EFactory
   Import createImport();
 
   /**
+   * Returns a new object of class '<em>URL</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>URL</em>'.
+   * @generated
+   */
+  URL createURL();
+
+  /**
    * Returns a new object of class '<em>Impot Uri</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -174,6 +183,15 @@ public interface RdslFactory extends EFactory
    * @generated
    */
   Instance createInstance();
+
+  /**
+   * Returns a new object of class '<em>Ip Table</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ip Table</em>'.
+   * @generated
+   */
+  IpTable createIpTable();
 
   /**
    * Returns a new object of class '<em>Attribut</em>'.

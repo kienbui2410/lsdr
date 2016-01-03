@@ -90,6 +90,11 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
         return createImportAdapter();
       }
       @Override
+      public Adapter caseURL(URL object)
+      {
+        return createURLAdapter();
+      }
+      @Override
       public Adapter caseImpotUri(ImpotUri object)
       {
         return createImpotUriAdapter();
@@ -160,6 +165,11 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
         return createInstanceAdapter();
       }
       @Override
+      public Adapter caseIpTable(IpTable object)
+      {
+        return createIpTableAdapter();
+      }
+      @Override
       public Adapter caseAttribut(Attribut object)
       {
         return createAttributAdapter();
@@ -227,6 +237,21 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createImportAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.rdsl.URL <em>URL</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.rdsl.URL
+   * @generated
+   */
+  public Adapter createURLAdapter()
   {
     return null;
   }
@@ -437,6 +462,21 @@ public class RdslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInstanceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.rdsl.IpTable <em>Ip Table</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.rdsl.IpTable
+   * @generated
+   */
+  public Adapter createIpTableAdapter()
   {
     return null;
   }

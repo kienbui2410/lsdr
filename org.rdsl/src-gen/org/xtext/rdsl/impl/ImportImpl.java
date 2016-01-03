@@ -6,13 +6,13 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.rdsl.Import;
-import org.xtext.rdsl.ImpotUri;
 import org.xtext.rdsl.RdslPackage;
 
 /**
@@ -38,7 +38,7 @@ public class ImportImpl extends MinimalEObjectImpl.Container implements Import
    * @generated
    * @ordered
    */
-  protected ImpotUri importURI;
+  protected EObject importURI;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public class ImportImpl extends MinimalEObjectImpl.Container implements Import
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImpotUri getImportURI()
+  public EObject getImportURI()
   {
     return importURI;
   }
@@ -76,9 +76,9 @@ public class ImportImpl extends MinimalEObjectImpl.Container implements Import
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetImportURI(ImpotUri newImportURI, NotificationChain msgs)
+  public NotificationChain basicSetImportURI(EObject newImportURI, NotificationChain msgs)
   {
-    ImpotUri oldImportURI = importURI;
+    EObject oldImportURI = importURI;
     importURI = newImportURI;
     if (eNotificationRequired())
     {
@@ -93,7 +93,7 @@ public class ImportImpl extends MinimalEObjectImpl.Container implements Import
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setImportURI(ImpotUri newImportURI)
+  public void setImportURI(EObject newImportURI)
   {
     if (newImportURI != importURI)
     {
@@ -152,7 +152,7 @@ public class ImportImpl extends MinimalEObjectImpl.Container implements Import
     switch (featureID)
     {
       case RdslPackage.IMPORT__IMPORT_URI:
-        setImportURI((ImpotUri)newValue);
+        setImportURI((EObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -169,7 +169,7 @@ public class ImportImpl extends MinimalEObjectImpl.Container implements Import
     switch (featureID)
     {
       case RdslPackage.IMPORT__IMPORT_URI:
-        setImportURI((ImpotUri)null);
+        setImportURI((EObject)null);
         return;
     }
     super.eUnset(featureID);

@@ -10,14 +10,23 @@
     <genClasses ecoreClass="Rdsl.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Model/graphs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Model/instances"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Model/valmin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Model/valmax"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Graph">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Graph/imports"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Graph/facetGraphs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Graph/components"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Graph/facetGraphs"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Import">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Import/importURI"/>
+    </genClasses>
+    <genClasses ecoreClass="Rdsl.ecore#//URL">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//URL/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//URL/domaine"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//URL/variable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//URL/variables"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//URL/wildcard"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//ImpotUri">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//ImpotUri/name"/>
@@ -77,10 +86,31 @@
     <genClasses ecoreClass="Rdsl.ecore#//Instance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/component"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/fullname"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/count"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/val"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/valmin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/valmax"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ipAddress"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip4"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip4last"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip6"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip6last"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/theLoad"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/theState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/hostname"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/iptable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/instances"/>
+    </genClasses>
+    <genClasses ecoreClass="Rdsl.ecore#//IpTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/traffic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/sourcefinal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/destination"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/destinationfinal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/protocol"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/target"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Attribut">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Attribut/name"/>

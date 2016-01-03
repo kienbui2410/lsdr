@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.rdsl.Graph#getImports <em>Imports</em>}</li>
- *   <li>{@link org.xtext.rdsl.Graph#getFacetGraphs <em>Facet Graphs</em>}</li>
  *   <li>{@link org.xtext.rdsl.Graph#getComponents <em>Components</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Graph#getFacetGraphs <em>Facet Graphs</em>}</li>
  * </ul>
  *
  * @see org.xtext.rdsl.RdslPackage#getGraph()
@@ -43,22 +43,6 @@ public interface Graph extends EObject
   EList<Import> getImports();
 
   /**
-   * Returns the value of the '<em><b>Facet Graphs</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.rdsl.Facet}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Facet Graphs</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Facet Graphs</em>' containment reference list.
-   * @see org.xtext.rdsl.RdslPackage#getGraph_FacetGraphs()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Facet> getFacetGraphs();
-
-  /**
    * Returns the value of the '<em><b>Components</b></em>' containment reference list.
    * The list contents are of type {@link org.xtext.rdsl.Component}.
    * <!-- begin-user-doc -->
@@ -73,5 +57,21 @@ public interface Graph extends EObject
    * @generated
    */
   EList<Component> getComponents();
+
+  /**
+   * Returns the value of the '<em><b>Facet Graphs</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.rdsl.Facet}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Facet Graphs</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Facet Graphs</em>' containment reference list.
+   * @see org.xtext.rdsl.RdslPackage#getGraph_FacetGraphs()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Facet> getFacetGraphs();
 
 } // Graph

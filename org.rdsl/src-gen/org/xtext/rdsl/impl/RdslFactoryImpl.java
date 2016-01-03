@@ -67,6 +67,7 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
       case RdslPackage.MODEL: return createModel();
       case RdslPackage.GRAPH: return createGraph();
       case RdslPackage.IMPORT: return createImport();
+      case RdslPackage.URL: return createURL();
       case RdslPackage.IMPOT_URI: return createImpotUri();
       case RdslPackage.COMP_FACET: return createCompFacet();
       case RdslPackage.COMPONENT: return createComponent();
@@ -81,6 +82,7 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
       case RdslPackage.FACETS: return createFacets();
       case RdslPackage.FACET: return createFacet();
       case RdslPackage.INSTANCE: return createInstance();
+      case RdslPackage.IP_TABLE: return createIpTable();
       case RdslPackage.ATTRIBUT: return createAttribut();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -118,6 +120,17 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
   {
     ImportImpl import_ = new ImportImpl();
     return import_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public URL createURL()
+  {
+    URLImpl url = new URLImpl();
+    return url;
   }
 
   /**
@@ -272,6 +285,17 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
   {
     InstanceImpl instance = new InstanceImpl();
     return instance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IpTable createIpTable()
+  {
+    IpTableImpl ipTable = new IpTableImpl();
+    return ipTable;
   }
 
   /**

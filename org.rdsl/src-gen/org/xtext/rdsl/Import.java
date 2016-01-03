@@ -31,12 +31,12 @@ public interface Import extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Import URI</em>' containment reference.
-   * @see #setImportURI(ImpotUri)
+   * @see #setImportURI(EObject)
    * @see org.xtext.rdsl.RdslPackage#getImport_ImportURI()
    * @model containment="true"
    * @generated
    */
-  ImpotUri getImportURI();
+  EObject getImportURI();
 
   /**
    * Sets the value of the '{@link org.xtext.rdsl.Import#getImportURI <em>Import URI</em>}' containment reference.
@@ -46,6 +46,6 @@ public interface Import extends EObject
    * @see #getImportURI()
    * @generated
    */
-  void setImportURI(ImpotUri value);
+  void setImportURI(EObject value);
 
 } // Import

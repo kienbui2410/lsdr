@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
-import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.xtext.rdsl.Children;
 import org.xtext.rdsl.CompFacet;
@@ -21,6 +20,7 @@ import org.xtext.rdsl.Export;
 import org.xtext.rdsl.Extends;
 import org.xtext.rdsl.Graph;
 import org.xtext.rdsl.Imports;
+import org.xtext.rdsl.Instance;
 import org.xtext.rdsl.RdslPackage;
 import org.xtext.rdsl.exportVariable;
 import org.xtext.rdsl.importVariable;
@@ -34,6 +34,8 @@ import org.xtext.validation.AbstractRdslValidator;
 @SuppressWarnings("all")
 public class RdslValidator extends AbstractRdslValidator {
   public final static String INVALID_CARD = "INVALID CARD";
+  
+  public final static String INVALID_COMPONENT_NAME = "INVALID COMPONENT NAME";
   
   @Check(CheckType.FAST)
   public void checkCardinalityOfProperties(final Component c) {
@@ -57,72 +59,126 @@ public class RdslValidator extends AbstractRdslValidator {
     }
   }
   
-  @Check(CheckType.NORMAL)
-  public void checkCardinalityOfComponent(final Graph g) {
-    EList<Component> _components = g.getComponents();
-    int _size = _components.size();
-    boolean _lessThan = (_size < 1);
-    if (_lessThan) {
-      this.error(
-        "At least one component is required", 
-        RdslPackage.Literals.GRAPH__COMPONENTS, 
+  @Check(CheckType.FAST)
+  public void checkSyntaxIPAdress(final Instance i) {
+    String _ipAddress = i.getIpAddress();
+    boolean _equals = Objects.equal(_ipAddress, null);
+    if (_equals) {
+      return;
+    }
+    String _ipAddress_1 = i.getIpAddress();
+    boolean _equals_1 = _ipAddress_1.equals("IPv4");
+    if (_equals_1) {
+      EList<Integer> _ip4 = i.getIp4();
+      int _size = _ip4.size();
+      boolean _notEquals = (_size != 3);
+      if (_notEquals) {
+        this.error(
+          "Syntax of IPv4 Adress not respected", 
+          RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+          RdslValidator.INVALID_CARD);
+      } else {
+        EList<Integer> _ip4_1 = i.getIp4();
+        for (final int part : _ip4_1) {
+          if (((part > 255) || (part < 0))) {
+            this.error(
+              "Syntax of IPv4 Adress not respected", 
+              RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+              RdslValidator.INVALID_CARD);
+          }
+        }
+      }
+    }
+    String _ipAddress_2 = i.getIpAddress();
+    boolean _equals_2 = _ipAddress_2.equals("IPv6");
+    if (_equals_2) {
+      EList<Integer> _ip6 = i.getIp6();
+      int _size_1 = _ip6.size();
+      boolean _notEquals_1 = (_size_1 != 7);
+      if (_notEquals_1) {
+        this.error(
+          "Syntax of IPv6 Adress not respected", 
+          RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+          RdslValidator.INVALID_CARD);
+      } else {
+        EList<Integer> _ip6_1 = i.getIp6();
+        for (final int part_1 : _ip6_1) {
+          if (((part_1 > 255) || (part_1 < 0))) {
+            this.error(
+              "Syntax of IPv6 Adress not respected", 
+              RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+              RdslValidator.INVALID_CARD);
+          }
+        }
+      }
+    }
+  }
+  
+  @Check(CheckType.FAST)
+  public void checkComponentStartWithUpperCase(final Component c) {
+    String _name = c.getName();
+    char _charAt = _name.charAt(0);
+    boolean _isLowerCase = Character.isLowerCase(_charAt);
+    if (_isLowerCase) {
+      this.warning("Entity name should start with a capital letter", 
+        RdslPackage.Literals.INSTANCE__THE_LOAD, 
         RdslValidator.INVALID_CARD);
     }
   }
   
-  /**
-   * A component can't extends itself
-   */
   @Check(CheckType.FAST)
-  public void checkExtendsOfComponent(final Extends e) {
-    EObject _eContainer = e.eContainer();
-    Component c = ((Component) _eContainer);
-    EList<String> listextends = new BasicEList<String>();
-    EList<Component> listparent = new BasicEList<Component>();
-    EList<Extends> _extends = c.getExtends();
-    for (final Extends ex : _extends) {
-      Component _supComponent = ex.getSupComponent();
-      listparent.add(_supComponent);
+  public void checkInstanceLoad(final Instance i) {
+    boolean _or = false;
+    int _theLoad = i.getTheLoad();
+    boolean _greaterThan = (_theLoad > 100);
+    if (_greaterThan) {
+      _or = true;
+    } else {
+      int _theLoad_1 = i.getTheLoad();
+      boolean _lessThan = (_theLoad_1 < 0);
+      _or = _lessThan;
     }
-    boolean bool = true;
-    int i = 0;
-    while (((bool && (listparent.size() > 0)) && (i < listparent.size()))) {
-      {
-        Component _get = listparent.get(i);
-        String _name = _get.getName();
-        boolean _contains = listextends.contains(_name);
-        if (_contains) {
-          return;
-        } else {
-          Component _get_1 = listparent.get(i);
-          String _name_1 = _get_1.getName();
-          listextends.add(_name_1);
-          Component _get_2 = listparent.get(i);
-          EList<Extends> _extends_1 = _get_2.getExtends();
-          for (final Extends ex_1 : _extends_1) {
-            Component _supComponent_1 = ex_1.getSupComponent();
-            CollectionExtensions.<Component>addAll(listparent, _supComponent_1);
-          }
-        }
-        Component _get_3 = listparent.get(i);
-        EList<Extends> _extends_2 = _get_3.getExtends();
-        boolean _equals = Objects.equal(_extends_2, null);
-        if (_equals) {
-          bool = false;
-        }
-        i++;
-      }
+    if (_or) {
+      this.error(
+        "Load of an Instance should be comprised between 0 and 100", 
+        RdslPackage.Literals.INSTANCE__THE_LOAD, 
+        RdslValidator.INVALID_CARD);
     }
-    for (final Component ex_1 : listparent) {
-      String _name = ex_1.getName();
-      String _name_1 = c.getName();
-      boolean _equals = _name.equals(_name_1);
-      if (_equals) {
-        this.error(
-          "A component can\'t extends itself", 
-          RdslPackage.Literals.EXTENDS__SUP_COMPONENT, 
-          RdslValidator.INVALID_CARD);
-      }
+    int _theLoad_2 = i.getTheLoad();
+    boolean _greaterThan_1 = (_theLoad_2 > 80);
+    if (_greaterThan_1) {
+      this.warning("A new Instance is needed", 
+        RdslPackage.Literals.INSTANCE__INSTANCES);
+    }
+    int _theLoad_3 = i.getTheLoad();
+    boolean _lessThan_1 = (_theLoad_3 < 20);
+    if (_lessThan_1) {
+      this.warning("More Instances than needed", 
+        RdslPackage.Literals.INSTANCE__INSTANCES);
+    }
+  }
+  
+  @Check(CheckType.FAST)
+  public void checkInstanceNumber(final Instance i) {
+    EList<Instance> _instances = i.getInstances();
+    int _size = _instances.size();
+    int _valmax = i.getValmax();
+    boolean _greaterThan = (_size > _valmax);
+    if (_greaterThan) {
+      this.error(
+        "Allowed max number of instances exceeded", 
+        RdslPackage.Literals.INSTANCE__THE_LOAD, 
+        RdslValidator.INVALID_CARD);
+    }
+    EList<Instance> _instances_1 = i.getInstances();
+    int _size_1 = _instances_1.size();
+    int _valmin = i.getValmin();
+    boolean _lessThan = (_size_1 < _valmin);
+    if (_lessThan) {
+      this.error(
+        "Allowed min number of instances not reached", 
+        RdslPackage.Literals.INSTANCE__THE_LOAD, 
+        RdslValidator.INVALID_CARD);
     }
   }
   
