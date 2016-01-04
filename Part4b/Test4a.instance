@@ -1,0 +1,33 @@
+# A VM with Apache+load balancer
+instance of VM_EC2 { 
+		name : VM EC1  ; 
+	
+	instance of ApacheServer { 
+		name : Apache; 
+		adressType : IPv4;
+		 address  ip4 : 12.12.12.2 ;
+		 hostname : ApacheServer ; 
+		 iptables -A INPUT -s 192.168.1.88 -d 195.6.100.9 -p tcp -j ACCEPT;
+		 iptables -A OUTPUT -s 192.168.2.8 -d 195.6.200.9 -p tcp -j REJECT;
+		 iptables -A INPUT -s 192.168.3.88 -d 195.6.33.9 -p udp -j DROP;
+		 } 
+	} 
+# A VM with Tomcat+webapp
+instance of VM_EC2 { 
+	name : Tomcat VM ;
+	minAllowedSubInstances : 0;
+	maxAllowedSubInstances : 10;
+	adressType:IPv6;
+	address ip6 : 12:12:12:12:12:12:12:12;
+	loadLimit : 10;
+	hostname : ApacheServer2 ; 
+	tcpPort : 8080;
+	 
+	instance of ApacheServer {
+				 	name :DemoApp SE ;	
+		 instance of Lamp { 
+		 			 	name : Tomcat; 
+		 		 	} 
+		 } 
+	
+	}

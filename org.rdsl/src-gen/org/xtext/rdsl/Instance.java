@@ -23,13 +23,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.xtext.rdsl.Instance#getValmin <em>Valmin</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getValmax <em>Valmax</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getIpAddress <em>Ip Address</em>}</li>
- *   <li>{@link org.xtext.rdsl.Instance#getIp4 <em>Ip4</em>}</li>
- *   <li>{@link org.xtext.rdsl.Instance#getIp4last <em>Ip4last</em>}</li>
- *   <li>{@link org.xtext.rdsl.Instance#getIp6 <em>Ip6</em>}</li>
- *   <li>{@link org.xtext.rdsl.Instance#getIp6last <em>Ip6last</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Instance#getIpadress <em>Ipadress</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getTheLoad <em>The Load</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getTheState <em>The State</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getHostname <em>Hostname</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Instance#getTcp <em>Tcp</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Instance#getUdp <em>Udp</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getIptable <em>Iptable</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link org.xtext.rdsl.Instance#getInstances <em>Instances</em>}</li>
@@ -240,114 +239,56 @@ public interface Instance extends EObject
   void setIpAddress(String value);
 
   /**
-   * Returns the value of the '<em><b>Ip4</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Integer}.
+   * Returns the value of the '<em><b>Ipadress</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Ip4</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Ipadress</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Ip4</em>' attribute list.
-   * @see org.xtext.rdsl.RdslPackage#getInstance_Ip4()
-   * @model unique="false"
+   * @return the value of the '<em>Ipadress</em>' containment reference.
+   * @see #setIpadress(IpAdress)
+   * @see org.xtext.rdsl.RdslPackage#getInstance_Ipadress()
+   * @model containment="true"
    * @generated
    */
-  EList<Integer> getIp4();
+  IpAdress getIpadress();
 
   /**
-   * Returns the value of the '<em><b>Ip4last</b></em>' attribute.
+   * Sets the value of the '{@link org.xtext.rdsl.Instance#getIpadress <em>Ipadress</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ipadress</em>' containment reference.
+   * @see #getIpadress()
+   * @generated
+   */
+  void setIpadress(IpAdress value);
+
+  /**
+   * Returns the value of the '<em><b>The Load</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Ip4last</em>' attribute isn't clear,
+   * If the meaning of the '<em>The Load</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Ip4last</em>' attribute.
-   * @see #setIp4last(int)
-   * @see org.xtext.rdsl.RdslPackage#getInstance_Ip4last()
-   * @model
-   * @generated
-   */
-  int getIp4last();
-
-  /**
-   * Sets the value of the '{@link org.xtext.rdsl.Instance#getIp4last <em>Ip4last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Ip4last</em>' attribute.
-   * @see #getIp4last()
-   * @generated
-   */
-  void setIp4last(int value);
-
-  /**
-   * Returns the value of the '<em><b>Ip6</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Integer}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Ip6</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Ip6</em>' attribute list.
-   * @see org.xtext.rdsl.RdslPackage#getInstance_Ip6()
-   * @model unique="false"
-   * @generated
-   */
-  EList<Integer> getIp6();
-
-  /**
-   * Returns the value of the '<em><b>Ip6last</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Ip6last</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Ip6last</em>' attribute.
-   * @see #setIp6last(int)
-   * @see org.xtext.rdsl.RdslPackage#getInstance_Ip6last()
-   * @model
-   * @generated
-   */
-  int getIp6last();
-
-  /**
-   * Sets the value of the '{@link org.xtext.rdsl.Instance#getIp6last <em>Ip6last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Ip6last</em>' attribute.
-   * @see #getIp6last()
-   * @generated
-   */
-  void setIp6last(int value);
-
-  /**
-   * Returns the value of the '<em><b>The Load</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>The Load</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>The Load</em>' attribute.
-   * @see #setTheLoad(int)
+   * @return the value of the '<em>The Load</em>' containment reference.
+   * @see #setTheLoad(Load)
    * @see org.xtext.rdsl.RdslPackage#getInstance_TheLoad()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  int getTheLoad();
+  Load getTheLoad();
 
   /**
-   * Sets the value of the '{@link org.xtext.rdsl.Instance#getTheLoad <em>The Load</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.rdsl.Instance#getTheLoad <em>The Load</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>The Load</em>' attribute.
+   * @param value the new value of the '<em>The Load</em>' containment reference.
    * @see #getTheLoad()
    * @generated
    */
-  void setTheLoad(int value);
+  void setTheLoad(Load value);
 
   /**
    * Returns the value of the '<em><b>The State</b></em>' attribute.
@@ -400,6 +341,58 @@ public interface Instance extends EObject
    * @generated
    */
   void setHostname(String value);
+
+  /**
+   * Returns the value of the '<em><b>Tcp</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Tcp</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Tcp</em>' attribute.
+   * @see #setTcp(int)
+   * @see org.xtext.rdsl.RdslPackage#getInstance_Tcp()
+   * @model
+   * @generated
+   */
+  int getTcp();
+
+  /**
+   * Sets the value of the '{@link org.xtext.rdsl.Instance#getTcp <em>Tcp</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Tcp</em>' attribute.
+   * @see #getTcp()
+   * @generated
+   */
+  void setTcp(int value);
+
+  /**
+   * Returns the value of the '<em><b>Udp</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Udp</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Udp</em>' attribute.
+   * @see #setUdp(int)
+   * @see org.xtext.rdsl.RdslPackage#getInstance_Udp()
+   * @model
+   * @generated
+   */
+  int getUdp();
+
+  /**
+   * Sets the value of the '{@link org.xtext.rdsl.Instance#getUdp <em>Udp</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Udp</em>' attribute.
+   * @see #getUdp()
+   * @generated
+   */
+  void setUdp(int value);
 
   /**
    * Returns the value of the '<em><b>Iptable</b></em>' containment reference list.

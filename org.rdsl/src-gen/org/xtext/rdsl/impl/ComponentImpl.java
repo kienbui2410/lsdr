@@ -40,6 +40,8 @@ import org.xtext.rdsl.RdslPackage;
  *   <li>{@link org.xtext.rdsl.impl.ComponentImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.ComponentImpl#getFacets <em>Facets</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.ComponentImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.ComponentImpl#getValmin <em>Valmin</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.ComponentImpl#getValmax <em>Valmax</em>}</li>
  * </ul>
  *
  * @generated
@@ -105,6 +107,46 @@ public class ComponentImpl extends CompFacetImpl implements Component
    * @ordered
    */
   protected EList<Extends> extends_;
+
+  /**
+   * The default value of the '{@link #getValmin() <em>Valmin</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmin()
+   * @generated
+   * @ordered
+   */
+  protected static final int VALMIN_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getValmin() <em>Valmin</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmin()
+   * @generated
+   * @ordered
+   */
+  protected int valmin = VALMIN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getValmax() <em>Valmax</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmax()
+   * @generated
+   * @ordered
+   */
+  protected static final int VALMAX_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getValmax() <em>Valmax</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValmax()
+   * @generated
+   * @ordered
+   */
+  protected int valmax = VALMAX_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -250,6 +292,52 @@ public class ComponentImpl extends CompFacetImpl implements Component
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getValmin()
+  {
+    return valmin;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValmin(int newValmin)
+  {
+    int oldValmin = valmin;
+    valmin = newValmin;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.COMPONENT__VALMIN, oldValmin, valmin));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getValmax()
+  {
+    return valmax;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValmax(int newValmax)
+  {
+    int oldValmax = valmax;
+    valmax = newValmax;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.COMPONENT__VALMAX, oldValmax, valmax));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -293,6 +381,10 @@ public class ComponentImpl extends CompFacetImpl implements Component
         return getFacets();
       case RdslPackage.COMPONENT__EXTENDS:
         return getExtends();
+      case RdslPackage.COMPONENT__VALMIN:
+        return getValmin();
+      case RdslPackage.COMPONENT__VALMAX:
+        return getValmax();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -331,6 +423,12 @@ public class ComponentImpl extends CompFacetImpl implements Component
         getExtends().clear();
         getExtends().addAll((Collection<? extends Extends>)newValue);
         return;
+      case RdslPackage.COMPONENT__VALMIN:
+        setValmin((Integer)newValue);
+        return;
+      case RdslPackage.COMPONENT__VALMAX:
+        setValmax((Integer)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -363,6 +461,12 @@ public class ComponentImpl extends CompFacetImpl implements Component
       case RdslPackage.COMPONENT__EXTENDS:
         getExtends().clear();
         return;
+      case RdslPackage.COMPONENT__VALMIN:
+        setValmin(VALMIN_EDEFAULT);
+        return;
+      case RdslPackage.COMPONENT__VALMAX:
+        setValmax(VALMAX_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -389,8 +493,31 @@ public class ComponentImpl extends CompFacetImpl implements Component
         return facets != null && !facets.isEmpty();
       case RdslPackage.COMPONENT__EXTENDS:
         return extends_ != null && !extends_.isEmpty();
+      case RdslPackage.COMPONENT__VALMIN:
+        return valmin != VALMIN_EDEFAULT;
+      case RdslPackage.COMPONENT__VALMAX:
+        return valmax != VALMAX_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (valmin: ");
+    result.append(valmin);
+    result.append(", valmax: ");
+    result.append(valmax);
+    result.append(')');
+    return result.toString();
   }
 
 } //ComponentImpl

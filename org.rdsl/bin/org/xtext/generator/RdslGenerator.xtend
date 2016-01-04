@@ -36,7 +36,7 @@ class RdslGenerator implements IGenerator {
     'adjacencies': [
     «IF model.graphs.imports!=null»
  	 «FOR im : model.graphs.imports»
-	 'importedPackage_«im.importURI.name»' ,
+	 'importedPackage_«im.importURI»' ,
  	 «ENDFOR»
  	 «ENDIF»
  	 
@@ -61,13 +61,13 @@ class RdslGenerator implements IGenerator {
  	 // Generate ImportedPackage node
  	 «FOR im : graph.imports»
  	{  
-    'id': 'importedPackage_«im.importURI.name»',  
+    'id': 'importedPackage_«im.importURI»',  
     'name': 'importedPackage',  
     'data': {  
           "$color": "#416D9C",
           "$type": "circle",
           "$dim": 7,
-		  '$info': '«im.importURI.name»'
+		  '$info': '«im.importURI»'
      	}
   	}, 
  	 «ENDFOR» 	 
@@ -305,10 +305,10 @@ class RdslGenerator implements IGenerator {
 		 	   «com.listPropertiesOfComponent»
 		   «ENDFOR» 
 		   «m.listFacet»
-		«ELSE»   
-		   «IF m.instances!=null»	
-		   		«m.listInstances»   
-		   «ENDIF»
+«««		«ELSE»   
+«««		   «IF m.instances!=null»	
+«««		   		«m.listInstances»   
+«««		   «ENDIF»
 		«ENDIF»   
  		'''
  	
@@ -322,14 +322,29 @@ class RdslGenerator implements IGenerator {
 //	}
 	
 		override void doGenerate(Resource resource, IFileSystemAccess fsa) { 
-		fsa.generateFile(resource.className+".html", 
+		fsa.generateFile(resource.className+"_graph.html", 		
+		htmlHeaderOpen()+
+ 		htmlJavascriptCode()+
+ 		htlmJavascriptJsonInit(resource)+	
+ 		htmlJavascriptFinal()+
+		htmlHeaderClose()
+		)
 		
-htmlHeaderOpen()+
- htmlJavascriptCode()+
- 			htlmJavascriptJsonInit(resource)+	
- htmlJavascriptFinal()+
-	htmlHeaderClose()
-		)				
+				 for( instance: resource.allContents.toIterable.filter(Instance)) {
+		 	
+		 	if (instance.hostname != null ){
+		 		  			
+  
+    fsa.generateFile(
+      instance.hostname + ".cfg",
+      instance.compile)
+      
+           fsa.generateFile(
+      instance.hostname + "_rules.html",
+      instance.compileIp)
+      }
+        
+      }				
 	}
 //	
 	def String htmlHeaderOpen() {
@@ -525,5 +540,46 @@ var Log = {
 </body>
 </html>";
 	}
+
+	
+
+def compile(Instance instance) ''' 
+  define host {
+        use                             linux-server
+        host_name                       «instance.hostname»
+        alias                           «instance.name » «instance.fullname.join(" ") »
+        address                         «IF instance.ipadress != null && instance.ipadress.ip4 != null && instance.ipadress.ip4.size >0 »«instance.ipadress.ip4.join(".")».«instance.ipadress.ip4last»«ELSEIF  instance.ipadress != null &&  instance.ipadress.ip6 != null && instance.ipadress.ip6.size >0 »«instance.ipadress.ip6.join(":")».«instance.ipadress.ip6last»«ENDIF»
+        max_check_attempts              5
+        check_period                    24x7
+        notification_interval           30
+        notification_period             24x7
+}
+'''
+
+def compileIp(Instance c) '''
+
+<!DOCTYPE html>
+<html>
+<body>
+iptables -L
+<table border="1" style="width:100%">
+  <tr>
+<td>traffic</td> <td>target</td> <td>prot</td> <td>source</td> <td>destination</td>
+  </tr>
+«FOR rule : c.iptable»
+  <tr>
+	<td>«rule.traffic»</td> 
+	<td>«rule.target»</td> 
+	<td>«rule.protocol»</td> 
+	<td>«rule.source.join(".")».«rule.sourcefinal»</td> 
+	<td>«rule.destination.join(".")».«rule.destinationfinal»</td>
+  </tr>
+«ENDFOR»
+</table>
+
+</body>
+</html>
+'''
+
 
 }

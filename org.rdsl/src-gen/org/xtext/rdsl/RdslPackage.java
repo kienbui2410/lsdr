@@ -85,31 +85,13 @@ public interface RdslPackage extends EPackage
   int MODEL__INSTANCES = 1;
 
   /**
-   * The feature id for the '<em><b>Valmin</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODEL__VALMIN = 2;
-
-  /**
-   * The feature id for the '<em><b>Valmax</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODEL__VALMAX = 3;
-
-  /**
    * The number of structural features of the '<em>Model</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL_FEATURE_COUNT = 4;
+  int MODEL_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.xtext.rdsl.impl.GraphImpl <em>Graph</em>}' class.
@@ -379,13 +361,31 @@ public interface RdslPackage extends EPackage
   int COMPONENT__EXTENDS = COMP_FACET_FEATURE_COUNT + 5;
 
   /**
+   * The feature id for the '<em><b>Valmin</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPONENT__VALMIN = COMP_FACET_FEATURE_COUNT + 6;
+
+  /**
+   * The feature id for the '<em><b>Valmax</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPONENT__VALMAX = COMP_FACET_FEATURE_COUNT + 7;
+
+  /**
    * The number of structural features of the '<em>Component</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMPONENT_FEATURE_COUNT = COMP_FACET_FEATURE_COUNT + 6;
+  int COMPONENT_FEATURE_COUNT = COMP_FACET_FEATURE_COUNT + 8;
 
   /**
    * The meta object id for the '{@link org.xtext.rdsl.impl.InstallerImpl <em>Installer</em>}' class.
@@ -858,49 +858,22 @@ public interface RdslPackage extends EPackage
   int INSTANCE__IP_ADDRESS = 7;
 
   /**
-   * The feature id for the '<em><b>Ip4</b></em>' attribute list.
+   * The feature id for the '<em><b>Ipadress</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INSTANCE__IP4 = 8;
+  int INSTANCE__IPADRESS = 8;
 
   /**
-   * The feature id for the '<em><b>Ip4last</b></em>' attribute.
+   * The feature id for the '<em><b>The Load</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INSTANCE__IP4LAST = 9;
-
-  /**
-   * The feature id for the '<em><b>Ip6</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTANCE__IP6 = 10;
-
-  /**
-   * The feature id for the '<em><b>Ip6last</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTANCE__IP6LAST = 11;
-
-  /**
-   * The feature id for the '<em><b>The Load</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTANCE__THE_LOAD = 12;
+  int INSTANCE__THE_LOAD = 9;
 
   /**
    * The feature id for the '<em><b>The State</b></em>' attribute.
@@ -909,7 +882,7 @@ public interface RdslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE__THE_STATE = 13;
+  int INSTANCE__THE_STATE = 10;
 
   /**
    * The feature id for the '<em><b>Hostname</b></em>' attribute.
@@ -918,7 +891,25 @@ public interface RdslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE__HOSTNAME = 14;
+  int INSTANCE__HOSTNAME = 11;
+
+  /**
+   * The feature id for the '<em><b>Tcp</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE__TCP = 12;
+
+  /**
+   * The feature id for the '<em><b>Udp</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE__UDP = 13;
 
   /**
    * The feature id for the '<em><b>Iptable</b></em>' containment reference list.
@@ -927,7 +918,7 @@ public interface RdslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE__IPTABLE = 15;
+  int INSTANCE__IPTABLE = 14;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -936,7 +927,7 @@ public interface RdslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE__ATTRIBUTES = 16;
+  int INSTANCE__ATTRIBUTES = 15;
 
   /**
    * The feature id for the '<em><b>Instances</b></em>' containment reference list.
@@ -945,7 +936,7 @@ public interface RdslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE__INSTANCES = 17;
+  int INSTANCE__INSTANCES = 16;
 
   /**
    * The number of structural features of the '<em>Instance</em>' class.
@@ -954,7 +945,90 @@ public interface RdslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_FEATURE_COUNT = 18;
+  int INSTANCE_FEATURE_COUNT = 17;
+
+  /**
+   * The meta object id for the '{@link org.xtext.rdsl.impl.LoadImpl <em>Load</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.rdsl.impl.LoadImpl
+   * @see org.xtext.rdsl.impl.RdslPackageImpl#getLoad()
+   * @generated
+   */
+  int LOAD = 18;
+
+  /**
+   * The feature id for the '<em><b>Val</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LOAD__VAL = 0;
+
+  /**
+   * The number of structural features of the '<em>Load</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LOAD_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtext.rdsl.impl.IpAdressImpl <em>Ip Adress</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.rdsl.impl.IpAdressImpl
+   * @see org.xtext.rdsl.impl.RdslPackageImpl#getIpAdress()
+   * @generated
+   */
+  int IP_ADRESS = 19;
+
+  /**
+   * The feature id for the '<em><b>Ip4</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IP_ADRESS__IP4 = 0;
+
+  /**
+   * The feature id for the '<em><b>Ip4last</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IP_ADRESS__IP4LAST = 1;
+
+  /**
+   * The feature id for the '<em><b>Ip6</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IP_ADRESS__IP6 = 2;
+
+  /**
+   * The feature id for the '<em><b>Ip6last</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IP_ADRESS__IP6LAST = 3;
+
+  /**
+   * The number of structural features of the '<em>Ip Adress</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IP_ADRESS_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.xtext.rdsl.impl.IpTableImpl <em>Ip Table</em>}' class.
@@ -964,7 +1038,7 @@ public interface RdslPackage extends EPackage
    * @see org.xtext.rdsl.impl.RdslPackageImpl#getIpTable()
    * @generated
    */
-  int IP_TABLE = 18;
+  int IP_TABLE = 20;
 
   /**
    * The feature id for the '<em><b>Traffic</b></em>' attribute.
@@ -1046,7 +1120,7 @@ public interface RdslPackage extends EPackage
    * @see org.xtext.rdsl.impl.RdslPackageImpl#getAttribut()
    * @generated
    */
-  int ATTRIBUT = 19;
+  int ATTRIBUT = 21;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1107,28 +1181,6 @@ public interface RdslPackage extends EPackage
    * @generated
    */
   EReference getModel_Instances();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Model#getValmin <em>Valmin</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Valmin</em>'.
-   * @see org.xtext.rdsl.Model#getValmin()
-   * @see #getModel()
-   * @generated
-   */
-  EAttribute getModel_Valmin();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Model#getValmax <em>Valmax</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Valmax</em>'.
-   * @see org.xtext.rdsl.Model#getValmax()
-   * @see #getModel()
-   * @generated
-   */
-  EAttribute getModel_Valmax();
 
   /**
    * Returns the meta object for class '{@link org.xtext.rdsl.Graph <em>Graph</em>}'.
@@ -1376,6 +1428,28 @@ public interface RdslPackage extends EPackage
    * @generated
    */
   EReference getComponent_Extends();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Component#getValmin <em>Valmin</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Valmin</em>'.
+   * @see org.xtext.rdsl.Component#getValmin()
+   * @see #getComponent()
+   * @generated
+   */
+  EAttribute getComponent_Valmin();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Component#getValmax <em>Valmax</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Valmax</em>'.
+   * @see org.xtext.rdsl.Component#getValmax()
+   * @see #getComponent()
+   * @generated
+   */
+  EAttribute getComponent_Valmax();
 
   /**
    * Returns the meta object for class '{@link org.xtext.rdsl.Installer <em>Installer</em>}'.
@@ -1807,59 +1881,26 @@ public interface RdslPackage extends EPackage
   EAttribute getInstance_IpAddress();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.xtext.rdsl.Instance#getIp4 <em>Ip4</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.rdsl.Instance#getIpadress <em>Ipadress</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Ip4</em>'.
-   * @see org.xtext.rdsl.Instance#getIp4()
+   * @return the meta object for the containment reference '<em>Ipadress</em>'.
+   * @see org.xtext.rdsl.Instance#getIpadress()
    * @see #getInstance()
    * @generated
    */
-  EAttribute getInstance_Ip4();
+  EReference getInstance_Ipadress();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Instance#getIp4last <em>Ip4last</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.rdsl.Instance#getTheLoad <em>The Load</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Ip4last</em>'.
-   * @see org.xtext.rdsl.Instance#getIp4last()
-   * @see #getInstance()
-   * @generated
-   */
-  EAttribute getInstance_Ip4last();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.xtext.rdsl.Instance#getIp6 <em>Ip6</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Ip6</em>'.
-   * @see org.xtext.rdsl.Instance#getIp6()
-   * @see #getInstance()
-   * @generated
-   */
-  EAttribute getInstance_Ip6();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Instance#getIp6last <em>Ip6last</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Ip6last</em>'.
-   * @see org.xtext.rdsl.Instance#getIp6last()
-   * @see #getInstance()
-   * @generated
-   */
-  EAttribute getInstance_Ip6last();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Instance#getTheLoad <em>The Load</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>The Load</em>'.
+   * @return the meta object for the containment reference '<em>The Load</em>'.
    * @see org.xtext.rdsl.Instance#getTheLoad()
    * @see #getInstance()
    * @generated
    */
-  EAttribute getInstance_TheLoad();
+  EReference getInstance_TheLoad();
 
   /**
    * Returns the meta object for the attribute '{@link org.xtext.rdsl.Instance#getTheState <em>The State</em>}'.
@@ -1882,6 +1923,28 @@ public interface RdslPackage extends EPackage
    * @generated
    */
   EAttribute getInstance_Hostname();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Instance#getTcp <em>Tcp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Tcp</em>'.
+   * @see org.xtext.rdsl.Instance#getTcp()
+   * @see #getInstance()
+   * @generated
+   */
+  EAttribute getInstance_Tcp();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Instance#getUdp <em>Udp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Udp</em>'.
+   * @see org.xtext.rdsl.Instance#getUdp()
+   * @see #getInstance()
+   * @generated
+   */
+  EAttribute getInstance_Udp();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.xtext.rdsl.Instance#getIptable <em>Iptable</em>}'.
@@ -1915,6 +1978,81 @@ public interface RdslPackage extends EPackage
    * @generated
    */
   EReference getInstance_Instances();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.rdsl.Load <em>Load</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Load</em>'.
+   * @see org.xtext.rdsl.Load
+   * @generated
+   */
+  EClass getLoad();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.rdsl.Load#getVal <em>Val</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Val</em>'.
+   * @see org.xtext.rdsl.Load#getVal()
+   * @see #getLoad()
+   * @generated
+   */
+  EAttribute getLoad_Val();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.rdsl.IpAdress <em>Ip Adress</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ip Adress</em>'.
+   * @see org.xtext.rdsl.IpAdress
+   * @generated
+   */
+  EClass getIpAdress();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.xtext.rdsl.IpAdress#getIp4 <em>Ip4</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Ip4</em>'.
+   * @see org.xtext.rdsl.IpAdress#getIp4()
+   * @see #getIpAdress()
+   * @generated
+   */
+  EAttribute getIpAdress_Ip4();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.rdsl.IpAdress#getIp4last <em>Ip4last</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Ip4last</em>'.
+   * @see org.xtext.rdsl.IpAdress#getIp4last()
+   * @see #getIpAdress()
+   * @generated
+   */
+  EAttribute getIpAdress_Ip4last();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.xtext.rdsl.IpAdress#getIp6 <em>Ip6</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Ip6</em>'.
+   * @see org.xtext.rdsl.IpAdress#getIp6()
+   * @see #getIpAdress()
+   * @generated
+   */
+  EAttribute getIpAdress_Ip6();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.rdsl.IpAdress#getIp6last <em>Ip6last</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Ip6last</em>'.
+   * @see org.xtext.rdsl.IpAdress#getIp6last()
+   * @see #getIpAdress()
+   * @generated
+   */
+  EAttribute getIpAdress_Ip6last();
 
   /**
    * Returns the meta object for class '{@link org.xtext.rdsl.IpTable <em>Ip Table</em>}'.
@@ -2083,22 +2221,6 @@ public interface RdslPackage extends EPackage
      * @generated
      */
     EReference MODEL__INSTANCES = eINSTANCE.getModel_Instances();
-
-    /**
-     * The meta object literal for the '<em><b>Valmin</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute MODEL__VALMIN = eINSTANCE.getModel_Valmin();
-
-    /**
-     * The meta object literal for the '<em><b>Valmax</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute MODEL__VALMAX = eINSTANCE.getModel_Valmax();
 
     /**
      * The meta object literal for the '{@link org.xtext.rdsl.impl.GraphImpl <em>Graph</em>}' class.
@@ -2295,6 +2417,22 @@ public interface RdslPackage extends EPackage
      * @generated
      */
     EReference COMPONENT__EXTENDS = eINSTANCE.getComponent_Extends();
+
+    /**
+     * The meta object literal for the '<em><b>Valmin</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPONENT__VALMIN = eINSTANCE.getComponent_Valmin();
+
+    /**
+     * The meta object literal for the '<em><b>Valmax</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPONENT__VALMAX = eINSTANCE.getComponent_Valmax();
 
     /**
      * The meta object literal for the '{@link org.xtext.rdsl.impl.InstallerImpl <em>Installer</em>}' class.
@@ -2639,44 +2777,20 @@ public interface RdslPackage extends EPackage
     EAttribute INSTANCE__IP_ADDRESS = eINSTANCE.getInstance_IpAddress();
 
     /**
-     * The meta object literal for the '<em><b>Ip4</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Ipadress</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute INSTANCE__IP4 = eINSTANCE.getInstance_Ip4();
+    EReference INSTANCE__IPADRESS = eINSTANCE.getInstance_Ipadress();
 
     /**
-     * The meta object literal for the '<em><b>Ip4last</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>The Load</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute INSTANCE__IP4LAST = eINSTANCE.getInstance_Ip4last();
-
-    /**
-     * The meta object literal for the '<em><b>Ip6</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INSTANCE__IP6 = eINSTANCE.getInstance_Ip6();
-
-    /**
-     * The meta object literal for the '<em><b>Ip6last</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INSTANCE__IP6LAST = eINSTANCE.getInstance_Ip6last();
-
-    /**
-     * The meta object literal for the '<em><b>The Load</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INSTANCE__THE_LOAD = eINSTANCE.getInstance_TheLoad();
+    EReference INSTANCE__THE_LOAD = eINSTANCE.getInstance_TheLoad();
 
     /**
      * The meta object literal for the '<em><b>The State</b></em>' attribute feature.
@@ -2693,6 +2807,22 @@ public interface RdslPackage extends EPackage
      * @generated
      */
     EAttribute INSTANCE__HOSTNAME = eINSTANCE.getInstance_Hostname();
+
+    /**
+     * The meta object literal for the '<em><b>Tcp</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INSTANCE__TCP = eINSTANCE.getInstance_Tcp();
+
+    /**
+     * The meta object literal for the '<em><b>Udp</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INSTANCE__UDP = eINSTANCE.getInstance_Udp();
 
     /**
      * The meta object literal for the '<em><b>Iptable</b></em>' containment reference list feature.
@@ -2717,6 +2847,66 @@ public interface RdslPackage extends EPackage
      * @generated
      */
     EReference INSTANCE__INSTANCES = eINSTANCE.getInstance_Instances();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.rdsl.impl.LoadImpl <em>Load</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.rdsl.impl.LoadImpl
+     * @see org.xtext.rdsl.impl.RdslPackageImpl#getLoad()
+     * @generated
+     */
+    EClass LOAD = eINSTANCE.getLoad();
+
+    /**
+     * The meta object literal for the '<em><b>Val</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LOAD__VAL = eINSTANCE.getLoad_Val();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.rdsl.impl.IpAdressImpl <em>Ip Adress</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.rdsl.impl.IpAdressImpl
+     * @see org.xtext.rdsl.impl.RdslPackageImpl#getIpAdress()
+     * @generated
+     */
+    EClass IP_ADRESS = eINSTANCE.getIpAdress();
+
+    /**
+     * The meta object literal for the '<em><b>Ip4</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IP_ADRESS__IP4 = eINSTANCE.getIpAdress_Ip4();
+
+    /**
+     * The meta object literal for the '<em><b>Ip4last</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IP_ADRESS__IP4LAST = eINSTANCE.getIpAdress_Ip4last();
+
+    /**
+     * The meta object literal for the '<em><b>Ip6</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IP_ADRESS__IP6 = eINSTANCE.getIpAdress_Ip6();
+
+    /**
+     * The meta object literal for the '<em><b>Ip6last</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IP_ADRESS__IP6LAST = eINSTANCE.getIpAdress_Ip6last();
 
     /**
      * The meta object literal for the '{@link org.xtext.rdsl.impl.IpTableImpl <em>Ip Table</em>}' class.

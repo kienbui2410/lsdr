@@ -37,6 +37,9 @@ Component:
 	((childrens+=Children) | (exports+=Export) | (imports+=Imports) | (facets+=Facets) | (extends+=Extends))*
 	
 	'}'
+	
+	('minAllowedInstances' ':' valmin=INT ';')? 
+	('maxAllowedInstances' ':' valmax=INT ';')? 
 
 ;
 
@@ -93,20 +96,27 @@ Instance:
 
 		'name'':' name=ID (fullname+=Fullname)* ';' 
 		(count='count'':' val=INT ';')? 
-		('minAllowedInstances' ':' valmin=INT ';')? 
-		('maxAllowedInstances' ':' valmax=INT ';')? 
-		('adressType'':' ipAddress=AType ';')? 
-		('ipv4' 'address'':' ((ip4+=INT '.')* ip4last=INT) ';')? 
-		('ipv6' 'address'':' ((ip6+=INT ':')* ip6last=INT) ';')? 
-		('load' ':' theLoad=INT ';')? 
+		('minAllowedSubInstances' ':' valmin=INT ';')? 
+		('maxAllowedSubInstances' ':' valmax=INT ';')? 
+		('adressType'':' ipAddress=AType ';'  
+		'address' ipadress=IpAdress ';' ) ?
+		 (theLoad=Load ';') ?
 		('state' ':' theState=('public'|'private') ';')? 
 		('hostname' ':' hostname=ID ';')? 
+		('tcpPort :' tcp=INT ';'| 'udpPort :' udp=INT ';') ?
 		(iptable+=IpTable)* 
 		(attributes+=Attribut)* 
-		 (instances+=Instance)*  
+		(instances+=Instance)*  
 	'}'
 ;
 
+Load:
+	'loadLimit' ':' val=INT
+;
+
+IpAdress:
+	('ip4' ':' (ip4+=INT '.' )* ip4last=INT) | ('ip6' ':'  (ip6+=INT ':')* ip6last=INT)
+;
 
 IpTable:
 	'iptables' '-A' traffic=('INPUT' | 'OUTPUT' | 'FORWARD') ('-s' (source+=INT '.')+ sourcefinal=INT) ('-d' (destination+=INT '.')+ destinationfinal=INT) ('-p' protocol=('tcp'|'udp')) '-j' target=('ACCEPT' | 'REJECT' | 'DROP') ';'

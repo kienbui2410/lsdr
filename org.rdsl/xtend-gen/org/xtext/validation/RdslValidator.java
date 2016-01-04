@@ -21,6 +21,8 @@ import org.xtext.rdsl.Extends;
 import org.xtext.rdsl.Graph;
 import org.xtext.rdsl.Imports;
 import org.xtext.rdsl.Instance;
+import org.xtext.rdsl.IpAdress;
+import org.xtext.rdsl.Load;
 import org.xtext.rdsl.RdslPackage;
 import org.xtext.rdsl.exportVariable;
 import org.xtext.rdsl.importVariable;
@@ -60,22 +62,19 @@ public class RdslValidator extends AbstractRdslValidator {
   }
   
   @Check(CheckType.FAST)
-  public void checkSyntaxIPAdress(final Instance i) {
-    String _ipAddress = i.getIpAddress();
-    boolean _equals = Objects.equal(_ipAddress, null);
+  public void checkSyntaxIPAdress(final IpAdress i) {
+    EObject _eContainer = i.eContainer();
+    Instance ins = ((Instance) _eContainer);
+    String _ipAddress = ins.getIpAddress();
+    boolean _equals = _ipAddress.equals("IPv4");
     if (_equals) {
-      return;
-    }
-    String _ipAddress_1 = i.getIpAddress();
-    boolean _equals_1 = _ipAddress_1.equals("IPv4");
-    if (_equals_1) {
       EList<Integer> _ip4 = i.getIp4();
       int _size = _ip4.size();
       boolean _notEquals = (_size != 3);
       if (_notEquals) {
         this.error(
           "Syntax of IPv4 Adress not respected", 
-          RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+          RdslPackage.Literals.IP_ADRESS__IP4, 
           RdslValidator.INVALID_CARD);
       } else {
         EList<Integer> _ip4_1 = i.getIp4();
@@ -83,22 +82,22 @@ public class RdslValidator extends AbstractRdslValidator {
           if (((part > 255) || (part < 0))) {
             this.error(
               "Syntax of IPv4 Adress not respected", 
-              RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+              RdslPackage.Literals.IP_ADRESS__IP4, 
               RdslValidator.INVALID_CARD);
           }
         }
       }
     }
-    String _ipAddress_2 = i.getIpAddress();
-    boolean _equals_2 = _ipAddress_2.equals("IPv6");
-    if (_equals_2) {
+    String _ipAddress_1 = ins.getIpAddress();
+    boolean _equals_1 = _ipAddress_1.equals("IPv6");
+    if (_equals_1) {
       EList<Integer> _ip6 = i.getIp6();
       int _size_1 = _ip6.size();
       boolean _notEquals_1 = (_size_1 != 7);
       if (_notEquals_1) {
         this.error(
           "Syntax of IPv6 Adress not respected", 
-          RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+          RdslPackage.Literals.IP_ADRESS__IP6, 
           RdslValidator.INVALID_CARD);
       } else {
         EList<Integer> _ip6_1 = i.getIp6();
@@ -106,7 +105,7 @@ public class RdslValidator extends AbstractRdslValidator {
           if (((part_1 > 255) || (part_1 < 0))) {
             this.error(
               "Syntax of IPv6 Adress not respected", 
-              RdslPackage.Literals.INSTANCE__IP_ADDRESS, 
+              RdslPackage.Literals.IP_ADRESS__IP6, 
               RdslValidator.INVALID_CARD);
           }
         }
@@ -127,57 +126,61 @@ public class RdslValidator extends AbstractRdslValidator {
   }
   
   @Check(CheckType.FAST)
-  public void checkInstanceLoad(final Instance i) {
+  public void checkInstanceLoad(final Load i) {
     boolean _or = false;
-    int _theLoad = i.getTheLoad();
-    boolean _greaterThan = (_theLoad > 100);
+    int _val = i.getVal();
+    boolean _greaterThan = (_val > 100);
     if (_greaterThan) {
       _or = true;
     } else {
-      int _theLoad_1 = i.getTheLoad();
-      boolean _lessThan = (_theLoad_1 < 0);
+      int _val_1 = i.getVal();
+      boolean _lessThan = (_val_1 < 0);
       _or = _lessThan;
     }
     if (_or) {
       this.error(
         "Load of an Instance should be comprised between 0 and 100", 
-        RdslPackage.Literals.INSTANCE__THE_LOAD, 
+        RdslPackage.Literals.LOAD__VAL, 
         RdslValidator.INVALID_CARD);
-    }
-    int _theLoad_2 = i.getTheLoad();
-    boolean _greaterThan_1 = (_theLoad_2 > 80);
-    if (_greaterThan_1) {
-      this.warning("A new Instance is needed", 
-        RdslPackage.Literals.INSTANCE__INSTANCES);
-    }
-    int _theLoad_3 = i.getTheLoad();
-    boolean _lessThan_1 = (_theLoad_3 < 20);
-    if (_lessThan_1) {
-      this.warning("More Instances than needed", 
-        RdslPackage.Literals.INSTANCE__INSTANCES);
     }
   }
   
   @Check(CheckType.FAST)
   public void checkInstanceNumber(final Instance i) {
+    boolean _and = false;
     EList<Instance> _instances = i.getInstances();
     int _size = _instances.size();
     int _valmax = i.getValmax();
     boolean _greaterThan = (_size > _valmax);
-    if (_greaterThan) {
+    if (!_greaterThan) {
+      _and = false;
+    } else {
+      int _valmax_1 = i.getValmax();
+      boolean _notEquals = (_valmax_1 != 0);
+      _and = _notEquals;
+    }
+    if (_and) {
       this.error(
         "Allowed max number of instances exceeded", 
-        RdslPackage.Literals.INSTANCE__THE_LOAD, 
+        RdslPackage.Literals.INSTANCE__INSTANCES, 
         RdslValidator.INVALID_CARD);
     }
+    boolean _and_1 = false;
     EList<Instance> _instances_1 = i.getInstances();
     int _size_1 = _instances_1.size();
     int _valmin = i.getValmin();
     boolean _lessThan = (_size_1 < _valmin);
-    if (_lessThan) {
+    if (!_lessThan) {
+      _and_1 = false;
+    } else {
+      int _valmin_1 = i.getValmin();
+      boolean _notEquals_1 = (_valmin_1 != 0);
+      _and_1 = _notEquals_1;
+    }
+    if (_and_1) {
       this.error(
         "Allowed min number of instances not reached", 
-        RdslPackage.Literals.INSTANCE__THE_LOAD, 
+        RdslPackage.Literals.ATTRIBUT__NAME, 
         RdslValidator.INVALID_CARD);
     }
   }

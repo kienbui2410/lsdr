@@ -23,29 +23,14 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cGraphsAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cGraphsGraphParserRuleCall_0_0 = (RuleCall)cGraphsAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Assignment cInstancesAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cInstancesInstanceParserRuleCall_1_0_0 = (RuleCall)cInstancesAssignment_1_0.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Keyword cMinAllowedInstancesKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Keyword cColonKeyword_1_1_1 = (Keyword)cGroup_1_1.eContents().get(1);
-		private final Assignment cValminAssignment_1_1_2 = (Assignment)cGroup_1_1.eContents().get(2);
-		private final RuleCall cValminINTTerminalRuleCall_1_1_2_0 = (RuleCall)cValminAssignment_1_1_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_1_1_3 = (Keyword)cGroup_1_1.eContents().get(3);
-		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Keyword cMaxAllowedInstancesKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
-		private final Keyword cColonKeyword_1_2_1 = (Keyword)cGroup_1_2.eContents().get(1);
-		private final Assignment cValmaxAssignment_1_2_2 = (Assignment)cGroup_1_2.eContents().get(2);
-		private final RuleCall cValmaxINTTerminalRuleCall_1_2_2_0 = (RuleCall)cValmaxAssignment_1_2_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_1_2_3 = (Keyword)cGroup_1_2.eContents().get(3);
+		private final Assignment cInstancesAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cInstancesInstanceParserRuleCall_1_0 = (RuleCall)cInstancesAssignment_1.eContents().get(0);
 		
 		//Model:
-		//	graphs=Graph | instances+=Instance* ('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT
-		//	';')?;
+		//	graphs=Graph | instances+=Instance*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//graphs=Graph | instances+=Instance* ('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT
-		//';')?
+		//graphs=Graph | instances+=Instance*
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//graphs=Graph
@@ -54,50 +39,11 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		//Graph
 		public RuleCall getGraphsGraphParserRuleCall_0_0() { return cGraphsGraphParserRuleCall_0_0; }
 
-		//instances+=Instance* ('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT ';')?
-		public Group getGroup_1() { return cGroup_1; }
-
 		//instances+=Instance*
-		public Assignment getInstancesAssignment_1_0() { return cInstancesAssignment_1_0; }
+		public Assignment getInstancesAssignment_1() { return cInstancesAssignment_1; }
 
 		//Instance
-		public RuleCall getInstancesInstanceParserRuleCall_1_0_0() { return cInstancesInstanceParserRuleCall_1_0_0; }
-
-		//('minAllowedInstances' ':' valmin=INT ';')?
-		public Group getGroup_1_1() { return cGroup_1_1; }
-
-		//'minAllowedInstances'
-		public Keyword getMinAllowedInstancesKeyword_1_1_0() { return cMinAllowedInstancesKeyword_1_1_0; }
-
-		//':'
-		public Keyword getColonKeyword_1_1_1() { return cColonKeyword_1_1_1; }
-
-		//valmin=INT
-		public Assignment getValminAssignment_1_1_2() { return cValminAssignment_1_1_2; }
-
-		//INT
-		public RuleCall getValminINTTerminalRuleCall_1_1_2_0() { return cValminINTTerminalRuleCall_1_1_2_0; }
-
-		//';'
-		public Keyword getSemicolonKeyword_1_1_3() { return cSemicolonKeyword_1_1_3; }
-
-		//('maxAllowedInstances' ':' valmax=INT ';')?
-		public Group getGroup_1_2() { return cGroup_1_2; }
-
-		//'maxAllowedInstances'
-		public Keyword getMaxAllowedInstancesKeyword_1_2_0() { return cMaxAllowedInstancesKeyword_1_2_0; }
-
-		//':'
-		public Keyword getColonKeyword_1_2_1() { return cColonKeyword_1_2_1; }
-
-		//valmax=INT
-		public Assignment getValmaxAssignment_1_2_2() { return cValmaxAssignment_1_2_2; }
-
-		//INT
-		public RuleCall getValmaxINTTerminalRuleCall_1_2_2_0() { return cValmaxINTTerminalRuleCall_1_2_2_0; }
-
-		//';'
-		public Keyword getSemicolonKeyword_1_2_3() { return cSemicolonKeyword_1_2_3; }
+		public RuleCall getInstancesInstanceParserRuleCall_1_0() { return cInstancesInstanceParserRuleCall_1_0; }
 	}
 
 	public class GraphElements extends AbstractParserRuleElementFinder {
@@ -328,15 +274,27 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cExtendsAssignment_3_4 = (Assignment)cAlternatives_3.eContents().get(4);
 		private final RuleCall cExtendsExtendsParserRuleCall_3_4_0 = (RuleCall)cExtendsAssignment_3_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cMinAllowedInstancesKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cColonKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Assignment cValminAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
+		private final RuleCall cValminINTTerminalRuleCall_5_2_0 = (RuleCall)cValminAssignment_5_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5_3 = (Keyword)cGroup_5.eContents().get(3);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cMaxAllowedInstancesKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Keyword cColonKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final Assignment cValmaxAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
+		private final RuleCall cValmaxINTTerminalRuleCall_6_2_0 = (RuleCall)cValmaxAssignment_6_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_6_3 = (Keyword)cGroup_6.eContents().get(3);
 		
 		//Component:
 		//	name=ID '{'
 		//	installers=Installer (childrens+=Children | exports+=Export | imports+=Imports | facets+=Facets | extends+=Extends)*
-		//	'}';
+		//	'}' ('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT ';')?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID '{' installers=Installer (childrens+=Children | exports+=Export | imports+=Imports | facets+=Facets |
-		//extends+=Extends)* '}'
+		//extends+=Extends)* '}' ('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT ';')?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -389,6 +347,42 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+
+		//('minAllowedInstances' ':' valmin=INT ';')?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//'minAllowedInstances'
+		public Keyword getMinAllowedInstancesKeyword_5_0() { return cMinAllowedInstancesKeyword_5_0; }
+
+		//':'
+		public Keyword getColonKeyword_5_1() { return cColonKeyword_5_1; }
+
+		//valmin=INT
+		public Assignment getValminAssignment_5_2() { return cValminAssignment_5_2; }
+
+		//INT
+		public RuleCall getValminINTTerminalRuleCall_5_2_0() { return cValminINTTerminalRuleCall_5_2_0; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5_3() { return cSemicolonKeyword_5_3; }
+
+		//('maxAllowedInstances' ':' valmax=INT ';')?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//'maxAllowedInstances'
+		public Keyword getMaxAllowedInstancesKeyword_6_0() { return cMaxAllowedInstancesKeyword_6_0; }
+
+		//':'
+		public Keyword getColonKeyword_6_1() { return cColonKeyword_6_1; }
+
+		//valmax=INT
+		public Assignment getValmaxAssignment_6_2() { return cValmaxAssignment_6_2; }
+
+		//INT
+		public RuleCall getValmaxINTTerminalRuleCall_6_2_0() { return cValmaxINTTerminalRuleCall_6_2_0; }
+
+		//';'
+		public Keyword getSemicolonKeyword_6_3() { return cSemicolonKeyword_6_3; }
 	}
 
 	public class InstallerElements extends AbstractParserRuleElementFinder {
@@ -915,13 +909,13 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValINTTerminalRuleCall_9_2_0 = (RuleCall)cValAssignment_9_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_9_3 = (Keyword)cGroup_9.eContents().get(3);
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cMinAllowedInstancesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Keyword cMinAllowedSubInstancesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
 		private final Keyword cColonKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
 		private final Assignment cValminAssignment_10_2 = (Assignment)cGroup_10.eContents().get(2);
 		private final RuleCall cValminINTTerminalRuleCall_10_2_0 = (RuleCall)cValminAssignment_10_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_10_3 = (Keyword)cGroup_10.eContents().get(3);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cMaxAllowedInstancesKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Keyword cMaxAllowedSubInstancesKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
 		private final Keyword cColonKeyword_11_1 = (Keyword)cGroup_11.eContents().get(1);
 		private final Assignment cValmaxAssignment_11_2 = (Assignment)cGroup_11.eContents().get(2);
 		private final RuleCall cValmaxINTTerminalRuleCall_11_2_0 = (RuleCall)cValmaxAssignment_11_2.eContents().get(0);
@@ -932,64 +926,53 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cIpAddressAssignment_12_2 = (Assignment)cGroup_12.eContents().get(2);
 		private final RuleCall cIpAddressATypeParserRuleCall_12_2_0 = (RuleCall)cIpAddressAssignment_12_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_12_3 = (Keyword)cGroup_12.eContents().get(3);
+		private final Keyword cAddressKeyword_12_4 = (Keyword)cGroup_12.eContents().get(4);
+		private final Assignment cIpadressAssignment_12_5 = (Assignment)cGroup_12.eContents().get(5);
+		private final RuleCall cIpadressIpAdressParserRuleCall_12_5_0 = (RuleCall)cIpadressAssignment_12_5.eContents().get(0);
+		private final Keyword cSemicolonKeyword_12_6 = (Keyword)cGroup_12.eContents().get(6);
 		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cIpv4Keyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Keyword cAddressKeyword_13_1 = (Keyword)cGroup_13.eContents().get(1);
-		private final Keyword cColonKeyword_13_2 = (Keyword)cGroup_13.eContents().get(2);
-		private final Group cGroup_13_3 = (Group)cGroup_13.eContents().get(3);
-		private final Group cGroup_13_3_0 = (Group)cGroup_13_3.eContents().get(0);
-		private final Assignment cIp4Assignment_13_3_0_0 = (Assignment)cGroup_13_3_0.eContents().get(0);
-		private final RuleCall cIp4INTTerminalRuleCall_13_3_0_0_0 = (RuleCall)cIp4Assignment_13_3_0_0.eContents().get(0);
-		private final Keyword cFullStopKeyword_13_3_0_1 = (Keyword)cGroup_13_3_0.eContents().get(1);
-		private final Assignment cIp4lastAssignment_13_3_1 = (Assignment)cGroup_13_3.eContents().get(1);
-		private final RuleCall cIp4lastINTTerminalRuleCall_13_3_1_0 = (RuleCall)cIp4lastAssignment_13_3_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_13_4 = (Keyword)cGroup_13.eContents().get(4);
+		private final Assignment cTheLoadAssignment_13_0 = (Assignment)cGroup_13.eContents().get(0);
+		private final RuleCall cTheLoadLoadParserRuleCall_13_0_0 = (RuleCall)cTheLoadAssignment_13_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_13_1 = (Keyword)cGroup_13.eContents().get(1);
 		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cIpv6Keyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Keyword cAddressKeyword_14_1 = (Keyword)cGroup_14.eContents().get(1);
-		private final Keyword cColonKeyword_14_2 = (Keyword)cGroup_14.eContents().get(2);
-		private final Group cGroup_14_3 = (Group)cGroup_14.eContents().get(3);
-		private final Group cGroup_14_3_0 = (Group)cGroup_14_3.eContents().get(0);
-		private final Assignment cIp6Assignment_14_3_0_0 = (Assignment)cGroup_14_3_0.eContents().get(0);
-		private final RuleCall cIp6INTTerminalRuleCall_14_3_0_0_0 = (RuleCall)cIp6Assignment_14_3_0_0.eContents().get(0);
-		private final Keyword cColonKeyword_14_3_0_1 = (Keyword)cGroup_14_3_0.eContents().get(1);
-		private final Assignment cIp6lastAssignment_14_3_1 = (Assignment)cGroup_14_3.eContents().get(1);
-		private final RuleCall cIp6lastINTTerminalRuleCall_14_3_1_0 = (RuleCall)cIp6lastAssignment_14_3_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_14_4 = (Keyword)cGroup_14.eContents().get(4);
+		private final Keyword cStateKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
+		private final Keyword cColonKeyword_14_1 = (Keyword)cGroup_14.eContents().get(1);
+		private final Assignment cTheStateAssignment_14_2 = (Assignment)cGroup_14.eContents().get(2);
+		private final Alternatives cTheStateAlternatives_14_2_0 = (Alternatives)cTheStateAssignment_14_2.eContents().get(0);
+		private final Keyword cTheStatePublicKeyword_14_2_0_0 = (Keyword)cTheStateAlternatives_14_2_0.eContents().get(0);
+		private final Keyword cTheStatePrivateKeyword_14_2_0_1 = (Keyword)cTheStateAlternatives_14_2_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_14_3 = (Keyword)cGroup_14.eContents().get(3);
 		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
-		private final Keyword cLoadKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
+		private final Keyword cHostnameKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
 		private final Keyword cColonKeyword_15_1 = (Keyword)cGroup_15.eContents().get(1);
-		private final Assignment cTheLoadAssignment_15_2 = (Assignment)cGroup_15.eContents().get(2);
-		private final RuleCall cTheLoadINTTerminalRuleCall_15_2_0 = (RuleCall)cTheLoadAssignment_15_2.eContents().get(0);
+		private final Assignment cHostnameAssignment_15_2 = (Assignment)cGroup_15.eContents().get(2);
+		private final RuleCall cHostnameIDTerminalRuleCall_15_2_0 = (RuleCall)cHostnameAssignment_15_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_15_3 = (Keyword)cGroup_15.eContents().get(3);
-		private final Group cGroup_16 = (Group)cGroup.eContents().get(16);
-		private final Keyword cStateKeyword_16_0 = (Keyword)cGroup_16.eContents().get(0);
-		private final Keyword cColonKeyword_16_1 = (Keyword)cGroup_16.eContents().get(1);
-		private final Assignment cTheStateAssignment_16_2 = (Assignment)cGroup_16.eContents().get(2);
-		private final Alternatives cTheStateAlternatives_16_2_0 = (Alternatives)cTheStateAssignment_16_2.eContents().get(0);
-		private final Keyword cTheStatePublicKeyword_16_2_0_0 = (Keyword)cTheStateAlternatives_16_2_0.eContents().get(0);
-		private final Keyword cTheStatePrivateKeyword_16_2_0_1 = (Keyword)cTheStateAlternatives_16_2_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_16_3 = (Keyword)cGroup_16.eContents().get(3);
-		private final Group cGroup_17 = (Group)cGroup.eContents().get(17);
-		private final Keyword cHostnameKeyword_17_0 = (Keyword)cGroup_17.eContents().get(0);
-		private final Keyword cColonKeyword_17_1 = (Keyword)cGroup_17.eContents().get(1);
-		private final Assignment cHostnameAssignment_17_2 = (Assignment)cGroup_17.eContents().get(2);
-		private final RuleCall cHostnameIDTerminalRuleCall_17_2_0 = (RuleCall)cHostnameAssignment_17_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_17_3 = (Keyword)cGroup_17.eContents().get(3);
-		private final Assignment cIptableAssignment_18 = (Assignment)cGroup.eContents().get(18);
-		private final RuleCall cIptableIpTableParserRuleCall_18_0 = (RuleCall)cIptableAssignment_18.eContents().get(0);
-		private final Assignment cAttributesAssignment_19 = (Assignment)cGroup.eContents().get(19);
-		private final RuleCall cAttributesAttributParserRuleCall_19_0 = (RuleCall)cAttributesAssignment_19.eContents().get(0);
-		private final Assignment cInstancesAssignment_20 = (Assignment)cGroup.eContents().get(20);
-		private final RuleCall cInstancesInstanceParserRuleCall_20_0 = (RuleCall)cInstancesAssignment_20.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_21 = (Keyword)cGroup.eContents().get(21);
+		private final Alternatives cAlternatives_16 = (Alternatives)cGroup.eContents().get(16);
+		private final Group cGroup_16_0 = (Group)cAlternatives_16.eContents().get(0);
+		private final Keyword cTcpPortKeyword_16_0_0 = (Keyword)cGroup_16_0.eContents().get(0);
+		private final Assignment cTcpAssignment_16_0_1 = (Assignment)cGroup_16_0.eContents().get(1);
+		private final RuleCall cTcpINTTerminalRuleCall_16_0_1_0 = (RuleCall)cTcpAssignment_16_0_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_16_0_2 = (Keyword)cGroup_16_0.eContents().get(2);
+		private final Group cGroup_16_1 = (Group)cAlternatives_16.eContents().get(1);
+		private final Keyword cUdpPortKeyword_16_1_0 = (Keyword)cGroup_16_1.eContents().get(0);
+		private final Assignment cUdpAssignment_16_1_1 = (Assignment)cGroup_16_1.eContents().get(1);
+		private final RuleCall cUdpINTTerminalRuleCall_16_1_1_0 = (RuleCall)cUdpAssignment_16_1_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_16_1_2 = (Keyword)cGroup_16_1.eContents().get(2);
+		private final Assignment cIptableAssignment_17 = (Assignment)cGroup.eContents().get(17);
+		private final RuleCall cIptableIpTableParserRuleCall_17_0 = (RuleCall)cIptableAssignment_17.eContents().get(0);
+		private final Assignment cAttributesAssignment_18 = (Assignment)cGroup.eContents().get(18);
+		private final RuleCall cAttributesAttributParserRuleCall_18_0 = (RuleCall)cAttributesAssignment_18.eContents().get(0);
+		private final Assignment cInstancesAssignment_19 = (Assignment)cGroup.eContents().get(19);
+		private final RuleCall cInstancesInstanceParserRuleCall_19_0 = (RuleCall)cInstancesAssignment_19.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_20 = (Keyword)cGroup.eContents().get(20);
 		
 		//Instance:
 		//	'instance' 'of' component=[Component] '{'
-		//	'name' ':' name=ID fullname+=Fullname* ';' (count='count' ':' val=INT ';')? ('minAllowedInstances' ':' valmin=INT
-		//	';')? ('maxAllowedInstances' ':' valmax=INT ';')? ('adressType' ':' ipAddress=AType ';')? ('ipv4' 'address' ':'
-		//	((ip4+=INT '.')* ip4last=INT) ';')? ('ipv6' 'address' ':' ((ip6+=INT ':')* ip6last=INT) ';')? ('load' ':' theLoad=INT
-		//	';')? ('state' ':' theState=('public' | 'private') ';')? ('hostname' ':' hostname=ID ';')?
+		//	'name' ':' name=ID fullname+=Fullname* ';' (count='count' ':' val=INT ';')? ('minAllowedSubInstances' ':' valmin=INT
+		//	';')? ('maxAllowedSubInstances' ':' valmax=INT ';')? ('adressType' ':' ipAddress=AType ';'
+		//	'address' ipadress=IpAdress ';')? (theLoad=Load ';')? ('state' ':' theState=('public' | 'private') ';')? ('hostname'
+		//	':' hostname=ID ';')? ('tcpPort :' tcp=INT ';' | 'udpPort :' udp=INT ';')?
 		//	iptable+=IpTable*
 		//	attributes+=Attribut*
 		//	instances+=Instance*
@@ -997,10 +980,10 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//'instance' 'of' component=[Component] '{' 'name' ':' name=ID fullname+=Fullname* ';' (count='count' ':' val=INT ';')?
-		//('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT ';')? ('adressType' ':'
-		//ipAddress=AType ';')? ('ipv4' 'address' ':' ((ip4+=INT '.')* ip4last=INT) ';')? ('ipv6' 'address' ':' ((ip6+=INT ':')*
-		//ip6last=INT) ';')? ('load' ':' theLoad=INT ';')? ('state' ':' theState=('public' | 'private') ';')? ('hostname' ':'
-		//hostname=ID ';')? iptable+=IpTable* attributes+=Attribut* instances+=Instance* '}'
+		//('minAllowedSubInstances' ':' valmin=INT ';')? ('maxAllowedSubInstances' ':' valmax=INT ';')? ('adressType' ':'
+		//ipAddress=AType ';' 'address' ipadress=IpAdress ';')? (theLoad=Load ';')? ('state' ':' theState=('public' | 'private')
+		//';')? ('hostname' ':' hostname=ID ';')? ('tcpPort :' tcp=INT ';' | 'udpPort :' udp=INT ';')? iptable+=IpTable*
+		//attributes+=Attribut* instances+=Instance* '}'
 		public Group getGroup() { return cGroup; }
 
 		//'instance'
@@ -1063,11 +1046,11 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_9_3() { return cSemicolonKeyword_9_3; }
 
-		//('minAllowedInstances' ':' valmin=INT ';')?
+		//('minAllowedSubInstances' ':' valmin=INT ';')?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//'minAllowedInstances'
-		public Keyword getMinAllowedInstancesKeyword_10_0() { return cMinAllowedInstancesKeyword_10_0; }
+		//'minAllowedSubInstances'
+		public Keyword getMinAllowedSubInstancesKeyword_10_0() { return cMinAllowedSubInstancesKeyword_10_0; }
 
 		//':'
 		public Keyword getColonKeyword_10_1() { return cColonKeyword_10_1; }
@@ -1081,11 +1064,11 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_10_3() { return cSemicolonKeyword_10_3; }
 
-		//('maxAllowedInstances' ':' valmax=INT ';')?
+		//('maxAllowedSubInstances' ':' valmax=INT ';')?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//'maxAllowedInstances'
-		public Keyword getMaxAllowedInstancesKeyword_11_0() { return cMaxAllowedInstancesKeyword_11_0; }
+		//'maxAllowedSubInstances'
+		public Keyword getMaxAllowedSubInstancesKeyword_11_0() { return cMaxAllowedSubInstancesKeyword_11_0; }
 
 		//':'
 		public Keyword getColonKeyword_11_1() { return cColonKeyword_11_1; }
@@ -1099,7 +1082,7 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_11_3() { return cSemicolonKeyword_11_3; }
 
-		//('adressType' ':' ipAddress=AType ';')?
+		//('adressType' ':' ipAddress=AType ';' 'address' ipadress=IpAdress ';')?
 		public Group getGroup_12() { return cGroup_12; }
 
 		//'adressType'
@@ -1117,158 +1100,237 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_12_3() { return cSemicolonKeyword_12_3; }
 
-		//('ipv4' 'address' ':' ((ip4+=INT '.')* ip4last=INT) ';')?
+		//'address'
+		public Keyword getAddressKeyword_12_4() { return cAddressKeyword_12_4; }
+
+		//ipadress=IpAdress
+		public Assignment getIpadressAssignment_12_5() { return cIpadressAssignment_12_5; }
+
+		//IpAdress
+		public RuleCall getIpadressIpAdressParserRuleCall_12_5_0() { return cIpadressIpAdressParserRuleCall_12_5_0; }
+
+		//';'
+		public Keyword getSemicolonKeyword_12_6() { return cSemicolonKeyword_12_6; }
+
+		//(theLoad=Load ';')?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//'ipv4'
-		public Keyword getIpv4Keyword_13_0() { return cIpv4Keyword_13_0; }
+		//theLoad=Load
+		public Assignment getTheLoadAssignment_13_0() { return cTheLoadAssignment_13_0; }
 
-		//'address'
-		public Keyword getAddressKeyword_13_1() { return cAddressKeyword_13_1; }
-
-		//':'
-		public Keyword getColonKeyword_13_2() { return cColonKeyword_13_2; }
-
-		//((ip4+=INT '.')* ip4last=INT)
-		public Group getGroup_13_3() { return cGroup_13_3; }
-
-		//(ip4+=INT '.')*
-		public Group getGroup_13_3_0() { return cGroup_13_3_0; }
-
-		//ip4+=INT
-		public Assignment getIp4Assignment_13_3_0_0() { return cIp4Assignment_13_3_0_0; }
-
-		//INT
-		public RuleCall getIp4INTTerminalRuleCall_13_3_0_0_0() { return cIp4INTTerminalRuleCall_13_3_0_0_0; }
-
-		//'.'
-		public Keyword getFullStopKeyword_13_3_0_1() { return cFullStopKeyword_13_3_0_1; }
-
-		//ip4last=INT
-		public Assignment getIp4lastAssignment_13_3_1() { return cIp4lastAssignment_13_3_1; }
-
-		//INT
-		public RuleCall getIp4lastINTTerminalRuleCall_13_3_1_0() { return cIp4lastINTTerminalRuleCall_13_3_1_0; }
+		//Load
+		public RuleCall getTheLoadLoadParserRuleCall_13_0_0() { return cTheLoadLoadParserRuleCall_13_0_0; }
 
 		//';'
-		public Keyword getSemicolonKeyword_13_4() { return cSemicolonKeyword_13_4; }
+		public Keyword getSemicolonKeyword_13_1() { return cSemicolonKeyword_13_1; }
 
-		//('ipv6' 'address' ':' ((ip6+=INT ':')* ip6last=INT) ';')?
+		//('state' ':' theState=('public' | 'private') ';')?
 		public Group getGroup_14() { return cGroup_14; }
 
-		//'ipv6'
-		public Keyword getIpv6Keyword_14_0() { return cIpv6Keyword_14_0; }
-
-		//'address'
-		public Keyword getAddressKeyword_14_1() { return cAddressKeyword_14_1; }
+		//'state'
+		public Keyword getStateKeyword_14_0() { return cStateKeyword_14_0; }
 
 		//':'
-		public Keyword getColonKeyword_14_2() { return cColonKeyword_14_2; }
+		public Keyword getColonKeyword_14_1() { return cColonKeyword_14_1; }
 
-		//((ip6+=INT ':')* ip6last=INT)
-		public Group getGroup_14_3() { return cGroup_14_3; }
+		//theState=('public' | 'private')
+		public Assignment getTheStateAssignment_14_2() { return cTheStateAssignment_14_2; }
 
-		//(ip6+=INT ':')*
-		public Group getGroup_14_3_0() { return cGroup_14_3_0; }
+		//('public' | 'private')
+		public Alternatives getTheStateAlternatives_14_2_0() { return cTheStateAlternatives_14_2_0; }
 
-		//ip6+=INT
-		public Assignment getIp6Assignment_14_3_0_0() { return cIp6Assignment_14_3_0_0; }
+		//'public'
+		public Keyword getTheStatePublicKeyword_14_2_0_0() { return cTheStatePublicKeyword_14_2_0_0; }
 
-		//INT
-		public RuleCall getIp6INTTerminalRuleCall_14_3_0_0_0() { return cIp6INTTerminalRuleCall_14_3_0_0_0; }
-
-		//':'
-		public Keyword getColonKeyword_14_3_0_1() { return cColonKeyword_14_3_0_1; }
-
-		//ip6last=INT
-		public Assignment getIp6lastAssignment_14_3_1() { return cIp6lastAssignment_14_3_1; }
-
-		//INT
-		public RuleCall getIp6lastINTTerminalRuleCall_14_3_1_0() { return cIp6lastINTTerminalRuleCall_14_3_1_0; }
+		//'private'
+		public Keyword getTheStatePrivateKeyword_14_2_0_1() { return cTheStatePrivateKeyword_14_2_0_1; }
 
 		//';'
-		public Keyword getSemicolonKeyword_14_4() { return cSemicolonKeyword_14_4; }
+		public Keyword getSemicolonKeyword_14_3() { return cSemicolonKeyword_14_3; }
 
-		//('load' ':' theLoad=INT ';')?
+		//('hostname' ':' hostname=ID ';')?
 		public Group getGroup_15() { return cGroup_15; }
 
-		//'load'
-		public Keyword getLoadKeyword_15_0() { return cLoadKeyword_15_0; }
+		//'hostname'
+		public Keyword getHostnameKeyword_15_0() { return cHostnameKeyword_15_0; }
 
 		//':'
 		public Keyword getColonKeyword_15_1() { return cColonKeyword_15_1; }
 
-		//theLoad=INT
-		public Assignment getTheLoadAssignment_15_2() { return cTheLoadAssignment_15_2; }
+		//hostname=ID
+		public Assignment getHostnameAssignment_15_2() { return cHostnameAssignment_15_2; }
 
-		//INT
-		public RuleCall getTheLoadINTTerminalRuleCall_15_2_0() { return cTheLoadINTTerminalRuleCall_15_2_0; }
+		//ID
+		public RuleCall getHostnameIDTerminalRuleCall_15_2_0() { return cHostnameIDTerminalRuleCall_15_2_0; }
 
 		//';'
 		public Keyword getSemicolonKeyword_15_3() { return cSemicolonKeyword_15_3; }
 
-		//('state' ':' theState=('public' | 'private') ';')?
-		public Group getGroup_16() { return cGroup_16; }
+		//('tcpPort :' tcp=INT ';' | 'udpPort :' udp=INT ';')?
+		public Alternatives getAlternatives_16() { return cAlternatives_16; }
 
-		//'state'
-		public Keyword getStateKeyword_16_0() { return cStateKeyword_16_0; }
+		//'tcpPort :' tcp=INT ';'
+		public Group getGroup_16_0() { return cGroup_16_0; }
 
-		//':'
-		public Keyword getColonKeyword_16_1() { return cColonKeyword_16_1; }
+		//'tcpPort :'
+		public Keyword getTcpPortKeyword_16_0_0() { return cTcpPortKeyword_16_0_0; }
 
-		//theState=('public' | 'private')
-		public Assignment getTheStateAssignment_16_2() { return cTheStateAssignment_16_2; }
+		//tcp=INT
+		public Assignment getTcpAssignment_16_0_1() { return cTcpAssignment_16_0_1; }
 
-		//('public' | 'private')
-		public Alternatives getTheStateAlternatives_16_2_0() { return cTheStateAlternatives_16_2_0; }
-
-		//'public'
-		public Keyword getTheStatePublicKeyword_16_2_0_0() { return cTheStatePublicKeyword_16_2_0_0; }
-
-		//'private'
-		public Keyword getTheStatePrivateKeyword_16_2_0_1() { return cTheStatePrivateKeyword_16_2_0_1; }
+		//INT
+		public RuleCall getTcpINTTerminalRuleCall_16_0_1_0() { return cTcpINTTerminalRuleCall_16_0_1_0; }
 
 		//';'
-		public Keyword getSemicolonKeyword_16_3() { return cSemicolonKeyword_16_3; }
+		public Keyword getSemicolonKeyword_16_0_2() { return cSemicolonKeyword_16_0_2; }
 
-		//('hostname' ':' hostname=ID ';')?
-		public Group getGroup_17() { return cGroup_17; }
+		//'udpPort :' udp=INT ';'
+		public Group getGroup_16_1() { return cGroup_16_1; }
 
-		//'hostname'
-		public Keyword getHostnameKeyword_17_0() { return cHostnameKeyword_17_0; }
+		//'udpPort :'
+		public Keyword getUdpPortKeyword_16_1_0() { return cUdpPortKeyword_16_1_0; }
 
-		//':'
-		public Keyword getColonKeyword_17_1() { return cColonKeyword_17_1; }
+		//udp=INT
+		public Assignment getUdpAssignment_16_1_1() { return cUdpAssignment_16_1_1; }
 
-		//hostname=ID
-		public Assignment getHostnameAssignment_17_2() { return cHostnameAssignment_17_2; }
-
-		//ID
-		public RuleCall getHostnameIDTerminalRuleCall_17_2_0() { return cHostnameIDTerminalRuleCall_17_2_0; }
+		//INT
+		public RuleCall getUdpINTTerminalRuleCall_16_1_1_0() { return cUdpINTTerminalRuleCall_16_1_1_0; }
 
 		//';'
-		public Keyword getSemicolonKeyword_17_3() { return cSemicolonKeyword_17_3; }
+		public Keyword getSemicolonKeyword_16_1_2() { return cSemicolonKeyword_16_1_2; }
 
 		//iptable+=IpTable*
-		public Assignment getIptableAssignment_18() { return cIptableAssignment_18; }
+		public Assignment getIptableAssignment_17() { return cIptableAssignment_17; }
 
 		//IpTable
-		public RuleCall getIptableIpTableParserRuleCall_18_0() { return cIptableIpTableParserRuleCall_18_0; }
+		public RuleCall getIptableIpTableParserRuleCall_17_0() { return cIptableIpTableParserRuleCall_17_0; }
 
 		//attributes+=Attribut*
-		public Assignment getAttributesAssignment_19() { return cAttributesAssignment_19; }
+		public Assignment getAttributesAssignment_18() { return cAttributesAssignment_18; }
 
 		//Attribut
-		public RuleCall getAttributesAttributParserRuleCall_19_0() { return cAttributesAttributParserRuleCall_19_0; }
+		public RuleCall getAttributesAttributParserRuleCall_18_0() { return cAttributesAttributParserRuleCall_18_0; }
 
 		//instances+=Instance*
-		public Assignment getInstancesAssignment_20() { return cInstancesAssignment_20; }
+		public Assignment getInstancesAssignment_19() { return cInstancesAssignment_19; }
 
 		//Instance
-		public RuleCall getInstancesInstanceParserRuleCall_20_0() { return cInstancesInstanceParserRuleCall_20_0; }
+		public RuleCall getInstancesInstanceParserRuleCall_19_0() { return cInstancesInstanceParserRuleCall_19_0; }
 
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_21() { return cRightCurlyBracketKeyword_21; }
+		public Keyword getRightCurlyBracketKeyword_20() { return cRightCurlyBracketKeyword_20; }
+	}
+
+	public class LoadElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Rdsl.Load");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLoadLimitKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cValAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValINTTerminalRuleCall_2_0 = (RuleCall)cValAssignment_2.eContents().get(0);
+		
+		//Load:
+		//	'loadLimit' ':' val=INT;
+		@Override public ParserRule getRule() { return rule; }
+
+		//'loadLimit' ':' val=INT
+		public Group getGroup() { return cGroup; }
+
+		//'loadLimit'
+		public Keyword getLoadLimitKeyword_0() { return cLoadLimitKeyword_0; }
+
+		//':'
+		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+
+		//val=INT
+		public Assignment getValAssignment_2() { return cValAssignment_2; }
+
+		//INT
+		public RuleCall getValINTTerminalRuleCall_2_0() { return cValINTTerminalRuleCall_2_0; }
+	}
+
+	public class IpAdressElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Rdsl.IpAdress");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cIp4Keyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
+		private final Assignment cIp4Assignment_0_2_0 = (Assignment)cGroup_0_2.eContents().get(0);
+		private final RuleCall cIp4INTTerminalRuleCall_0_2_0_0 = (RuleCall)cIp4Assignment_0_2_0.eContents().get(0);
+		private final Keyword cFullStopKeyword_0_2_1 = (Keyword)cGroup_0_2.eContents().get(1);
+		private final Assignment cIp4lastAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
+		private final RuleCall cIp4lastINTTerminalRuleCall_0_3_0 = (RuleCall)cIp4lastAssignment_0_3.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Keyword cIp6Keyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Keyword cColonKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Assignment cIp6Assignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
+		private final RuleCall cIp6INTTerminalRuleCall_1_2_0_0 = (RuleCall)cIp6Assignment_1_2_0.eContents().get(0);
+		private final Keyword cColonKeyword_1_2_1 = (Keyword)cGroup_1_2.eContents().get(1);
+		private final Assignment cIp6lastAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cIp6lastINTTerminalRuleCall_1_3_0 = (RuleCall)cIp6lastAssignment_1_3.eContents().get(0);
+		
+		//IpAdress:
+		//	'ip4' ':' (ip4+=INT '.')* ip4last=INT | 'ip6' ':' (ip6+=INT ':')* ip6last=INT;
+		@Override public ParserRule getRule() { return rule; }
+
+		//'ip4' ':' (ip4+=INT '.')* ip4last=INT | 'ip6' ':' (ip6+=INT ':')* ip6last=INT
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//'ip4' ':' (ip4+=INT '.')* ip4last=INT
+		public Group getGroup_0() { return cGroup_0; }
+
+		//'ip4'
+		public Keyword getIp4Keyword_0_0() { return cIp4Keyword_0_0; }
+
+		//':'
+		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
+
+		//(ip4+=INT '.')*
+		public Group getGroup_0_2() { return cGroup_0_2; }
+
+		//ip4+=INT
+		public Assignment getIp4Assignment_0_2_0() { return cIp4Assignment_0_2_0; }
+
+		//INT
+		public RuleCall getIp4INTTerminalRuleCall_0_2_0_0() { return cIp4INTTerminalRuleCall_0_2_0_0; }
+
+		//'.'
+		public Keyword getFullStopKeyword_0_2_1() { return cFullStopKeyword_0_2_1; }
+
+		//ip4last=INT
+		public Assignment getIp4lastAssignment_0_3() { return cIp4lastAssignment_0_3; }
+
+		//INT
+		public RuleCall getIp4lastINTTerminalRuleCall_0_3_0() { return cIp4lastINTTerminalRuleCall_0_3_0; }
+
+		//'ip6' ':' (ip6+=INT ':')* ip6last=INT
+		public Group getGroup_1() { return cGroup_1; }
+
+		//'ip6'
+		public Keyword getIp6Keyword_1_0() { return cIp6Keyword_1_0; }
+
+		//':'
+		public Keyword getColonKeyword_1_1() { return cColonKeyword_1_1; }
+
+		//(ip6+=INT ':')*
+		public Group getGroup_1_2() { return cGroup_1_2; }
+
+		//ip6+=INT
+		public Assignment getIp6Assignment_1_2_0() { return cIp6Assignment_1_2_0; }
+
+		//INT
+		public RuleCall getIp6INTTerminalRuleCall_1_2_0_0() { return cIp6INTTerminalRuleCall_1_2_0_0; }
+
+		//':'
+		public Keyword getColonKeyword_1_2_1() { return cColonKeyword_1_2_1; }
+
+		//ip6last=INT
+		public Assignment getIp6lastAssignment_1_3() { return cIp6lastAssignment_1_3; }
+
+		//INT
+		public RuleCall getIp6lastINTTerminalRuleCall_1_3_0() { return cIp6lastINTTerminalRuleCall_1_3_0; }
 	}
 
 	public class IpTableElements extends AbstractParserRuleElementFinder {
@@ -1550,6 +1612,8 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 	private final FacetsElements pFacets;
 	private final FacetElements pFacet;
 	private final InstanceElements pInstance;
+	private final LoadElements pLoad;
+	private final IpAdressElements pIpAdress;
 	private final IpTableElements pIpTable;
 	private final AttributElements pAttribut;
 	private final FullnameElements pFullname;
@@ -1586,6 +1650,8 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFacets = new FacetsElements();
 		this.pFacet = new FacetElements();
 		this.pInstance = new InstanceElements();
+		this.pLoad = new LoadElements();
+		this.pIpAdress = new IpAdressElements();
 		this.pIpTable = new IpTableElements();
 		this.pAttribut = new AttributElements();
 		this.pFullname = new FullnameElements();
@@ -1624,8 +1690,7 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Model:
-	//	graphs=Graph | instances+=Instance* ('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT
-	//	';')?;
+	//	graphs=Graph | instances+=Instance*;
 	public ModelElements getModelAccess() {
 		return pModel;
 	}
@@ -1687,7 +1752,7 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 	//Component:
 	//	name=ID '{'
 	//	installers=Installer (childrens+=Children | exports+=Export | imports+=Imports | facets+=Facets | extends+=Extends)*
-	//	'}';
+	//	'}' ('minAllowedInstances' ':' valmin=INT ';')? ('maxAllowedInstances' ':' valmax=INT ';')?;
 	public ComponentElements getComponentAccess() {
 		return pComponent;
 	}
@@ -1801,10 +1866,10 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Instance:
 	//	'instance' 'of' component=[Component] '{'
-	//	'name' ':' name=ID fullname+=Fullname* ';' (count='count' ':' val=INT ';')? ('minAllowedInstances' ':' valmin=INT
-	//	';')? ('maxAllowedInstances' ':' valmax=INT ';')? ('adressType' ':' ipAddress=AType ';')? ('ipv4' 'address' ':'
-	//	((ip4+=INT '.')* ip4last=INT) ';')? ('ipv6' 'address' ':' ((ip6+=INT ':')* ip6last=INT) ';')? ('load' ':' theLoad=INT
-	//	';')? ('state' ':' theState=('public' | 'private') ';')? ('hostname' ':' hostname=ID ';')?
+	//	'name' ':' name=ID fullname+=Fullname* ';' (count='count' ':' val=INT ';')? ('minAllowedSubInstances' ':' valmin=INT
+	//	';')? ('maxAllowedSubInstances' ':' valmax=INT ';')? ('adressType' ':' ipAddress=AType ';'
+	//	'address' ipadress=IpAdress ';')? (theLoad=Load ';')? ('state' ':' theState=('public' | 'private') ';')? ('hostname'
+	//	':' hostname=ID ';')? ('tcpPort :' tcp=INT ';' | 'udpPort :' udp=INT ';')?
 	//	iptable+=IpTable*
 	//	attributes+=Attribut*
 	//	instances+=Instance*
@@ -1815,6 +1880,26 @@ public class RdslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getInstanceRule() {
 		return getInstanceAccess().getRule();
+	}
+
+	//Load:
+	//	'loadLimit' ':' val=INT;
+	public LoadElements getLoadAccess() {
+		return pLoad;
+	}
+	
+	public ParserRule getLoadRule() {
+		return getLoadAccess().getRule();
+	}
+
+	//IpAdress:
+	//	'ip4' ':' (ip4+=INT '.')* ip4last=INT | 'ip6' ':' (ip6+=INT ':')* ip6last=INT;
+	public IpAdressElements getIpAdressAccess() {
+		return pIpAdress;
+	}
+	
+	public ParserRule getIpAdressRule() {
+		return getIpAdressAccess().getRule();
 	}
 
 	//IpTable:

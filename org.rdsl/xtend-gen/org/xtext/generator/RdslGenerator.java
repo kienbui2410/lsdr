@@ -4,7 +4,9 @@
 package org.xtext.generator;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -12,6 +14,7 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.xtext.rdsl.Attribut;
 import org.xtext.rdsl.Children;
 import org.xtext.rdsl.CompFacet;
@@ -20,10 +23,13 @@ import org.xtext.rdsl.Export;
 import org.xtext.rdsl.Facet;
 import org.xtext.rdsl.Facets;
 import org.xtext.rdsl.Graph;
+import org.xtext.rdsl.Import;
 import org.xtext.rdsl.Imports;
 import org.xtext.rdsl.Initialisation;
 import org.xtext.rdsl.Installer;
 import org.xtext.rdsl.Instance;
+import org.xtext.rdsl.IpAdress;
+import org.xtext.rdsl.IpTable;
 import org.xtext.rdsl.Model;
 import org.xtext.rdsl.exportVariable;
 import org.xtext.rdsl.importVariable;
@@ -48,14 +54,156 @@ public class RdslGenerator implements IGenerator {
   }
   
   public CharSequence listGraph(final Model model) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field name is undefined for the type EObject");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append(" ");
+    _builder.append("// Generate GRAPH node");
+    _builder.newLine();
+    _builder.append("{  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'id\': \'GRAPH\',  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'name\': \'GRAPH\',  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'data\': {  ");
+    _builder.newLine();
+    _builder.append("          ");
+    _builder.append("\'$color\': \'#416D9C\',");
+    _builder.newLine();
+    _builder.append("          ");
+    _builder.append("\'$type\': \'circle\',");
+    _builder.newLine();
+    _builder.append("          ");
+    _builder.append("\'$dim\': 10,");
+    _builder.newLine();
+    _builder.append("\t\t  ");
+    _builder.append("\'$info\': \'\'");
+    _builder.newLine();
+    _builder.append("     ");
+    _builder.append("},  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("\'adjacencies\': [");
+    _builder.newLine();
+    {
+      Graph _graphs = model.getGraphs();
+      EList<Import> _imports = _graphs.getImports();
+      boolean _notEquals = (!Objects.equal(_imports, null));
+      if (_notEquals) {
+        {
+          Graph _graphs_1 = model.getGraphs();
+          EList<Import> _imports_1 = _graphs_1.getImports();
+          for(final Import im : _imports_1) {
+            _builder.append("\'importedPackage_");
+            EObject _importURI = im.getImportURI();
+            _builder.append(_importURI, "");
+            _builder.append("\' ,");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append(" ");
+    _builder.newLine();
+    {
+      Graph _graphs_2 = model.getGraphs();
+      EList<Component> _components = _graphs_2.getComponents();
+      boolean _notEquals_1 = (!Objects.equal(_components, null));
+      if (_notEquals_1) {
+        {
+          Graph _graphs_3 = model.getGraphs();
+          EList<Component> _components_1 = _graphs_3.getComponents();
+          for(final Component com : _components_1) {
+            _builder.append("\'com_");
+            String _name = com.getName();
+            _builder.append(_name, "");
+            _builder.append("\' ,");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.newLine();
+    {
+      Graph _graphs_4 = model.getGraphs();
+      EList<Facet> _facetGraphs = _graphs_4.getFacetGraphs();
+      boolean _notEquals_2 = (!Objects.equal(_facetGraphs, null));
+      if (_notEquals_2) {
+        {
+          Graph _graphs_5 = model.getGraphs();
+          EList<Facet> _facetGraphs_1 = _graphs_5.getFacetGraphs();
+          for(final Facet facet : _facetGraphs_1) {
+            _builder.append("\'facet_");
+            String _name_1 = facet.getName();
+            _builder.append(_name_1, "");
+            _builder.append("\' ,");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append("    ");
+    _builder.append("]  ");
+    _builder.newLine();
+    _builder.append("  \t");
+    _builder.append("}, ");
+    _builder.newLine();
+    return _builder;
   }
   
   public CharSequence listImportPackage(final Graph graph) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field name is undefined for the type EObject"
-      + "\nThe method or field name is undefined for the type EObject");
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      EList<Import> _imports = graph.getImports();
+      boolean _notEquals = (!Objects.equal(_imports, null));
+      if (_notEquals) {
+        _builder.append("// Generate ImportedPackage node");
+        _builder.newLine();
+        {
+          EList<Import> _imports_1 = graph.getImports();
+          for(final Import im : _imports_1) {
+            _builder.append("{  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'id\': \'importedPackage_");
+            EObject _importURI = im.getImportURI();
+            _builder.append(_importURI, "    ");
+            _builder.append("\',  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("    ");
+            _builder.append("\'name\': \'importedPackage\',  ");
+            _builder.newLine();
+            _builder.append("    ");
+            _builder.append("\'data\': {  ");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$color\": \"#416D9C\",");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$type\": \"circle\",");
+            _builder.newLine();
+            _builder.append("          ");
+            _builder.append("\"$dim\": 7,");
+            _builder.newLine();
+            _builder.append("\t\t  ");
+            _builder.append("\'$info\': \'");
+            EObject _importURI_1 = im.getImportURI();
+            _builder.append(_importURI_1, "\t\t  ");
+            _builder.append("\'");
+            _builder.newLineIfNotEmpty();
+            _builder.append("     \t");
+            _builder.append("}");
+            _builder.newLine();
+            _builder.append("  \t");
+            _builder.append("}, ");
+            _builder.newLine();
+          }
+        }
+      }
+    }
+    return _builder;
   }
   
   public CharSequence listComponent(final Graph graph) {
@@ -982,17 +1130,6 @@ public class RdslGenerator implements IGenerator {
         CharSequence _listFacet = this.listFacet(m);
         _builder.append(_listFacet, "");
         _builder.newLineIfNotEmpty();
-      } else {
-        {
-          EList<Instance> _instances = m.getInstances();
-          boolean _notEquals_1 = (!Objects.equal(_instances, null));
-          if (_notEquals_1) {
-            CharSequence _listInstances = this.listInstances(m);
-            _builder.append(_listInstances, "");
-            _builder.append("   ");
-            _builder.newLineIfNotEmpty();
-          }
-        }
       }
     }
     return _builder;
@@ -1001,7 +1138,7 @@ public class RdslGenerator implements IGenerator {
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
     String _className = this.className(resource);
-    String _plus = (_className + ".html");
+    String _plus = (_className + "_graph.html");
     String _htmlHeaderOpen = this.htmlHeaderOpen();
     String _htmlJavascriptCode = this.htmlJavascriptCode();
     String _plus_1 = (_htmlHeaderOpen + _htmlJavascriptCode);
@@ -1012,6 +1149,23 @@ public class RdslGenerator implements IGenerator {
     String _htmlHeaderClose = this.htmlHeaderClose();
     String _plus_4 = (_plus_3 + _htmlHeaderClose);
     fsa.generateFile(_plus, _plus_4);
+    TreeIterator<EObject> _allContents = resource.getAllContents();
+    Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+    Iterable<Instance> _filter = Iterables.<Instance>filter(_iterable, Instance.class);
+    for (final Instance instance : _filter) {
+      String _hostname = instance.getHostname();
+      boolean _notEquals = (!Objects.equal(_hostname, null));
+      if (_notEquals) {
+        String _hostname_1 = instance.getHostname();
+        String _plus_5 = (_hostname_1 + ".cfg");
+        CharSequence _compile = this.compile(instance);
+        fsa.generateFile(_plus_5, _compile);
+        String _hostname_2 = instance.getHostname();
+        String _plus_6 = (_hostname_2 + "_rules.html");
+        CharSequence _compileIp = this.compileIp(instance);
+        fsa.generateFile(_plus_6, _compileIp);
+      }
+    }
   }
   
   public String htmlHeaderOpen() {
@@ -1037,5 +1191,187 @@ public class RdslGenerator implements IGenerator {
   
   public String htmlHeaderClose() {
     return "</script>\n</head>\n\n<body onload=\'init();\'>\n<div id=\'container\'>\n\n\n<div id=\'center-container\'>\n    <div id=\'infovis\'></div>    \n</div>\n\n\n<div id=\'inner-details\'></div>\n\n</div>\n\n<div id=\'log\'></div>\n</div>\n</body>\n</html>";
+  }
+  
+  public CharSequence compile(final Instance instance) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("  ");
+    _builder.append("define host {");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("use                             linux-server");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("host_name                       ");
+    String _hostname = instance.getHostname();
+    _builder.append(_hostname, "        ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.append("alias                           ");
+    String _name = instance.getName();
+    _builder.append(_name, "        ");
+    _builder.append(" ");
+    EList<String> _fullname = instance.getFullname();
+    String _join = IterableExtensions.join(_fullname, " ");
+    _builder.append(_join, "        ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.append("address                         ");
+    {
+      boolean _and = false;
+      boolean _and_1 = false;
+      IpAdress _ipadress = instance.getIpadress();
+      boolean _notEquals = (!Objects.equal(_ipadress, null));
+      if (!_notEquals) {
+        _and_1 = false;
+      } else {
+        IpAdress _ipadress_1 = instance.getIpadress();
+        EList<Integer> _ip4 = _ipadress_1.getIp4();
+        boolean _notEquals_1 = (!Objects.equal(_ip4, null));
+        _and_1 = _notEquals_1;
+      }
+      if (!_and_1) {
+        _and = false;
+      } else {
+        IpAdress _ipadress_2 = instance.getIpadress();
+        EList<Integer> _ip4_1 = _ipadress_2.getIp4();
+        int _size = _ip4_1.size();
+        boolean _greaterThan = (_size > 0);
+        _and = _greaterThan;
+      }
+      if (_and) {
+        IpAdress _ipadress_3 = instance.getIpadress();
+        EList<Integer> _ip4_2 = _ipadress_3.getIp4();
+        String _join_1 = IterableExtensions.join(_ip4_2, ".");
+        _builder.append(_join_1, "        ");
+        _builder.append(".");
+        IpAdress _ipadress_4 = instance.getIpadress();
+        int _ip4last = _ipadress_4.getIp4last();
+        _builder.append(_ip4last, "        ");
+      } else {
+        boolean _and_2 = false;
+        boolean _and_3 = false;
+        IpAdress _ipadress_5 = instance.getIpadress();
+        boolean _notEquals_2 = (!Objects.equal(_ipadress_5, null));
+        if (!_notEquals_2) {
+          _and_3 = false;
+        } else {
+          IpAdress _ipadress_6 = instance.getIpadress();
+          EList<Integer> _ip6 = _ipadress_6.getIp6();
+          boolean _notEquals_3 = (!Objects.equal(_ip6, null));
+          _and_3 = _notEquals_3;
+        }
+        if (!_and_3) {
+          _and_2 = false;
+        } else {
+          IpAdress _ipadress_7 = instance.getIpadress();
+          EList<Integer> _ip6_1 = _ipadress_7.getIp6();
+          int _size_1 = _ip6_1.size();
+          boolean _greaterThan_1 = (_size_1 > 0);
+          _and_2 = _greaterThan_1;
+        }
+        if (_and_2) {
+          IpAdress _ipadress_8 = instance.getIpadress();
+          EList<Integer> _ip6_2 = _ipadress_8.getIp6();
+          String _join_2 = IterableExtensions.join(_ip6_2, ":");
+          _builder.append(_join_2, "        ");
+          _builder.append(".");
+          IpAdress _ipadress_9 = instance.getIpadress();
+          int _ip6last = _ipadress_9.getIp6last();
+          _builder.append(_ip6last, "        ");
+        }
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.append("max_check_attempts              5");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("check_period                    24x7");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("notification_interval           30");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("notification_period             24x7");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileIp(final Instance c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
+    _builder.append("<!DOCTYPE html>");
+    _builder.newLine();
+    _builder.append("<html>");
+    _builder.newLine();
+    _builder.append("<body>");
+    _builder.newLine();
+    _builder.append("iptables -L");
+    _builder.newLine();
+    _builder.append("<table border=\"1\" style=\"width:100%\">");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("<tr>");
+    _builder.newLine();
+    _builder.append("<td>traffic</td> <td>target</td> <td>prot</td> <td>source</td> <td>destination</td>");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("</tr>");
+    _builder.newLine();
+    {
+      EList<IpTable> _iptable = c.getIptable();
+      for(final IpTable rule : _iptable) {
+        _builder.append("  ");
+        _builder.append("<tr>");
+        _builder.newLine();
+        _builder.append("<td>");
+        String _traffic = rule.getTraffic();
+        _builder.append(_traffic, "");
+        _builder.append("</td> ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("<td>");
+        String _target = rule.getTarget();
+        _builder.append(_target, "");
+        _builder.append("</td> ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("<td>");
+        String _protocol = rule.getProtocol();
+        _builder.append(_protocol, "");
+        _builder.append("</td> ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("<td>");
+        EList<Integer> _source = rule.getSource();
+        String _join = IterableExtensions.join(_source, ".");
+        _builder.append(_join, "");
+        _builder.append(".");
+        int _sourcefinal = rule.getSourcefinal();
+        _builder.append(_sourcefinal, "");
+        _builder.append("</td> ");
+        _builder.newLineIfNotEmpty();
+        _builder.append("<td>");
+        EList<Integer> _destination = rule.getDestination();
+        String _join_1 = IterableExtensions.join(_destination, ".");
+        _builder.append(_join_1, "");
+        _builder.append(".");
+        int _destinationfinal = rule.getDestinationfinal();
+        _builder.append(_destinationfinal, "");
+        _builder.append("</td>");
+        _builder.newLineIfNotEmpty();
+        _builder.append("  ");
+        _builder.append("</tr>");
+        _builder.newLine();
+      }
+    }
+    _builder.append("</table>");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("</body>");
+    _builder.newLine();
+    _builder.append("</html>");
+    _builder.newLine();
+    return _builder;
   }
 }

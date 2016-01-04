@@ -10,8 +10,6 @@
     <genClasses ecoreClass="Rdsl.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Model/graphs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Model/instances"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Model/valmin"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Model/valmax"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Graph">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Graph/imports"/>
@@ -41,6 +39,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/imports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/facets"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Component/extends"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Component/valmin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Component/valmax"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//Installer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Installer/name"/>
@@ -92,16 +92,24 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/valmin"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/valmax"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ipAddress"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip4"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip4last"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip6"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/ip6last"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/theLoad"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/ipadress"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/theLoad"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/theState"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/hostname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/tcp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Instance/udp"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/iptable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Rdsl.ecore#//Instance/instances"/>
+    </genClasses>
+    <genClasses ecoreClass="Rdsl.ecore#//Load">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//Load/val"/>
+    </genClasses>
+    <genClasses ecoreClass="Rdsl.ecore#//IpAdress">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpAdress/ip4"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpAdress/ip4last"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpAdress/ip6"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpAdress/ip6last"/>
     </genClasses>
     <genClasses ecoreClass="Rdsl.ecore#//IpTable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Rdsl.ecore#//IpTable/traffic"/>

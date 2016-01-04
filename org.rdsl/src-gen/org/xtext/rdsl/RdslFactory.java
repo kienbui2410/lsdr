@@ -185,6 +185,24 @@ public interface RdslFactory extends EFactory
   Instance createInstance();
 
   /**
+   * Returns a new object of class '<em>Load</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Load</em>'.
+   * @generated
+   */
+  Load createLoad();
+
+  /**
+   * Returns a new object of class '<em>Ip Adress</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ip Adress</em>'.
+   * @generated
+   */
+  IpAdress createIpAdress();
+
+  /**
    * Returns a new object of class '<em>Ip Table</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

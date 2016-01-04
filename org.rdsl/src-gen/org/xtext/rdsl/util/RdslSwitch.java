@@ -200,6 +200,20 @@ public class RdslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case RdslPackage.LOAD:
+      {
+        Load load = (Load)theEObject;
+        T result = caseLoad(load);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case RdslPackage.IP_ADRESS:
+      {
+        IpAdress ipAdress = (IpAdress)theEObject;
+        T result = caseIpAdress(ipAdress);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case RdslPackage.IP_TABLE:
       {
         IpTable ipTable = (IpTable)theEObject;
@@ -502,6 +516,38 @@ public class RdslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseInstance(Instance object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Load</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Load</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLoad(Load object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Ip Adress</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Ip Adress</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIpAdress(IpAdress object)
   {
     return null;
   }

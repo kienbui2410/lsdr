@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.xtext.rdsl.Component#getImports <em>Imports</em>}</li>
  *   <li>{@link org.xtext.rdsl.Component#getFacets <em>Facets</em>}</li>
  *   <li>{@link org.xtext.rdsl.Component#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Component#getValmin <em>Valmin</em>}</li>
+ *   <li>{@link org.xtext.rdsl.Component#getValmax <em>Valmax</em>}</li>
  * </ul>
  *
  * @see org.xtext.rdsl.RdslPackage#getComponent()
@@ -132,5 +134,57 @@ public interface Component extends CompFacet
    * @generated
    */
   EList<Extends> getExtends();
+
+  /**
+   * Returns the value of the '<em><b>Valmin</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Valmin</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Valmin</em>' attribute.
+   * @see #setValmin(int)
+   * @see org.xtext.rdsl.RdslPackage#getComponent_Valmin()
+   * @model
+   * @generated
+   */
+  int getValmin();
+
+  /**
+   * Sets the value of the '{@link org.xtext.rdsl.Component#getValmin <em>Valmin</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Valmin</em>' attribute.
+   * @see #getValmin()
+   * @generated
+   */
+  void setValmin(int value);
+
+  /**
+   * Returns the value of the '<em><b>Valmax</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Valmax</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Valmax</em>' attribute.
+   * @see #setValmax(int)
+   * @see org.xtext.rdsl.RdslPackage#getComponent_Valmax()
+   * @model
+   * @generated
+   */
+  int getValmax();
+
+  /**
+   * Sets the value of the '{@link org.xtext.rdsl.Component#getValmax <em>Valmax</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Valmax</em>' attribute.
+   * @see #getValmax()
+   * @generated
+   */
+  void setValmax(int value);
 
 } // Component

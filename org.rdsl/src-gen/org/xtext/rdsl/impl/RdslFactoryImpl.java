@@ -82,6 +82,8 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
       case RdslPackage.FACETS: return createFacets();
       case RdslPackage.FACET: return createFacet();
       case RdslPackage.INSTANCE: return createInstance();
+      case RdslPackage.LOAD: return createLoad();
+      case RdslPackage.IP_ADRESS: return createIpAdress();
       case RdslPackage.IP_TABLE: return createIpTable();
       case RdslPackage.ATTRIBUT: return createAttribut();
       default:
@@ -285,6 +287,28 @@ public class RdslFactoryImpl extends EFactoryImpl implements RdslFactory
   {
     InstanceImpl instance = new InstanceImpl();
     return instance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Load createLoad()
+  {
+    LoadImpl load = new LoadImpl();
+    return load;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IpAdress createIpAdress()
+  {
+    IpAdressImpl ipAdress = new IpAdressImpl();
+    return ipAdress;
   }
 
   /**

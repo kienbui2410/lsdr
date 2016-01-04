@@ -18,6 +18,8 @@ import org.xtext.rdsl.Instance
 import org.xtext.rdsl.RdslPackage
 import org.xtext.rdsl.exportVariable
 import org.xtext.rdsl.importVariable
+import org.xtext.rdsl.IpAdress
+import org.xtext.rdsl.Load
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -52,15 +54,14 @@ class RdslValidator extends AbstractRdslValidator {
 
 // Instance's IP adresses should respect the syntax
 		@Check(FAST)
-	  	def checkSyntaxIPAdress(Instance i){
+	  	def checkSyntaxIPAdress(IpAdress i){
 	  
-	  	if(i.ipAddress == null) return;
-	 
-	 	if(i.ipAddress.equals('IPv4')){
+	     var Instance ins = i.eContainer as Instance; 
+	 	if(ins.ipAddress.equals('IPv4')){
 	 		if(i.ip4.size() != 3)
 	 			error(
 	 				'Syntax of IPv4 Adress not respected',
-	 				RdslPackage.Literals.INSTANCE__IP_ADDRESS,
+	 				RdslPackage.Literals.IP_ADRESS__IP4,
 	 				INVALID_CARD
 	 			)
 	 		else{
@@ -68,18 +69,18 @@ class RdslValidator extends AbstractRdslValidator {
 	 				if(part > 255 || part < 0)
 	 					error(
 	 						'Syntax of IPv4 Adress not respected',
-	 						RdslPackage.Literals.INSTANCE__IP_ADDRESS,
+	 						RdslPackage.Literals.IP_ADRESS__IP4,
 	 						INVALID_CARD
 	 					)
 	 			}
 	 		}
 	 	}
 	 
-	 	if(i.ipAddress.equals('IPv6')){
+	 	if(ins.ipAddress.equals('IPv6')){
 	 		if(i.ip6.size() != 7)
 	 			error(
 	 				'Syntax of IPv6 Adress not respected',
-	 				RdslPackage.Literals.INSTANCE__IP_ADDRESS,
+	 				RdslPackage.Literals.IP_ADRESS__IP6,
 	 				INVALID_CARD
 	 			)
 	 		else{
@@ -87,7 +88,7 @@ class RdslValidator extends AbstractRdslValidator {
 	 				if(part > 255 || part < 0)
 	 					error(
 	 						'Syntax of IPv6 Adress not respected',
-	 						RdslPackage.Literals.INSTANCE__IP_ADDRESS,
+	 						RdslPackage.Literals.IP_ADRESS__IP6,
 	 						INVALID_CARD
 	 					)
 	 			}
@@ -111,66 +112,37 @@ class RdslValidator extends AbstractRdslValidator {
 	 
 	 // The load of an Instance indicates the need of extra nodes
 	 	 @Check(FAST)
-	 	def checkInstanceLoad(Instance i){
-	 		if(i.theLoad > 100 || i.theLoad < 0){
+	 	def checkInstanceLoad(Load i){
+	 		if(i.^val> 100 || i.^val < 0){
 	 			error(
 	 				'Load of an Instance should be comprised between 0 and 100',
-	 				RdslPackage.Literals.INSTANCE__THE_LOAD,
+	 				RdslPackage.Literals.LOAD__VAL,
 	 				INVALID_CARD
 	 			)
-	 		}
-	 
-	 		if(i.theLoad > 80){
-	 			warning('A new Instance is needed',
-	 				RdslPackage.Literals.INSTANCE__INSTANCES)
-	 		}
-	 		if(i.theLoad < 20){
-	 			warning('More Instances than needed',
-	 				RdslPackage.Literals.INSTANCE__INSTANCES)
-	 		}				
-	  
+	 		}		
 	 }
 	 
 	 @Check(FAST)
 	 	def checkInstanceNumber(Instance i){
-	 		if(i.instances.size() > i.valmax){
+	 		if(i.instances.size() > i.valmax && i.valmax!=0){
 	 			error(
 	 				'Allowed max number of instances exceeded',
-	 				RdslPackage.Literals.INSTANCE__THE_LOAD,
+	 				RdslPackage.Literals.INSTANCE__INSTANCES,
 	 				INVALID_CARD
 	 			)
 	 		}
 	 
-	 		if(i.instances.size() < i.valmin){
+	 		if(i.instances.size() < i.valmin && i.valmin!=0){
 	 			error(
 	 				'Allowed min number of instances not reached',
-	 				RdslPackage.Literals.INSTANCE__THE_LOAD,
+	 				RdslPackage.Literals.ATTRIBUT__NAME,
 	 				INVALID_CARD
 	 			)
 	 		}				
 	  
 	 }
 	
-	/* 
-	 @Check(FAST)
-	 	def checkModelInstanceNumber(Model i){
-	 		if(i.instances.size() > i.valmax){
-	 			error(
-	 				'Allowed max number of instances exceeded',
-	 				RdslPackage.Literals.INSTANCE__THE_LOAD,
-	 				INVALID_CARD
-	 			)
-	 		}
-	 
-	 		if(i.instances.size() < i.valmin){
-	 			error(
-	 				'Allowed min number of instances not reached',
-	 				RdslPackage.Literals.INSTANCE__THE_LOAD,
-	 				INVALID_CARD
-	 			)
-	 		}				
-	  
-	 } */
+
 	
 	/* Error : Child name already declared : Duplicate child name forbidden */
 	@Check(FAST)

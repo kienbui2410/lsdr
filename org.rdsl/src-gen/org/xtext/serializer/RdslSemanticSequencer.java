@@ -28,7 +28,9 @@ import org.xtext.rdsl.ImpotUri;
 import org.xtext.rdsl.Initialisation;
 import org.xtext.rdsl.Installer;
 import org.xtext.rdsl.Instance;
+import org.xtext.rdsl.IpAdress;
 import org.xtext.rdsl.IpTable;
+import org.xtext.rdsl.Load;
 import org.xtext.rdsl.Model;
 import org.xtext.rdsl.RdslPackage;
 import org.xtext.rdsl.URL;
@@ -92,8 +94,14 @@ public class RdslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case RdslPackage.INSTANCE:
 				sequence_Instance(context, (Instance) semanticObject); 
 				return; 
+			case RdslPackage.IP_ADRESS:
+				sequence_IpAdress(context, (IpAdress) semanticObject); 
+				return; 
 			case RdslPackage.IP_TABLE:
 				sequence_IpTable(context, (IpTable) semanticObject); 
+				return; 
+			case RdslPackage.LOAD:
+				sequence_Load(context, (Load) semanticObject); 
 				return; 
 			case RdslPackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
@@ -151,7 +159,13 @@ public class RdslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Component returns Component
 	 *
 	 * Constraint:
-	 *     (name=ID installers=Installer (childrens+=Children | exports+=Export | imports+=Imports | facets+=Facets | extends+=Extends)*)
+	 *     (
+	 *         name=ID 
+	 *         installers=Installer 
+	 *         (childrens+=Children | exports+=Export | imports+=Imports | facets+=Facets | extends+=Extends)* 
+	 *         valmin=INT? 
+	 *         valmax=INT?
+	 *     )
 	 */
 	protected void sequence_Component(ISerializationContext context, Component semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -315,18 +329,29 @@ public class RdslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         (count='count' val=INT)? 
 	 *         valmin=INT? 
 	 *         valmax=INT? 
-	 *         ipAddress=AType? 
-	 *         (ip4+=INT* ip4last=INT)? 
-	 *         (ip6+=INT* ip6last=INT)? 
-	 *         theLoad=INT? 
+	 *         (ipAddress=AType ipadress=IpAdress)? 
+	 *         theLoad=Load? 
 	 *         (theState='public' | theState='private')? 
 	 *         hostname=ID? 
+	 *         (tcp=INT | udp=INT)? 
 	 *         iptable+=IpTable* 
 	 *         attributes+=Attribut* 
 	 *         instances+=Instance*
 	 *     )
 	 */
 	protected void sequence_Instance(ISerializationContext context, Instance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     IpAdress returns IpAdress
+	 *
+	 * Constraint:
+	 *     ((ip4+=INT* ip4last=INT) | (ip6+=INT* ip6last=INT))
+	 */
+	protected void sequence_IpAdress(ISerializationContext context, IpAdress semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -353,10 +378,28 @@ public class RdslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Load returns Load
+	 *
+	 * Constraint:
+	 *     val=INT
+	 */
+	protected void sequence_Load(ISerializationContext context, Load semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, RdslPackage.Literals.LOAD__VAL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, RdslPackage.Literals.LOAD__VAL));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getLoadAccess().getValINTTerminalRuleCall_2_0(), semanticObject.getVal());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     (graphs=Graph | (instances+=Instance* valmin=INT valmax=INT) | (instances+=Instance* valmax=INT) | valmax=INT)?
+	 *     (graphs=Graph | instances+=Instance+)
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

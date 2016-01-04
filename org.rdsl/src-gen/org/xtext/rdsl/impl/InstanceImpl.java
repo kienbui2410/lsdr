@@ -22,7 +22,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.xtext.rdsl.Attribut;
 import org.xtext.rdsl.Component;
 import org.xtext.rdsl.Instance;
+import org.xtext.rdsl.IpAdress;
 import org.xtext.rdsl.IpTable;
+import org.xtext.rdsl.Load;
 import org.xtext.rdsl.RdslPackage;
 
 /**
@@ -41,13 +43,12 @@ import org.xtext.rdsl.RdslPackage;
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getValmin <em>Valmin</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getValmax <em>Valmax</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getIpAddress <em>Ip Address</em>}</li>
- *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getIp4 <em>Ip4</em>}</li>
- *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getIp4last <em>Ip4last</em>}</li>
- *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getIp6 <em>Ip6</em>}</li>
- *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getIp6last <em>Ip6last</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getIpadress <em>Ipadress</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getTheLoad <em>The Load</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getTheState <em>The State</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getHostname <em>Hostname</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getTcp <em>Tcp</em>}</li>
+ *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getUdp <em>Udp</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getIptable <em>Iptable</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link org.xtext.rdsl.impl.InstanceImpl#getInstances <em>Instances</em>}</li>
@@ -198,84 +199,24 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
   protected String ipAddress = IP_ADDRESS_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getIp4() <em>Ip4</em>}' attribute list.
+   * The cached value of the '{@link #getIpadress() <em>Ipadress</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getIp4()
+   * @see #getIpadress()
    * @generated
    * @ordered
    */
-  protected EList<Integer> ip4;
+  protected IpAdress ipadress;
 
   /**
-   * The default value of the '{@link #getIp4last() <em>Ip4last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIp4last()
-   * @generated
-   * @ordered
-   */
-  protected static final int IP4LAST_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getIp4last() <em>Ip4last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIp4last()
-   * @generated
-   * @ordered
-   */
-  protected int ip4last = IP4LAST_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getIp6() <em>Ip6</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIp6()
-   * @generated
-   * @ordered
-   */
-  protected EList<Integer> ip6;
-
-  /**
-   * The default value of the '{@link #getIp6last() <em>Ip6last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIp6last()
-   * @generated
-   * @ordered
-   */
-  protected static final int IP6LAST_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getIp6last() <em>Ip6last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIp6last()
-   * @generated
-   * @ordered
-   */
-  protected int ip6last = IP6LAST_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTheLoad() <em>The Load</em>}' attribute.
+   * The cached value of the '{@link #getTheLoad() <em>The Load</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getTheLoad()
    * @generated
    * @ordered
    */
-  protected static final int THE_LOAD_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getTheLoad() <em>The Load</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTheLoad()
-   * @generated
-   * @ordered
-   */
-  protected int theLoad = THE_LOAD_EDEFAULT;
+  protected Load theLoad;
 
   /**
    * The default value of the '{@link #getTheState() <em>The State</em>}' attribute.
@@ -316,6 +257,46 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
    * @ordered
    */
   protected String hostname = HOSTNAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTcp() <em>Tcp</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTcp()
+   * @generated
+   * @ordered
+   */
+  protected static final int TCP_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getTcp() <em>Tcp</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTcp()
+   * @generated
+   * @ordered
+   */
+  protected int tcp = TCP_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getUdp() <em>Udp</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUdp()
+   * @generated
+   * @ordered
+   */
+  protected static final int UDP_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getUdp() <em>Udp</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUdp()
+   * @generated
+   * @ordered
+   */
+  protected int udp = UDP_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getIptable() <em>Iptable</em>}' containment reference list.
@@ -568,13 +549,9 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Integer> getIp4()
+  public IpAdress getIpadress()
   {
-    if (ip4 == null)
-    {
-      ip4 = new EDataTypeEList<Integer>(Integer.class, this, RdslPackage.INSTANCE__IP4);
-    }
-    return ip4;
+    return ipadress;
   }
 
   /**
@@ -582,36 +559,16 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getIp4last()
+  public NotificationChain basicSetIpadress(IpAdress newIpadress, NotificationChain msgs)
   {
-    return ip4last;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setIp4last(int newIp4last)
-  {
-    int oldIp4last = ip4last;
-    ip4last = newIp4last;
+    IpAdress oldIpadress = ipadress;
+    ipadress = newIpadress;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__IP4LAST, oldIp4last, ip4last));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Integer> getIp6()
-  {
-    if (ip6 == null)
     {
-      ip6 = new EDataTypeEList<Integer>(Integer.class, this, RdslPackage.INSTANCE__IP6);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__IPADRESS, oldIpadress, newIpadress);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
-    return ip6;
+    return msgs;
   }
 
   /**
@@ -619,9 +576,20 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getIp6last()
+  public void setIpadress(IpAdress newIpadress)
   {
-    return ip6last;
+    if (newIpadress != ipadress)
+    {
+      NotificationChain msgs = null;
+      if (ipadress != null)
+        msgs = ((InternalEObject)ipadress).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RdslPackage.INSTANCE__IPADRESS, null, msgs);
+      if (newIpadress != null)
+        msgs = ((InternalEObject)newIpadress).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RdslPackage.INSTANCE__IPADRESS, null, msgs);
+      msgs = basicSetIpadress(newIpadress, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__IPADRESS, newIpadress, newIpadress));
   }
 
   /**
@@ -629,20 +597,7 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setIp6last(int newIp6last)
-  {
-    int oldIp6last = ip6last;
-    ip6last = newIp6last;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__IP6LAST, oldIp6last, ip6last));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getTheLoad()
+  public Load getTheLoad()
   {
     return theLoad;
   }
@@ -652,12 +607,37 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTheLoad(int newTheLoad)
+  public NotificationChain basicSetTheLoad(Load newTheLoad, NotificationChain msgs)
   {
-    int oldTheLoad = theLoad;
+    Load oldTheLoad = theLoad;
     theLoad = newTheLoad;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__THE_LOAD, oldTheLoad, theLoad));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__THE_LOAD, oldTheLoad, newTheLoad);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTheLoad(Load newTheLoad)
+  {
+    if (newTheLoad != theLoad)
+    {
+      NotificationChain msgs = null;
+      if (theLoad != null)
+        msgs = ((InternalEObject)theLoad).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RdslPackage.INSTANCE__THE_LOAD, null, msgs);
+      if (newTheLoad != null)
+        msgs = ((InternalEObject)newTheLoad).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RdslPackage.INSTANCE__THE_LOAD, null, msgs);
+      msgs = basicSetTheLoad(newTheLoad, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__THE_LOAD, newTheLoad, newTheLoad));
   }
 
   /**
@@ -704,6 +684,52 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
     hostname = newHostname;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__HOSTNAME, oldHostname, hostname));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getTcp()
+  {
+    return tcp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTcp(int newTcp)
+  {
+    int oldTcp = tcp;
+    tcp = newTcp;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__TCP, oldTcp, tcp));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getUdp()
+  {
+    return udp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setUdp(int newUdp)
+  {
+    int oldUdp = udp;
+    udp = newUdp;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, RdslPackage.INSTANCE__UDP, oldUdp, udp));
   }
 
   /**
@@ -758,6 +784,10 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
   {
     switch (featureID)
     {
+      case RdslPackage.INSTANCE__IPADRESS:
+        return basicSetIpadress(null, msgs);
+      case RdslPackage.INSTANCE__THE_LOAD:
+        return basicSetTheLoad(null, msgs);
       case RdslPackage.INSTANCE__IPTABLE:
         return ((InternalEList<?>)getIptable()).basicRemove(otherEnd, msgs);
       case RdslPackage.INSTANCE__ATTRIBUTES:
@@ -795,20 +825,18 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
         return getValmax();
       case RdslPackage.INSTANCE__IP_ADDRESS:
         return getIpAddress();
-      case RdslPackage.INSTANCE__IP4:
-        return getIp4();
-      case RdslPackage.INSTANCE__IP4LAST:
-        return getIp4last();
-      case RdslPackage.INSTANCE__IP6:
-        return getIp6();
-      case RdslPackage.INSTANCE__IP6LAST:
-        return getIp6last();
+      case RdslPackage.INSTANCE__IPADRESS:
+        return getIpadress();
       case RdslPackage.INSTANCE__THE_LOAD:
         return getTheLoad();
       case RdslPackage.INSTANCE__THE_STATE:
         return getTheState();
       case RdslPackage.INSTANCE__HOSTNAME:
         return getHostname();
+      case RdslPackage.INSTANCE__TCP:
+        return getTcp();
+      case RdslPackage.INSTANCE__UDP:
+        return getUdp();
       case RdslPackage.INSTANCE__IPTABLE:
         return getIptable();
       case RdslPackage.INSTANCE__ATTRIBUTES:
@@ -855,28 +883,23 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
       case RdslPackage.INSTANCE__IP_ADDRESS:
         setIpAddress((String)newValue);
         return;
-      case RdslPackage.INSTANCE__IP4:
-        getIp4().clear();
-        getIp4().addAll((Collection<? extends Integer>)newValue);
-        return;
-      case RdslPackage.INSTANCE__IP4LAST:
-        setIp4last((Integer)newValue);
-        return;
-      case RdslPackage.INSTANCE__IP6:
-        getIp6().clear();
-        getIp6().addAll((Collection<? extends Integer>)newValue);
-        return;
-      case RdslPackage.INSTANCE__IP6LAST:
-        setIp6last((Integer)newValue);
+      case RdslPackage.INSTANCE__IPADRESS:
+        setIpadress((IpAdress)newValue);
         return;
       case RdslPackage.INSTANCE__THE_LOAD:
-        setTheLoad((Integer)newValue);
+        setTheLoad((Load)newValue);
         return;
       case RdslPackage.INSTANCE__THE_STATE:
         setTheState((String)newValue);
         return;
       case RdslPackage.INSTANCE__HOSTNAME:
         setHostname((String)newValue);
+        return;
+      case RdslPackage.INSTANCE__TCP:
+        setTcp((Integer)newValue);
+        return;
+      case RdslPackage.INSTANCE__UDP:
+        setUdp((Integer)newValue);
         return;
       case RdslPackage.INSTANCE__IPTABLE:
         getIptable().clear();
@@ -928,26 +951,23 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
       case RdslPackage.INSTANCE__IP_ADDRESS:
         setIpAddress(IP_ADDRESS_EDEFAULT);
         return;
-      case RdslPackage.INSTANCE__IP4:
-        getIp4().clear();
-        return;
-      case RdslPackage.INSTANCE__IP4LAST:
-        setIp4last(IP4LAST_EDEFAULT);
-        return;
-      case RdslPackage.INSTANCE__IP6:
-        getIp6().clear();
-        return;
-      case RdslPackage.INSTANCE__IP6LAST:
-        setIp6last(IP6LAST_EDEFAULT);
+      case RdslPackage.INSTANCE__IPADRESS:
+        setIpadress((IpAdress)null);
         return;
       case RdslPackage.INSTANCE__THE_LOAD:
-        setTheLoad(THE_LOAD_EDEFAULT);
+        setTheLoad((Load)null);
         return;
       case RdslPackage.INSTANCE__THE_STATE:
         setTheState(THE_STATE_EDEFAULT);
         return;
       case RdslPackage.INSTANCE__HOSTNAME:
         setHostname(HOSTNAME_EDEFAULT);
+        return;
+      case RdslPackage.INSTANCE__TCP:
+        setTcp(TCP_EDEFAULT);
+        return;
+      case RdslPackage.INSTANCE__UDP:
+        setUdp(UDP_EDEFAULT);
         return;
       case RdslPackage.INSTANCE__IPTABLE:
         getIptable().clear();
@@ -988,20 +1008,18 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
         return valmax != VALMAX_EDEFAULT;
       case RdslPackage.INSTANCE__IP_ADDRESS:
         return IP_ADDRESS_EDEFAULT == null ? ipAddress != null : !IP_ADDRESS_EDEFAULT.equals(ipAddress);
-      case RdslPackage.INSTANCE__IP4:
-        return ip4 != null && !ip4.isEmpty();
-      case RdslPackage.INSTANCE__IP4LAST:
-        return ip4last != IP4LAST_EDEFAULT;
-      case RdslPackage.INSTANCE__IP6:
-        return ip6 != null && !ip6.isEmpty();
-      case RdslPackage.INSTANCE__IP6LAST:
-        return ip6last != IP6LAST_EDEFAULT;
+      case RdslPackage.INSTANCE__IPADRESS:
+        return ipadress != null;
       case RdslPackage.INSTANCE__THE_LOAD:
-        return theLoad != THE_LOAD_EDEFAULT;
+        return theLoad != null;
       case RdslPackage.INSTANCE__THE_STATE:
         return THE_STATE_EDEFAULT == null ? theState != null : !THE_STATE_EDEFAULT.equals(theState);
       case RdslPackage.INSTANCE__HOSTNAME:
         return HOSTNAME_EDEFAULT == null ? hostname != null : !HOSTNAME_EDEFAULT.equals(hostname);
+      case RdslPackage.INSTANCE__TCP:
+        return tcp != TCP_EDEFAULT;
+      case RdslPackage.INSTANCE__UDP:
+        return udp != UDP_EDEFAULT;
       case RdslPackage.INSTANCE__IPTABLE:
         return iptable != null && !iptable.isEmpty();
       case RdslPackage.INSTANCE__ATTRIBUTES:
@@ -1037,20 +1055,14 @@ public class InstanceImpl extends MinimalEObjectImpl.Container implements Instan
     result.append(valmax);
     result.append(", ipAddress: ");
     result.append(ipAddress);
-    result.append(", ip4: ");
-    result.append(ip4);
-    result.append(", ip4last: ");
-    result.append(ip4last);
-    result.append(", ip6: ");
-    result.append(ip6);
-    result.append(", ip6last: ");
-    result.append(ip6last);
-    result.append(", theLoad: ");
-    result.append(theLoad);
     result.append(", theState: ");
     result.append(theState);
     result.append(", hostname: ");
     result.append(hostname);
+    result.append(", tcp: ");
+    result.append(tcp);
+    result.append(", udp: ");
+    result.append(udp);
     result.append(')');
     return result.toString();
   }
