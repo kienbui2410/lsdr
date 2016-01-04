@@ -37,6 +37,9 @@ Component:
 	((childrens+=Children) | (exports+=Export) | (imports+=Imports) | (facets+=Facets) | (extends+=Extends))*
 	
 	'}'
+	
+	('minAllowedInstances' ':' valmin=INT ';')? 
+	('maxAllowedInstances' ':' valmax=INT ';')? 
 
 ;
 
@@ -101,9 +104,10 @@ Instance:
 		('load' ':' theLoad=INT ';')? 
 		('state' ':' theState=('public'|'private') ';')? 
 		('hostname' ':' hostname=ID ';')? 
+		('tcpPort :' tcp=INT | 'udpPort :' udp=INT )
 		(iptable+=IpTable)* 
 		(attributes+=Attribut)* 
-		 (instances+=Instance)*  
+		(instances+=Instance)*  
 	'}'
 ;
 
